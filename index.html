@@ -45,6 +45,7 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
 }
 #patienceBar{ width:0%; height:100%; background:#FF1493; transition:width 0.1s linear; }
 canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:crosshair; }
+.clickable-word{ cursor:pointer; color:#fff; text-decoration:underline; }
 </style>
 </head>
 <body>
@@ -80,12 +81,10 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 </div>
 
 <div class="level" id="level6">
-  <h1>Попади в кнопку вовремя! ⏰</h1>
+  <h1><span class="clickable-word" id="skipTimerBtn">Попади</span> в кнопку вовремя! ⏰</h1>
   <button id="timedBtn">Кликни на 1:00</button>
   <div id="timerDisplay">0:00</div>
   <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
-  <!-- Секретная кнопка для пропуска таймера -->
-  <button id="skipTimer" style="position:absolute;top:0;left:0;width:50px;height:50px;opacity:0;border:none;background:red;cursor:pointer;"></button>
 </div>
 
 <div class="level" id="level9">
@@ -174,12 +173,12 @@ function moveButton(){
 }
 moveButton();
 
-// Уровень 6: таймер с ускорением и секретной кнопкой
+// Уровень 6: таймер с ускорением и пропуск по слову "Попади"
 const timedBtn=document.getElementById("timedBtn");
 const timerDisplay=document.getElementById("timerDisplay");
 const timerMsg=document.getElementById("timerMsg");
-const skipBtn=document.getElementById("skipTimer");
-skipBtn.addEventListener("click", ()=>nextLevel());
+const skipTimerBtn=document.getElementById("skipTimerBtn");
+skipTimerBtn.addEventListener("click", ()=>nextLevel());
 
 function startTimedBtn(){
   let clicked=false;
