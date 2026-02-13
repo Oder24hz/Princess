@@ -19,7 +19,7 @@
   .level { display: none; }
   .level.active { display: block; animation: fadeIn 0.8s ease; }
   h1 { color: #fff; margin-bottom: 20px; text-shadow: 2px 2px #FF1493; }
-  .clickable-heart, .moving-heart, .timed-heart {
+  .clickable-heart, .moving-heart {
     width: 100px; height: 100px;
     background: red;
     clip-path: polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
@@ -28,19 +28,19 @@
     transition: transform 0.2s;
     position: absolute;
   }
-  .clickable-heart:hover, .moving-heart:hover, .timed-heart:hover { transform: scale(1.2); }
+  .clickable-heart:hover, .moving-heart:hover { transform: scale(1.2); }
   .gift-btn {
     display: inline-block; padding: 15px 25px; margin: 10px;
     background: #fff; border-radius: 15px; cursor: pointer;
     transition: transform 0.2s, background 0.3s;
   }
   .gift-btn:hover { transform: scale(1.1); background: #FFB6C1; color: #fff; }
-  #finalBtn {
-    padding: 20px 40px; font-size: 20px; border: none;
-    border-radius: 20px; cursor: pointer; background: #FF1493;
-    color: #fff; transition: transform 0.3s;
+  #finalBtn, #timedBtn, #runBtn {
+    padding: 15px 30px; font-size: 18px;
+    border: none; border-radius: 20px; cursor: pointer;
+    background: #FF69B4; color: #fff; transition: transform 0.3s, background 0.3s;
   }
-  #finalBtn:hover { transform: scale(1.2); }
+  #finalBtn:hover, #timedBtn:hover, #runBtn:hover { transform: scale(1.1); background: #FF1493; }
   #floatingHearts div {
     position: absolute; width: 30px; height: 30px;
     background: red; cursor: pointer;
@@ -52,13 +52,12 @@
 <body>
 <div id="container">
 
-  <!-- Уровень 1: старт -->
+  <!-- Уровни -->
   <div class="level" id="level1">
     <h1>💖 Нажми на сердце, чтобы начать!</h1>
     <div class="clickable-heart" id="startHeart" style="top:200px; left:250px;"></div>
   </div>
 
-  <!-- Уровень 2: подарок -->
   <div class="level" id="level2">
     <h1>Выбери подарок 🎁</h1>
     <div class="gift-btn" data-correct="false">🎀 Шарик</div>
@@ -66,33 +65,28 @@
     <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
   </div>
 
-  <!-- Уровень 3: догоняй сердце -->
   <div class="level" id="level3">
     <h1>Поймай бегущее сердце!</h1>
     <div class="moving-heart" id="movingHeart"></div>
   </div>
 
-  <!-- Уровень 4: 100 сердечек -->
   <div class="level" id="level4">
     <h1>Кликайте на 100 сердечек! ❤️</h1>
     <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
     <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
   </div>
 
-  <!-- Уровень 5: Догоняй кнопку -->
   <div class="level" id="level5">
     <h1>Лови убегающую кнопку!</h1>
     <button id="runBtn" style="position:absolute; top:50%; left:50%;">Лови меня!</button>
   </div>
 
-  <!-- Уровень 6: таймерная кнопка -->
   <div class="level" id="level6">
     <h1>Попади в кнопку вовремя! ⏰</h1>
-    <button id="timedBtn" style="position:absolute; top:50%; left:50%;">Кликни в нужный момент</button>
-    <p id="timerMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
+    <button id="timedBtn">Кликни в нужный момент</button>
+    <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
   </div>
 
-  <!-- Уровень 7: выбор шоколадки -->
   <div class="level" id="level7">
     <h1>Выбери шоколадку 🍫</h1>
     <div class="gift-btn" data-correct="false">Молочная</div>
@@ -100,7 +94,6 @@
     <div class="gift-btn" data-correct="false">Белая</div>
   </div>
 
-  <!-- Финал -->
   <div class="level" id="level8">
     <h1>🎉 Ты прошла все уровни! ❤️</h1>
     <button id="finalBtn">Обними меня</button>
@@ -116,9 +109,9 @@ showLevel(currentLevel);
 document.getElementById("startHeart").addEventListener("click", nextLevel);
 
 // Уровни 2 и 7
-document.querySelectorAll(".gift-btn").forEach(btn => {
-  btn.addEventListener("click", e => {
-    if(e.target.dataset.correct === "true") nextLevel();
+document.querySelectorAll(".gift-btn").forEach(btn=>{
+  btn.addEventListener("click", e=>{
+    if(e.target.dataset.correct==="true") nextLevel();
     else alert("Ой, не тот подарок 😜");
   });
 });
@@ -129,61 +122,59 @@ movingHeart.addEventListener("click", nextLevel);
 setInterval(()=>{
   movingHeart.style.top = Math.random()*70 + "vh";
   movingHeart.style.left = Math.random()*70 + "vw";
-}, 700);
+},700);
 
 // Уровень 4: 100 сердечек
 const floatingHearts = document.getElementById("floatingHearts");
 const counterDisplay = document.getElementById("counter");
 let heartsCaught = 0;
 function spawnHeart(){
-  if(heartsCaught >= 100) return;
-  let heart = document.createElement("div");
-  heart.style.top = Math.random()*350 + "px";
-  heart.style.left = Math.random()*500 + "px";
-  heart.style.animationDuration = (3+Math.random()*2)+"s";
+  if(heartsCaught>=100) return;
+  let heart=document.createElement("div");
+  heart.style.top=Math.random()*350+"px";
+  heart.style.left=Math.random()*500+"px";
   heart.addEventListener("click", ()=>{
     heart.remove();
     heartsCaught++;
-    counterDisplay.textContent = "Поймано: "+heartsCaught+" / 100";
+    counterDisplay.textContent="Поймано: "+heartsCaught+" / 100";
     if(heartsCaught>=100) nextLevel();
   });
   floatingHearts.appendChild(heart);
 }
-// spawn только 2–3 сердечка каждые 0.5 сек
-setInterval(()=>{ for(let i=0;i<3;i++) spawnHeart(); },500);
+setInterval(()=>{for(let i=0;i<2;i++) spawnHeart();},600);
 
 // Уровень 5: убегающая кнопка
-const runBtn = document.getElementById("runBtn");
+const runBtn=document.getElementById("runBtn");
 runBtn.addEventListener("click", nextLevel);
 setInterval(()=>{
-  const btn = runBtn;
-  const top = Math.random()*70 + 10;
-  const left = Math.random()*70 + 10;
-  btn.style.top = top + "%";
-  btn.style.left = left + "%";
-}, 800);
+  const top=Math.random()*70+10;
+  const left=Math.random()*70+10;
+  runBtn.style.top=top+"%";
+  runBtn.style.left=left+"%";
+},800);
 
 // Уровень 6: таймерная кнопка
-const timedBtn = document.getElementById("timedBtn");
-const timerMsg = document.getElementById("timerMsg");
+const timedBtn=document.getElementById("timedBtn");
+const timerMsg=document.getElementById("timerMsg");
 function startTimedBtn(){
-  timerMsg.textContent = "Жди правильный момент...";
-  timedBtn.style.background = "#FF1493";
-  let start = Date.now();
-  let duration = 3000 + Math.random()*2000; // случайный момент 3-5 сек
-  let clicked = false;
-  timedBtn.onclick = ()=>{
-    clicked = true;
-    let elapsed = Date.now()-start;
-    if(elapsed >= duration && elapsed <= duration+500){
+  timerMsg.textContent="Жди правильный момент...";
+  timedBtn.style.background="#FF69B4";
+  let clicked=false;
+  const duration=3000+Math.random()*2000; // 3-5 сек
+  const appearTime=Date.now();
+  timedBtn.onclick=function(){
+    if(clicked) return;
+    clicked=true;
+    const now=Date.now();
+    if(now-appearTime>=duration && now-appearTime<=duration+500){
       nextLevel();
     } else {
-      timerMsg.textContent = "Ты меня не любишь? 😢 Попробуй снова!";
-      startTimedBtn();
+      timerMsg.textContent="Ты меня не любишь? 😢 Попробуй снова!";
+      setTimeout(startTimedBtn,500);
     }
   };
+  setTimeout(()=>{ timedBtn.style.background="#FF1493"; },duration);
 }
-timedBtn.onclick = null;
 
 // Финал
 document.getElementById("finalBtn").addEventListener("click", ()=>alert("❤️ Люблю тебя! ❤️"));
@@ -200,7 +191,6 @@ function nextLevel(){
   showLevel(currentLevel);
 }
 
-// Показ стартового уровня
 showLevel(currentLevel);
 </script>
 </body>
