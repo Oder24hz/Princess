@@ -3,204 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Princess Love Quest 💗</title>
+<title>14 февраля 💖</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-body{
-  font-family:'Segoe UI',sans-serif;
-  height:100vh;
-  background:linear-gradient(135deg,#ffd6ec,#ffc2e2,#ffe6f4);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-  color:white;
-}
-
-.card{
-  backdrop-filter:blur(20px);
-  background:rgba(255,255,255,0.15);
-  padding:40px;
-  border-radius:25px;
-  box-shadow:0 0 50px rgba(255,255,255,.5);
-  width:90%;max-width:520px;
-  text-align:center;
-  opacity:0;
-  transform:scale(.95);
-  transition:all .6s ease;
-  position:relative;
-}
-.card.active{opacity:1; transform:scale(1);}
-
-button{padding:12px 25px;border:none;border-radius:30px;margin:10px;cursor:pointer;transition:.3s;}
-.primary{background:#ff4fa3;color:white;}
-.secondary{background:white;color:#ff4fa3;position:absolute;}
-input{padding:10px;border-radius:15px;border:none;text-align:center;}
-
-.progress{width:100%;height:12px;background:rgba(255,255,255,.3);border-radius:20px;margin-top:20px;overflow:hidden;}
-.bar{height:100%;width:0%;background:white;transition:.3s;}
-
-img{width:260px;border-radius:20px;margin-top:15px;box-shadow:0 0 25px rgba(255,255,255,.6);cursor:pointer;}
-
-#puzzle{width:244px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);grid-gap:2px;}
-.piece{width:120px;height:120px;background-size:240px 240px;border-radius:10px;border:1px solid #fff;cursor:pointer;}
+  body {
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background: linear-gradient(135deg, #FFC0CB, #FF69B4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+  }
+  #container {
+    text-align: center;
+    width: 100%;
+    max-width: 600px;
+  }
+  .level { display: none; }
+  .level.active { display: block; animation: fadeIn 0.8s ease; }
+  h1 {
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px #FF1493;
+  }
+  .clickable-heart, .moving-heart {
+    width: 100px;
+    height: 100px;
+    background: red;
+    clip-path: polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
+    margin: 0 auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+    position: relative;
+  }
+  .clickable-heart:hover, .moving-heart:hover { transform: scale(1.2); }
+  .gift-btn {
+    display: inline-block;
+    padding: 15px 25px;
+    margin: 10px;
+    background: #fff;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+  .gift-btn:hover { transform: scale(1.1); background: #FFB6C1; color: #fff; }
+  #floatingHearts div {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: red;
+    clip-path: polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
+    animation: float linear infinite;
+  }
+  #finalBtn {
+    padding: 20px 40px;
+    font-size: 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background: #FF1493;
+    color: #fff;
+    transition: transform 0.3s;
+  }
+  #finalBtn:hover { transform: scale(1.2); }
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  @keyframes float { 0%{transform:translateY(100vh) scale(0.8);} 50%{transform:translateY(50vh) scale(1);} 100%{transform:translateY(0) scale(0.8);} }
 </style>
 </head>
 <body>
-<div id="app"></div>
+<div id="container">
+  <!-- Уровни -->
+  <div class="level" id="level1">
+    <h1>💖 Нажми на сердце, чтобы начать!</h1>
+    <div class="clickable-heart" id="startHeart"></div>
+  </div>
+
+  <div class="level" id="level2">
+    <h1>Выбери подарок 🎁</h1>
+    <div class="gift-btn" data-correct="false">🎀 Шарик</div>
+    <div class="gift-btn" data-correct="true">❤️ Сердце</div>
+    <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
+  </div>
+
+  <div class="level" id="level3">
+    <h1>Поймай бегущее сердце!</h1>
+    <div class="moving-heart" id="movingHeart"></div>
+  </div>
+
+  <div class="level" id="level4">
+    <h1>Кликайте на сердца!</h1>
+    <div id="floatingHearts"></div>
+  </div>
+
+  <div class="level" id="level5">
+    <h1>Выбери шоколадку 🍫</h1>
+    <div class="gift-btn" data-correct="false">Молочная</div>
+    <div class="gift-btn" data-correct="true">С сердечком</div>
+    <div class="gift-btn" data-correct="false">Белая</div>
+  </div>
+
+  <div class="level" id="level6">
+    <h1>🎉 Ты прошла все уровни! ❤️</h1>
+    <button id="finalBtn">Обними меня</button>
+  </div>
+</div>
+
 <script>
-const levels=[
-`<div class="card active">
-<h2>👑 Проверка памяти</h2>
-<p>Когда началась лучшая история?</p>
-<input id="dateInput" placeholder="Введите дату">
-<br><br>
-<button class="primary" onclick="checkDate()">Проверить</button>
-</div>`,
+let currentLevel = 1;
+showLevel(currentLevel);
 
-`<div class="card">
-<h2>💅 Тест на капризность</h2>
-<p>Ты иногда вредничаешь?</p>
-<button class="primary" onclick="nextLevelMessage('ещё попробуй поспорить')">Я принцесса, мне можно</button>
-<button onclick="alert('Не обманывай систему 😌')">Нет</button>
-</div>`,
+// Уровень 1: старт
+document.getElementById("startHeart").addEventListener("click", nextLevel);
 
-`<div class="card">
-<h2>💗 Ты меня любишь?</h2>
-<button id="yesBtn" class="secondary">Да ❤️</button>
-<button class="primary" onclick="noClicked()">Нет 😌</button>
-</div>`,
+// Уровни 2 и 5: выбор подарка
+document.querySelectorAll(".gift-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const correct = e.target.dataset.correct === "true";
+    if(correct) nextLevel();
+    else alert("Ой, не тот подарок 😜");
+  });
+});
 
-`<div class="card">
-<h2>🎮 Докажи что любишь меня</h2>
-<p id="clickCount">0 / 50</p>
-<button class="primary" id="clickBtn">Кликни меня ❤️</button>
-</div>`,
+// Уровень 3: догоняй сердце
+const movingHeart = document.getElementById("movingHeart");
+movingHeart.addEventListener("click", nextLevel);
+setInterval(() => {
+  movingHeart.style.top = Math.random()*70 + "vh";
+  movingHeart.style.left = Math.random()*70 + "vw";
+}, 1000);
 
-`<div class="card">
-<h2>⏳ Проверка терпения...</h2>
-<div class="progress"><div class="bar" id="bar"></div></div>
-</div>`,
+// Уровень 4: мелькающие сердца
+const floatingHearts = document.getElementById("floatingHearts");
+let heartsClicked = 0;
+for(let i=0;i<10;i++){
+  let heart = document.createElement("div");
+  heart.style.left = Math.random()*90 + "vw";
+  heart.style.top = Math.random()*90 + "vh";
+  heart.style.animationDuration = (2+Math.random()*3)+"s";
+  heart.addEventListener("click", () => {
+    heart.style.display="none";
+    heartsClicked++;
+    if(heartsClicked===10) nextLevel();
+  });
+  floatingHearts.appendChild(heart);
+}
 
-`<div class="card">
-<h2>🧩 Фото-пазл</h2>
-<p>Собери пазл!</p>
-<div id="puzzle"></div>
-</div>`,
+// Финальный уровень
+document.getElementById("finalBtn").addEventListener("click", () => {
+  alert("❤️ Люблю тебя! ❤️");
+});
 
-`<div class="card">
-<h2>🌸 Ты прошла всё</h2>
-<p>С 21 августа 2025 и до бесконечности 💗</p>
-<img src="photo2.jpg">
-<br><br>
-<h2>Я тебя люблю ❤️</h2>
-<img src="photo3.jpg">
-</div>`
-];
-
-let current=0;
-const app=document.getElementById("app");
-app.innerHTML=levels[current];
+function showLevel(n){
+  document.querySelectorAll(".level").forEach(l=>l.classList.remove("active"));
+  document.getElementById("level"+n).classList.add("active");
+}
 
 function nextLevel(){
-  const card=document.querySelector(".card");
-  if(card) card.classList.remove("active");
-  setTimeout(()=>{
-    current++; if(current>=levels.length) current=levels.length-1;
-    app.innerHTML=levels[current];
-    setTimeout(()=>{
-      document.querySelector(".card").classList.add("active");
-      if(current===2) setupYesRun();
-      if(current===3) setupClicks50(); // первый уровень кликов
-      if(current===4) fakeLoading(10, nextLevelClicks100); // прогресс 10 сек + потом уровень кликов 100
-      if(current===5) setupPuzzle(); // пазл
-    },50);
-  },300);
+  currentLevel++;
+  if(currentLevel>6) currentLevel=6;
+  showLevel(currentLevel);
 }
 
-function nextLevelMessage(msg){alert(msg); nextLevel();}
-function checkDate(){ const val=document.getElementById("dateInput").value.trim(); if(val==="21 августа 2025" || (val.includes("21") && val.includes("2025"))) nextLevel(); else alert("Подумай лучше 😏 Это 21 августа 2025"); }
-function setupYesRun(){ const yes=document.getElementById("yesBtn"); yes.style.top="60%"; yes.style.left="20%"; yes.addEventListener("mouseover",()=>{ yes.style.top=Math.random()*70+"%"; yes.style.left=Math.random()*70+"%"; }); }
-function noClicked(){alert("Я так и знал 😌"); nextLevel();}
-
-/* Первый уровень кликов 50 */
-function setupClicks50(){
-  let clicks=0, max=50;
-  const counter=document.getElementById("clickCount");
-  const btn=document.getElementById("clickBtn");
-  btn.addEventListener("click",()=>{
-    clicks++;
-    counter.innerText = clicks + " / " + max;
-    if(clicks >= max){
-      nextLevel(); // после 50 кликов идёт проверка на терпение
-    }
-  });
-}
-
-/* Второй уровень кликов 100 после проверки терпения */
-function nextLevelClicks100(){
-  const html = `
-    <div class="card active">
-      <h2>🎮 Докажи что любишь меня ещё сильнее</h2>
-      <p id="clickCount2">0 / 100</p>
-      <button class="primary" id="clickBtn2">Кликни ещё ❤️</button>
-    </div>`;
-  app.innerHTML = html;
-
-  let clicks=0, max=100;
-  const counter=document.getElementById("clickCount2");
-  const btn=document.getElementById("clickBtn2");
-  btn.addEventListener("click", ()=>{
-    clicks++;
-    counter.innerText = clicks + " / " + max;
-    if(clicks >= max){
-      nextLevel(); // после 100 кликов идём к пазлу
-    }
-  });
-}
-
-/* Проверка терпения с прогресс бар */
-function fakeLoading(seconds, callback){
-  let width=0;
-  const bar=document.getElementById("bar");
-  const interval=setInterval(()=>{
-    width += 100/(seconds*20); // 10 сек ~ 200 шагов по 50мс
-    bar.style.width=width+"%";
-    if(width>=100){
-      clearInterval(interval);
-      if(callback) callback(); // после терпения появляется следующий уровень кликов 100
-    }
-  },50);
-}
-
-/* Пазл drag&drop */
-function setupPuzzle(){
-  const puzzle=document.getElementById("puzzle"); puzzle.innerHTML="";
-  const positions=[[0,0],[0,120],[120,0],[120,120]].sort(()=>Math.random()-0.5);
-  positions.forEach((pos,index)=>{
-    const piece=document.createElement("div");
-    piece.className="piece";
-    piece.style.backgroundImage="url('photo3.jpg')";
-    piece.style.backgroundPosition=`-${pos[0]}px -${pos[1]}px`;
-    piece.draggable=true;
-    piece.dataset.pos=index;
-    piece.addEventListener("dragstart",e=>e.dataTransfer.setData("text",index));
-    puzzle.appendChild(piece);
-  });
-  let solved=0;
-  puzzle.addEventListener("dragover",e=>e.preventDefault());
-  puzzle.addEventListener("drop",e=>{
-    const fromIndex=e.dataTransfer.getData("text");
-    const toPiece=e.target;
-    if(!toPiece.classList.contains("piece")) return;
-    const fromPiece=puzzle.querySelector(`.piece[data-pos='${fromIndex}']`);
-    const temp=fromPiece.style.backgroundPosition;
-    fromPiece.style.backgroundPosition=toPiece.style.backgroundPosition;
-    toPiece.style.backgroundPosition=temp;
-    solved++;
-    if(solved>=10){ alert("Пазл собран! Ты супер 😘"); nextLevel(); }
-  });
-}
+// Стартовый уровень сразу показываем
+showLevel(currentLevel);
 </script>
 </body>
 </html>
