@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oder24hz💖</title>
+<title>14 февраля 💖</title>
 <style>
 body {
   margin:0;
@@ -76,9 +76,9 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 <!-- Уровень 2 -->
 <div class="level" id="level2">
   <h1>Выбери подарок 🎁</h1>
-  <div class="gift-btn" data-correct="false">🎀Айфон 17🎀</div>
-  <div class="gift-btn" data-correct="true">🎀Меня!🎀</div>
-  <div class="gift-btn" data-correct="false">🎀1000$🎀</div>
+  <div class="gift-btn" data-correct="false">🎀 Шарик</div>
+  <div class="gift-btn" data-correct="true">❤️ Сердце</div>
+  <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
 </div>
 
 <!-- Уровень 3 -->
@@ -89,7 +89,7 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 
 <!-- Уровень 4 -->
 <div class="level" id="level4">
-  <h1>Кликай на 100 сердечек! ❤️</h1>
+  <h1>Кликайте на 100 сердечек! ❤️</h1>
   <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
   <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
 </div>
@@ -128,7 +128,7 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 
 <!-- Финал -->
 <div class="level" id="level9">
-  <h1>🎀С 14 февраля!🎀</h1>
+  <h1>🎉 Ты прошла все уровни! ❤️</h1>
   <button id="finalBtn">Обними меня</button>
 </div>
 
@@ -152,7 +152,6 @@ document.querySelectorAll("#level2 .gift-btn").forEach(btn=>{
 // Уровень 3: бегущее сердце
 const movingHeart=document.getElementById("movingHeart");
 movingHeart.addEventListener("click", nextLevel);
-
 function moveHeart() {
   const maxX = window.innerWidth - movingHeart.offsetWidth;
   const maxY = window.innerHeight - movingHeart.offsetHeight;
@@ -163,7 +162,7 @@ function moveHeart() {
   movingHeart.style.top = newY + "px";
 }
 setInterval(moveHeart, 700);
-moveHeart(); // сразу видимо
+moveHeart();
 
 // Уровень 4
 const floatingHearts=document.getElementById("floatingHearts");
@@ -254,7 +253,7 @@ function startPatienceLevel(){
     if(percent>100) percent=100;
     patienceBarElem.style.width=percent+"%";
 
-    if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение?";
+    if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение? Ещё подожди тогда";
     if(Math.floor(elapsed)===55) patienceMsg.textContent="Точно терпеливая?";
     if(Math.floor(elapsed)===58) patienceMsg.textContent="Всё, убедился";
     if(Math.floor(elapsed)===67) patienceMsg.textContent="Ладно, всё, всё";
@@ -266,21 +265,40 @@ function startPatienceLevel(){
   },100);
 }
 
-// Уровень 8: Рисовалка
+// Уровень 8: Рисовалка (ПК + мобильные)
 const canvas=document.getElementById("drawCanvas");
 const ctx=canvas.getContext("2d");
 let drawing=false;
+function getPos(e){
+  const rect=canvas.getBoundingClientRect();
+  if(e.touches) return {x:e.touches[0].clientX-rect.left, y:e.touches[0].clientY-rect.top};
+  else return {x:e.clientX-rect.left, y:e.clientY-rect.top};
+}
+
 canvas.addEventListener("mousedown",()=>{drawing=true;});
 canvas.addEventListener("mouseup",()=>{drawing=false; ctx.beginPath();});
 canvas.addEventListener("mousemove",(e)=>{
   if(!drawing) return;
+  const pos=getPos(e);
   ctx.lineWidth=3; ctx.lineCap="round"; ctx.strokeStyle="red";
-  const rect=canvas.getBoundingClientRect();
-  ctx.lineTo(e.clientX-rect.left, e.clientY-rect.top);
+  ctx.lineTo(pos.x,pos.y);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(e.clientX-rect.left, e.clientY-rect.top);
+  ctx.moveTo(pos.x,pos.y);
 });
+canvas.addEventListener("touchstart",(e)=>{drawing=true;});
+canvas.addEventListener("touchend",(e)=>{drawing=false; ctx.beginPath();});
+canvas.addEventListener("touchmove",(e)=>{
+  e.preventDefault();
+  if(!drawing) return;
+  const pos=getPos(e);
+  ctx.lineWidth=3; ctx.lineCap="round"; ctx.strokeStyle="red";
+  ctx.lineTo(pos.x,pos.y);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(pos.x,pos.y);
+},{passive:false});
+
 document.getElementById("canvasDone").addEventListener("click", ()=>{
   document.getElementById("canvasMsg").textContent="Я че шиншила по твоему?";
   setTimeout(nextLevel,1000);
