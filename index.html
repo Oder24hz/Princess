@@ -83,12 +83,6 @@ const levels=[
 </div>`,
 
 `<div class="card">
-<h2>🎮 Докажи что любишь меня ещё сильнее</h2>
-<p id="clickCount2">0 / 100</p>
-<button class="primary" id="clickBtn2">Кликни ещё ❤️</button>
-</div>`,
-
-`<div class="card">
 <h2>🧩 Фото-пазл</h2>
 <p>Собери пазл!</p>
 <div id="puzzle"></div>
@@ -119,7 +113,7 @@ function nextLevel(){
       if(current===2) setupYesRun();
       if(current===3) setupClicks50(); // первый уровень кликов
       if(current===4) fakeLoading(10, nextLevelClicks100); // прогресс 10 сек + потом уровень кликов 100
-      if(current===6) setupPuzzle();
+      if(current===5) setupPuzzle(); // пазл
     },50);
   },300);
 }
@@ -136,20 +130,32 @@ function setupClicks50(){
   const btn=document.getElementById("clickBtn");
   btn.addEventListener("click",()=>{
     clicks++;
-    counter.innerText=clicks+" / "+max;
-    if(clicks>=max) nextLevel(); // после 50 кликов идёт проверка на терпение
+    counter.innerText = clicks + " / " + max;
+    if(clicks >= max){
+      nextLevel(); // после 50 кликов идёт проверка на терпение
+    }
   });
 }
 
-/* Второй уровень кликов 100 */
+/* Второй уровень кликов 100 после проверки терпения */
 function nextLevelClicks100(){
+  const html = `
+    <div class="card active">
+      <h2>🎮 Докажи что любишь меня ещё сильнее</h2>
+      <p id="clickCount2">0 / 100</p>
+      <button class="primary" id="clickBtn2">Кликни ещё ❤️</button>
+    </div>`;
+  app.innerHTML = html;
+
   let clicks=0, max=100;
   const counter=document.getElementById("clickCount2");
   const btn=document.getElementById("clickBtn2");
-  btn.addEventListener("click",()=>{
+  btn.addEventListener("click", ()=>{
     clicks++;
-    counter.innerText=clicks+" / "+max;
-    if(clicks>=max) nextLevel();
+    counter.innerText = clicks + " / " + max;
+    if(clicks >= max){
+      nextLevel(); // после 100 кликов идём к пазлу
+    }
   });
 }
 
@@ -158,7 +164,7 @@ function fakeLoading(seconds, callback){
   let width=0;
   const bar=document.getElementById("bar");
   const interval=setInterval(()=>{
-    width += 100/(seconds*20); // 10 сек ~ 200 шагов 50мс
+    width += 100/(seconds*20); // 10 сек ~ 200 шагов по 50мс
     bar.style.width=width+"%";
     if(width>=100){
       clearInterval(interval);
