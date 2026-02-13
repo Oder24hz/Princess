@@ -30,11 +30,11 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
   border-radius:15px; cursor:pointer; transition:transform 0.2s, background 0.3s;
 }
 .gift-btn:hover{ transform:scale(1.1); background:#FFB6C1; color:#fff;}
-#finalBtn, #timedBtn, #runBtn, #patienceBtn, #canvasDone{
+#finalBtn, #timedBtn, #runBtn, #canvasDone{
   padding:15px 30px; font-size:18px; border:none; border-radius:20px;
   cursor:pointer; background:#FF69B4; color:#fff; transition:transform 0.3s, background 0.3s;
 }
-#finalBtn:hover, #timedBtn:hover, #runBtn:hover, #patienceBtn:hover, #canvasDone:hover{ transform:scale(1.1); background:#FF1493;}
+#finalBtn:hover, #timedBtn:hover, #runBtn:hover, #canvasDone:hover{ transform:scale(1.1); background:#FF1493;}
 #floatingHearts div{
   position:absolute; width:30px; height:30px; background:red; cursor:pointer;
   clip-path:polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
@@ -84,6 +84,8 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <button id="timedBtn">Кликни на 1:00</button>
   <div id="timerDisplay">0:00</div>
   <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
+  <!-- Скрытая кнопка для пропуска таймера -->
+  <button id="skipTimer" style="position:absolute; top:0; left:0; width:50px; height:50px; opacity:0; border:none; background:red; cursor:pointer;"></button>
 </div>
 
 <div class="level" id="level9">
@@ -176,6 +178,9 @@ moveButton();
 const timedBtn=document.getElementById("timedBtn");
 const timerDisplay=document.getElementById("timerDisplay");
 const timerMsg=document.getElementById("timerMsg");
+const skipBtn=document.getElementById("skipTimer");
+skipBtn.addEventListener("click", ()=>nextLevel());
+
 function startTimedBtn(){
   let clicked=false;
   timerMsg.textContent="";
@@ -208,10 +213,9 @@ function startTimedBtn(){
   };
 }
 
-// Новый уровень 9: проверка на терпение
-const patienceBar=document.createElement("div");
-const patienceMsg=document.getElementById("patienceMsg");
+// Уровень 9: проверка на терпение
 const patienceBarElem=document.getElementById("patienceBar");
+const patienceMsg=document.getElementById("patienceMsg");
 function startPatienceLevel(){
   let startTime=Date.now();
   patienceBarElem.style.width="0%";
@@ -222,7 +226,6 @@ function startPatienceLevel(){
     if(percent>100) percent=100;
     patienceBarElem.style.width=percent+"%";
 
-    // Сообщения
     if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение? Ещё подожди тогда";
     if(Math.floor(elapsed)===55) patienceMsg.textContent="Точно терпеливая?";
     if(Math.floor(elapsed)===58) patienceMsg.textContent="Всё, убедился";
@@ -235,7 +238,7 @@ function startPatienceLevel(){
   },100);
 }
 
-// Новый уровень 10: рисовалка
+// Уровень 10: рисовалка
 const canvas=document.getElementById("drawCanvas");
 const ctx=canvas.getContext("2d");
 let drawing=false;
