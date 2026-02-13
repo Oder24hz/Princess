@@ -30,17 +30,21 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
   border-radius:15px; cursor:pointer; transition:transform 0.2s, background 0.3s;
 }
 .gift-btn:hover{ transform:scale(1.1); background:#FFB6C1; color:#fff;}
-#finalBtn, #timedBtn, #runBtn{
+#finalBtn, #timedBtn, #runBtn, #patienceBtn, #canvasDone{
   padding:15px 30px; font-size:18px; border:none; border-radius:20px;
   cursor:pointer; background:#FF69B4; color:#fff; transition:transform 0.3s, background 0.3s;
 }
-#finalBtn:hover, #timedBtn:hover, #runBtn:hover{ transform:scale(1.1); background:#FF1493;}
+#finalBtn:hover, #timedBtn:hover, #runBtn:hover, #patienceBtn:hover, #canvasDone:hover{ transform:scale(1.1); background:#FF1493;}
 #floatingHearts div{
   position:absolute; width:30px; height:30px; background:red; cursor:pointer;
   clip-path:polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
 }
 #timerDisplay{ color:white; font-size:24px; margin-top:10px;}
-@keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
+#patienceBarContainer{
+  width:80%; height:30px; background:#fff; border-radius:15px; margin:20px auto; overflow:hidden;
+}
+#patienceBar{ width:0%; height:100%; background:#FF1493; transition:width 0.1s linear; }
+canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:crosshair; }
 </style>
 </head>
 <body>
@@ -82,6 +86,22 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
   <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
 </div>
 
+<div class="level" id="level9">
+  <h1>Проверка на терпение</h1>
+  <div id="patienceBarContainer">
+    <div id="patienceBar"></div>
+  </div>
+  <div id="patienceMsg" style="color:white;font-size:20px; margin-top:10px;"></div>
+</div>
+
+<div class="level" id="level10">
+  <h1>Нарисуй меня</h1>
+  <canvas id="drawCanvas" width="500" height="300"></canvas>
+  <br>
+  <button id="canvasDone">Готово</button>
+  <p id="canvasMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
+</div>
+
 <div class="level" id="level7">
   <h1>Выбери шоколадку 🍫</h1>
   <div class="gift-btn" data-correct="false">Молочная</div>
@@ -97,7 +117,7 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
 </div>
 
 <script>
-let currentLevel = 1;
+let currentLevel=1;
 showLevel(currentLevel);
 
 // Уровень 1
@@ -112,14 +132,14 @@ document.querySelectorAll(".gift-btn").forEach(btn=>{
 });
 
 // Уровень 3: бегающее сердце
-const movingHeart = document.getElementById("movingHeart");
+const movingHeart=document.getElementById("movingHeart");
 movingHeart.addEventListener("click", nextLevel);
 setInterval(()=>{ movingHeart.style.top=Math.random()*70+"vh"; movingHeart.style.left=Math.random()*70+"vw"; },700);
 
 // Уровень 4: 100 сердечек
-const floatingHearts = document.getElementById("floatingHearts");
-const counterDisplay = document.getElementById("counter");
-let heartsCaught = 0;
+const floatingHearts=document.getElementById("floatingHearts");
+const counterDisplay=document.getElementById("counter");
+let heartsCaught=0;
 function spawnHeart(){ if(heartsCaught>=100) return;
   let heart=document.createElement("div");
   heart.style.top=Math.random()*350+"px";
@@ -133,38 +153,35 @@ function spawnHeart(){ if(heartsCaught>=100) return;
 }
 setInterval(()=>{for(let i=0;i<2;i++) spawnHeart();},600);
 
-// Уровень 5: убегающая кнопка по всему экрану
+// Уровень 5: убегающая кнопка
 const runBtn=document.getElementById("runBtn");
 runBtn.style.position="absolute";
 runBtn.style.top="50%";
 runBtn.style.left="50%";
 runBtn.addEventListener("click", nextLevel);
-
 function moveButton(){
-  const maxX = window.innerWidth - runBtn.offsetWidth - 20;
-  const maxY = window.innerHeight - runBtn.offsetHeight - 20;
-  const newX = Math.random()*maxX;
-  const newY = Math.random()*maxY;
-  const speed = 500 + Math.random()*1000;
-  runBtn.style.transition = `top ${speed}ms linear, left ${speed}ms linear`;
-  runBtn.style.left = newX + "px";
-  runBtn.style.top = newY + "px";
+  const maxX=window.innerWidth - runBtn.offsetWidth - 20;
+  const maxY=window.innerHeight - runBtn.offsetHeight - 20;
+  const newX=Math.random()*maxX;
+  const newY=Math.random()*maxY;
+  const speed=500 + Math.random()*1000;
+  runBtn.style.transition=`top ${speed}ms linear, left ${speed}ms linear`;
+  runBtn.style.left=newX+"px";
+  runBtn.style.top=newY+"px";
   setTimeout(moveButton, speed);
 }
 moveButton();
 
 // Уровень 6: таймер с ускорением после 0:40
-const timedBtn = document.getElementById("timedBtn");
-const timerDisplay = document.getElementById("timerDisplay");
-const timerMsg = document.getElementById("timerMsg");
-
-function startTimedBtn() {
+const timedBtn=document.getElementById("timedBtn");
+const timerDisplay=document.getElementById("timerDisplay");
+const timerMsg=document.getElementById("timerMsg");
+function startTimedBtn(){
   let clicked=false;
   timerMsg.textContent="";
   let startTime=Date.now();
   let elapsedDisplay=0;
-
-  function updateTimer() {
+  function updateTimer(){
     if(clicked) return;
     let realElapsed=(Date.now()-startTime)/1000;
     if(realElapsed<40) elapsedDisplay=realElapsed;
@@ -180,7 +197,6 @@ function startTimedBtn() {
     requestAnimationFrame(updateTimer);
   }
   updateTimer();
-
   timedBtn.onclick=function(){
     if(clicked) return;
     clicked=true;
@@ -192,6 +208,53 @@ function startTimedBtn() {
   };
 }
 
+// Новый уровень 9: проверка на терпение
+const patienceBar=document.createElement("div");
+const patienceMsg=document.getElementById("patienceMsg");
+const patienceBarElem=document.getElementById("patienceBar");
+function startPatienceLevel(){
+  let startTime=Date.now();
+  patienceBarElem.style.width="0%";
+  patienceMsg.textContent="";
+  let interval = setInterval(()=>{
+    let elapsed=(Date.now()-startTime)/1000;
+    let percent=(elapsed/60)*100;
+    if(percent>100) percent=100;
+    patienceBarElem.style.width=percent+"%";
+
+    // Сообщения
+    if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение? Ещё подожди тогда";
+    if(Math.floor(elapsed)===55) patienceMsg.textContent="Точно терпеливая?";
+    if(Math.floor(elapsed)===58) patienceMsg.textContent="Всё, убедился";
+    if(Math.floor(elapsed)===67) patienceMsg.textContent="Ладно, всё, всё";
+
+    if(elapsed>=67){
+      clearInterval(interval);
+      nextLevel();
+    }
+  },100);
+}
+
+// Новый уровень 10: рисовалка
+const canvas=document.getElementById("drawCanvas");
+const ctx=canvas.getContext("2d");
+let drawing=false;
+canvas.addEventListener("mousedown",()=>{drawing=true;});
+canvas.addEventListener("mouseup",()=>{drawing=false; ctx.beginPath();});
+canvas.addEventListener("mousemove",(e)=>{
+  if(!drawing) return;
+  ctx.lineWidth=3; ctx.lineCap="round"; ctx.strokeStyle="red";
+  const rect=canvas.getBoundingClientRect();
+  ctx.lineTo(e.clientX-rect.left, e.clientY-rect.top);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(e.clientX-rect.left, e.clientY-rect.top);
+});
+document.getElementById("canvasDone").addEventListener("click", ()=>{
+  document.getElementById("canvasMsg").textContent="Я че шиншила по твоему?";
+  setTimeout(nextLevel,1000);
+});
+
 // Финал
 document.getElementById("finalBtn").addEventListener("click", ()=>alert("❤️ Люблю тебя! ❤️"));
 
@@ -199,11 +262,12 @@ function showLevel(n){
   document.querySelectorAll(".level").forEach(l=>l.classList.remove("active"));
   document.getElementById("level"+n).classList.add("active");
   if(n===6) startTimedBtn();
+  if(n===9) startPatienceLevel();
 }
 
 function nextLevel(){
   currentLevel++;
-  if(currentLevel>8) currentLevel=8;
+  if(currentLevel>10) currentLevel=10;
   showLevel(currentLevel);
 }
 
