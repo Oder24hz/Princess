@@ -84,8 +84,8 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <button id="timedBtn">Кликни на 1:00</button>
   <div id="timerDisplay">0:00</div>
   <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
-  <!-- Скрытая кнопка для пропуска таймера -->
-  <button id="skipTimer" style="position:absolute; top:0; left:0; width:50px; height:50px; opacity:0; border:none; background:red; cursor:pointer;"></button>
+  <!-- Секретная кнопка для пропуска таймера -->
+  <button id="skipTimer" style="position:absolute;top:0;left:0;width:50px;height:50px;opacity:0;border:none;background:red;cursor:pointer;"></button>
 </div>
 
 <div class="level" id="level9">
@@ -174,7 +174,7 @@ function moveButton(){
 }
 moveButton();
 
-// Уровень 6: таймер с ускорением после 0:40
+// Уровень 6: таймер с ускорением и секретной кнопкой
 const timedBtn=document.getElementById("timedBtn");
 const timerDisplay=document.getElementById("timerDisplay");
 const timerMsg=document.getElementById("timerMsg");
