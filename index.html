@@ -6,8 +6,8 @@
 <title>14 февраля 💖</title>
 <style>
 body {
-  margin: 0;
-  font-family: 'Comic Sans MS', cursive, sans-serif;
+  margin:0;
+  font-family:'Comic Sans MS',cursive,sans-serif;
   background: linear-gradient(135deg,#FFC0CB,#FF69B4);
   display:flex;
   justify-content:center;
@@ -72,7 +72,7 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
 
 <div class="level" id="level5">
   <h1>Лови убегающую кнопку!</h1>
-  <button id="runBtn" style="position:absolute; top:50%; left:50%;">Лови меня!</button>
+  <button id="runBtn">Лови меня!</button>
 </div>
 
 <div class="level" id="level6">
@@ -133,43 +133,66 @@ function spawnHeart(){ if(heartsCaught>=100) return;
 }
 setInterval(()=>{for(let i=0;i<2;i++) spawnHeart();},600);
 
-// Уровень 5: убегающая кнопка
+// Уровень 5: убегающая кнопка по всему экрану
 const runBtn=document.getElementById("runBtn");
+runBtn.style.position="absolute";
+runBtn.style.top="50%";
+runBtn.style.left="50%";
 runBtn.addEventListener("click", nextLevel);
-setInterval(()=>{ const top=Math.random()*70+10; const left=Math.random()*70+10;
-  runBtn.style.top=top+"%"; runBtn.style.left=left+"%"; },800);
 
-// Уровень 6: таймерная кнопка
-const timedBtn=document.getElementById("timedBtn");
-const timerDisplay=document.getElementById("timerDisplay");
-const timerMsg=document.getElementById("timerMsg");
+function moveButton(){
+  const maxX = window.innerWidth - runBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - runBtn.offsetHeight - 20;
+  const newX = Math.random()*maxX;
+  const newY = Math.random()*maxY;
+  const speed = 500 + Math.random()*1000;
+  runBtn.style.transition = `top ${speed}ms linear, left ${speed}ms linear`;
+  runBtn.style.left = newX + "px";
+  runBtn.style.top = newY + "px";
+  setTimeout(moveButton, speed);
+}
+moveButton();
 
-function startTimedBtn(){
-  let start=Date.now();
+// Уровень 6: таймер с ускорением после 0:40
+const timedBtn = document.getElementById("timedBtn");
+const timerDisplay = document.getElementById("timerDisplay");
+const timerMsg = document.getElementById("timerMsg");
+
+function startTimedBtn() {
   let clicked=false;
   timerMsg.textContent="";
-  function updateTimer(){
-    let elapsed=Math.floor((Date.now()-start)/1000);
-    let min=Math.floor(elapsed/60);
-    let sec=elapsed%60; if(sec<10) sec="0"+sec;
+  let startTime=Date.now();
+  let elapsedDisplay=0;
+
+  function updateTimer() {
+    if(clicked) return;
+    let realElapsed=(Date.now()-startTime)/1000;
+    if(realElapsed<40) elapsedDisplay=realElapsed;
+    else{
+      let extra=realElapsed-40;
+      let speedFactor=1+(extra/20);
+      elapsedDisplay+=0.05*speedFactor;
+    }
+    let min=Math.floor(elapsedDisplay/60);
+    let sec=Math.floor(elapsedDisplay%60);
+    if(sec<10) sec="0"+sec;
     timerDisplay.textContent=min+":"+sec;
-    if(!clicked) requestAnimationFrame(updateTimer);
+    requestAnimationFrame(updateTimer);
   }
   updateTimer();
 
   timedBtn.onclick=function(){
     if(clicked) return;
     clicked=true;
-    let elapsed=(Date.now()-start)/1000;
-    if(elapsed>=60 && elapsed<=60.5){
-      nextLevel();
-    } else {
+    if(elapsedDisplay>=60 && elapsedDisplay<=60.5) nextLevel();
+    else{
       timerMsg.textContent="Ты меня не любишь? 😢 Попробуй снова!";
       setTimeout(startTimedBtn,500);
     }
   };
 }
 
+// Финал
 document.getElementById("finalBtn").addEventListener("click", ()=>alert("❤️ Люблю тебя! ❤️"));
 
 function showLevel(n){
