@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Princess Love Verification 💗</title>
+<title>Princess Verification Final Boss 💗</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
+*{margin:0;padding:0;box-sizing:border-box;}
 body{
-  font-family: 'Segoe UI', sans-serif;
+  font-family:'Segoe UI',sans-serif;
   height:100vh;
-  background: linear-gradient(135deg,#ffd6ec,#ffc2e2,#ffe6f4);
-  overflow:hidden;
+  background:linear-gradient(135deg,#ffd6ec,#ffc2e2,#ffe6f4);
   display:flex;
   justify-content:center;
   align-items:center;
+  overflow:hidden;
   color:white;
 }
 
@@ -23,228 +22,226 @@ body{
 .petal{
   position:fixed;
   top:-10px;
-  width:12px;
-  height:12px;
-  background: radial-gradient(circle,#ff8ecf 40%,#ffb6e6);
+  width:12px;height:12px;
+  background:radial-gradient(circle,#ff8ecf,#ffb6e6);
   border-radius:50% 50% 50% 0;
-  transform: rotate(45deg);
-  opacity:0.8;
-  animation: fall linear forwards;
+  transform:rotate(45deg);
+  opacity:.8;
+  animation:fall linear forwards;
 }
-
 @keyframes fall{
-  to{
-    transform: translateY(110vh) rotate(360deg);
-    opacity:0.2;
-  }
+  to{transform:translateY(110vh) rotate(360deg);opacity:.2;}
 }
 
 /* 💎 Карточка */
 .card{
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.15);
+  backdrop-filter:blur(20px);
+  background:rgba(255,255,255,0.15);
   padding:40px;
   border-radius:25px;
-  box-shadow:0 0 40px rgba(255,255,255,0.4);
-  width:90%;
-  max-width:500px;
+  box-shadow:0 0 50px rgba(255,255,255,0.5);
+  width:90%;max-width:520px;
   text-align:center;
-  animation: fadeIn 0.8s ease forwards;
+  transition:all .6s ease;
+  opacity:0;
+  transform:scale(.9);
 }
-
-.hidden{ display:none; }
-
-@keyframes fadeIn{
-  from{opacity:0; transform:scale(0.9);}
-  to{opacity:1; transform:scale(1);}
-}
-
-h1{
-  margin-bottom:20px;
-  font-size:28px;
+.card.active{
+  opacity:1;
+  transform:scale(1);
 }
 
 button{
   padding:12px 25px;
-  margin:10px;
   border:none;
   border-radius:30px;
-  font-size:16px;
+  margin:10px;
   cursor:pointer;
-  transition:0.3s;
+  transition:.3s;
 }
-
-.primary{
-  background:#ff4fa3;
-  color:white;
-}
-
-.secondary{
-  background:white;
-  color:#ff4fa3;
-  position:absolute;
-}
+.primary{background:#ff4fa3;color:white;}
+.secondary{background:white;color:#ff4fa3;position:absolute;}
 
 input{
   padding:10px;
   border-radius:15px;
   border:none;
   text-align:center;
-  margin-top:10px;
 }
 
 .progress{
-  width:100%;
-  height:10px;
-  background:rgba(255,255,255,0.3);
+  width:100%;height:12px;
+  background:rgba(255,255,255,.3);
   border-radius:20px;
   margin-top:20px;
   overflow:hidden;
 }
-
 .bar{
-  height:100%;
-  width:0%;
+  height:100%;width:0%;
   background:white;
-  transition:0.4s;
+  transition:.4s;
 }
 
 img{
   width:260px;
   border-radius:20px;
   margin-top:15px;
-  box-shadow:0 0 25px rgba(255,255,255,0.5);
+  box-shadow:0 0 25px rgba(255,255,255,.6);
 }
+.hidden{display:none;}
 </style>
 </head>
-
 <body>
 
-<div id="app" class="card">
-
-<!-- Уровень 1 -->
-<div id="level1">
-<h1>👑 Проверка памяти</h1>
-<p>Когда началась лучшая история?</p>
-<input id="dateInput" placeholder="дд мм 2025">
-<br>
-<button class="primary" onclick="checkDate()">Проверить</button>
-</div>
-
-<!-- Уровень 2 -->
-<div id="level2" class="hidden">
-<h1>💅 Тест на капризность</h1>
-<p>Ты иногда вредничаешь?</p>
-<button class="primary" onclick="nextLevel(3)">Я принцесса, мне можно</button>
-<button onclick="alert('Не обманывай систему 😌')">Нет</button>
-</div>
-
-<!-- Уровень 3 -->
-<div id="level3" class="hidden">
-<h1>💗 Ты меня любишь?</h1>
-<button class="primary" onclick="nextLevel(4)">Да ❤️</button>
-<button id="noBtn" class="secondary">Нет 😌</button>
-</div>
-
-<!-- Уровень 4 -->
-<div id="level4" class="hidden">
-<h1>🎮 Докажи</h1>
-<p>Нажми 40 раз</p>
-<p id="clickCount">0 / 40</p>
-</div>
-
-<!-- Уровень 5 -->
-<div id="level5" class="hidden">
-<h1>⏳ Проверка терпения...</h1>
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
-</div>
-
-<!-- Финал -->
-<div id="final" class="hidden">
-<h1>🌸 Ты прошла всё</h1>
-<p>С 21 августа 2025<br>и до бесконечности 💗</p>
-<img src="photo2.jpg">
-<br>
-<button class="primary" onclick="showMeme()">Секрет 😈</button>
-</div>
-
-<!-- Мем -->
-<div id="meme" class="hidden">
-<h1>КОГДА ПЫТАЕШЬСЯ НАЖАТЬ "НЕТ" 😂</h1>
-<img src="photo3.jpg">
-<p>Но система уже всё решила 💅</p>
-</div>
-
-</div>
+<div id="app"></div>
 
 <script>
 
 /* 🌸 Сакура */
 function createPetal(){
-  const petal=document.createElement("div");
-  petal.className="petal";
-  petal.style.left=Math.random()*100+"vw";
-  petal.style.animationDuration=(5+Math.random()*5)+"s";
-  document.body.appendChild(petal);
-  setTimeout(()=>petal.remove(),10000);
+  const p=document.createElement("div");
+  p.className="petal";
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*5)+"s";
+  document.body.appendChild(p);
+  setTimeout(()=>p.remove(),10000);
 }
 setInterval(createPetal,300);
 
-/* Переходы */
-function nextLevel(n){
-  document.querySelectorAll('#app > div').forEach(el=>el.classList.add('hidden'));
-  document.getElementById("level"+n)?.classList.remove("hidden");
-  if(n===5) fakeLoading();
+/* Уровни */
+const levels=[
+
+/* 1 */
+`<div class="card active">
+<h2>👑 Проверка памяти</h2>
+<p>Когда началась лучшая история?</p>
+<input id="dateInput" placeholder="21 августа 2025">
+<br>
+<button class="primary" onclick="checkDate()">Проверить</button>
+</div>`,
+
+/* 2 */
+`<div class="card">
+<h2>💅 Тест на капризность</h2>
+<p>Ты иногда вредничаешь?</p>
+<button class="primary" onclick="nextLevel()">Я принцесса, мне можно</button>
+<button onclick="alert('Не обманывай систему 😌')">Нет</button>
+</div>`,
+
+/* 3 — БЕГАЕТ ДА */
+`<div class="card">
+<h2>💗 Ты меня любишь?</h2>
+<button id="yesBtn" class="secondary">Да ❤️</button>
+<button class="primary" onclick="noClicked()">Нет 😌</button>
+</div>`,
+
+/* 4 — КЛИКИ */
+`<div class="card">
+<h2>🎮 Докажи</h2>
+<p id="clickCount">0 / 50</p>
+</div>`,
+
+/* 5 — ФЕЙК ЗАГРУЗКА */
+`<div class="card">
+<h2>⏳ Проверка терпения...</h2>
+<div class="progress"><div class="bar" id="bar"></div></div>
+</div>`,
+
+/* 6 */
+`<div class="card">
+<h2>📜 Контракт №21082025</h2>
+<p>Подтверждаешь что ты самая лучшая?</p>
+<button class="primary" onclick="nextLevel()">Подписать 👑</button>
+</div>`,
+
+/* ФИНАЛ */
+`<div class="card">
+<h2>🌸 Ты победила</h2>
+<p>С 21 августа 2025<br>и до бесконечности 💗</p>
+<img src="photo2.jpg">
+<br>
+<button class="primary" onclick="showMeme()">Секрет 😈</button>
+</div>`,
+
+/* МЕМ */
+`<div class="card">
+<h2>КОГДА ПЫТАЕШЬСЯ ЧТО-ТО ДОКАЗАТЬ 😂</h2>
+<img src="photo3.jpg">
+<p>Я так и знал 😌</p>
+</div>`
+];
+
+let current=0;
+const app=document.getElementById("app");
+app.innerHTML=levels[current];
+
+/* Переход */
+function nextLevel(){
+  document.querySelector(".card").classList.remove("active");
+  setTimeout(()=>{
+    current++;
+    app.innerHTML=levels[current];
+    setTimeout(()=>{
+      document.querySelector(".card").classList.add("active");
+      if(current===2) setupYesRun();
+      if(current===3) setupClicks();
+      if(current===4) fakeLoading();
+    },50);
+  },500);
 }
 
 /* Проверка даты */
 function checkDate(){
   const val=document.getElementById("dateInput").value;
   if(val.includes("21") && val.includes("2025")){
-    nextLevel(2);
+    nextLevel();
   }else{
-    alert("Подумай лучше… 21 августа 2025 😏");
+    alert("Подумай лучше 😏 21 августа 2025");
   }
 }
 
-/* Убегающая кнопка */
-const noBtn=document.getElementById("noBtn");
-noBtn.addEventListener("mouseover",()=>{
-  noBtn.style.top=Math.random()*80+"%";
-  noBtn.style.left=Math.random()*80+"%";
-});
+/* БЕГАЕТ ДА */
+function setupYesRun(){
+  const yes=document.getElementById("yesBtn");
+  yes.addEventListener("mouseover",()=>{
+    yes.style.top=Math.random()*80+"%";
+    yes.style.left=Math.random()*80+"%";
+  });
+}
+
+/* НЕТ */
+function noClicked(){
+  alert("Я так и знал 😌");
+}
 
 /* Клики */
-let clicks=0;
-document.getElementById("level4").addEventListener("click",()=>{
-  clicks++;
-  document.getElementById("clickCount").innerText=clicks+" / 40";
-  if(clicks>=40) nextLevel(5);
-});
+function setupClicks(){
+  let clicks=0;
+  document.querySelector(".card").addEventListener("click",()=>{
+    clicks++;
+    document.getElementById("clickCount").innerText=clicks+" / 50";
+    if(clicks>=50) nextLevel();
+  });
+}
 
-/* Фейковая загрузка */
+/* Фейковая загрузка — больше не зависает */
 function fakeLoading(){
   let width=0;
   const bar=document.getElementById("bar");
   const interval=setInterval(()=>{
-    width+=Math.random()*10;
+    width+=5;
+    bar.style.width=width+"%";
     if(width>=100){
       clearInterval(interval);
-      nextLevel("final");
+      nextLevel();
     }
-    bar.style.width=width+"%";
-  },400);
+  },200);
 }
 
-/* Мем */
 function showMeme(){
-  document.querySelectorAll('#app > div').forEach(el=>el.classList.add('hidden'));
-  document.getElementById("meme").classList.remove("hidden");
+  nextLevel();
 }
 
 </script>
-
 </body>
 </html>
