@@ -114,7 +114,6 @@ setInterval(createPetal,300);
 
 /* УРОВНИ */
 const levels=[
-
 `<div class="card active">
 <h2>👑 Проверка памяти</h2>
 <p>Когда началась лучшая история?</p>
@@ -126,7 +125,7 @@ const levels=[
 `<div class="card">
 <h2>💅 Тест на капризность</h2>
 <p>Ты иногда вредничаешь?</p>
-<button class="primary" onclick="nextLevel()">Я принцесса, мне можно</button>
+<button class="primary" onclick="nextLevelMessage('ну... молодца')">Я принцесса, мне можно</button>
 <button onclick="alert('Не обманывай систему 😌')">Нет</button>
 </div>`,
 
@@ -137,8 +136,8 @@ const levels=[
 </div>`,
 
 `<div class="card">
-<h2>🎮 Докажи</h2>
-<p id="clickCount">0 / 40</p>
+<h2>🎮 Докажи что любишь меня</h2>
+<p id="clickCount">0 / 50</p>
 </div>`,
 
 `<div class="card">
@@ -149,7 +148,14 @@ const levels=[
 `<div class="card">
 <h2>📜 Контракт №21082025</h2>
 <p>Подтверждаешь что ты самая лучшая?</p>
-<button class="primary" onclick="nextLevel()">Подписать 👑</button>
+<button class="primary" onclick="nextLevelMessage('ещё попробуй поспорить')">Подписать 👑</button>
+</div>`,
+
+`<div class="card">
+<h2>🤔 Загадка Standoff</h2>
+<p>Кто самый лучший игрок Standoff?</p>
+<button onclick="standoffAnswer('Ты')">Ты</button>
+<button onclick="standoffAnswer('Одер')">Одер</button>
 </div>`,
 
 `<div class="card">
@@ -160,12 +166,6 @@ const levels=[
 <h2>Я тебя люблю ❤️</h2>
 <br>
 <button class="primary" onclick="nextLevel()">Секрет 😈</button>
-</div>`,
-
-`<div class="card">
-<h2>КОГДА ПЫТАЕШЬСЯ ЧТО-ТО ДОКАЗАТЬ 😂</h2>
-<img src="photo3.jpg">
-<p>Я так и знал 😌</p>
 </div>`
 ];
 
@@ -176,9 +176,11 @@ app.innerHTML=levels[current];
 /* Переход */
 function nextLevel(){
   const card=document.querySelector(".card");
+  if(!card) return;
   card.classList.remove("active");
   setTimeout(()=>{
     current++;
+    if(current>=levels.length) current=levels.length-1;
     app.innerHTML=levels[current];
     setTimeout(()=>{
       document.querySelector(".card").classList.add("active");
@@ -187,6 +189,12 @@ function nextLevel(){
       if(current===4) fakeLoading();
     },50);
   },500);
+}
+
+/* Переход с сообщением */
+function nextLevelMessage(msg){
+  alert(msg);
+  nextLevel();
 }
 
 /* Проверка даты */
@@ -219,10 +227,21 @@ function noClicked(){
 /* Клики */
 function setupClicks(){
   let clicks=0;
-  document.querySelector(".card").addEventListener("click",()=>{
+  let maxClicks=50;
+  const clickText=document.getElementById("clickCount");
+  const card=document.querySelector(".card");
+  card.addEventListener("click",()=>{
     clicks++;
-    document.getElementById("clickCount").innerText=clicks+" / 40";
-    if(clicks>=40) nextLevel();
+    if(clicks>maxClicks && maxClicks===50){
+      maxClicks=150;
+      clickText.innerText=clicks+" / "+maxClicks;
+      alert("Я тебе не верю, ещё тыкай");
+    } else {
+      clickText.innerText=clicks+" / "+maxClicks;
+    }
+    if(clicks>=maxClicks){
+      nextLevel();
+    }
   });
 }
 
@@ -238,6 +257,16 @@ function fakeLoading(){
       nextLevel();
     }
   },150);
+}
+
+/* Standoff загадка */
+function standoffAnswer(ans){
+  if(ans==="Одер"){
+    alert("извинись, ой, извините точнее");
+    nextLevel();
+  } else {
+    alert("Неверно 😏 Попробуй снова");
+  }
 }
 
 </script>
