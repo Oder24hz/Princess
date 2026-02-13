@@ -3,11 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Oder24hz</title>
+<title>14 февраля 💖</title>
 <style>
 body {
   margin:0;
-  font-family:'Comic Sans MS',cursive,sans-serif;
+  font-family:'Arial Black', Gadget, sans-serif;
+  font-weight:900;
   background: linear-gradient(135deg,#FFC0CB,#FF69B4);
   display:flex;
   justify-content:center;
@@ -15,24 +16,39 @@ body {
   height:100vh;
   overflow:hidden;
 }
-#container{ text-align:center; width:100%; max-width:600px; position:relative;}
+#container{
+  text-align:center;
+  width:100%;
+  max-width:600px;
+  position:relative;
+  padding:10px;
+  box-sizing:border-box;
+}
 .level{ display:none;}
 .level.active{ display:block; animation:fadeIn 0.8s ease;}
-h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
+h1{
+  color:#fff;
+  margin-bottom:20px;
+  text-shadow:2px 2px #FF1493;
+  font-size:calc(16px + 2vw);
+  font-weight:900;
+}
 .clickable-heart, .moving-heart{
-  width:100px; height:100px; background:red;
+  width:80px; height:80px; background:red;
   clip-path:polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
-  margin:0 auto; cursor:pointer; transition:transform 0.2s; position:absolute;
+  cursor:pointer; transition:transform 0.2s; position:absolute;
 }
 .clickable-heart:hover, .moving-heart:hover{ transform:scale(1.2);}
 .gift-btn{
-  display:inline-block; padding:15px 25px; margin:10px; background:#fff;
+  display:inline-block; padding:12px 20px; margin:10px; background:#fff;
   border-radius:15px; cursor:pointer; transition:transform 0.2s, background 0.3s;
+  font-weight:900;
 }
 .gift-btn:hover{ transform:scale(1.1); background:#FFB6C1; color:#fff;}
 #finalBtn, #timedBtn, #runBtn, #canvasDone{
-  padding:15px 30px; font-size:18px; border:none; border-radius:20px;
+  padding:12px 25px; font-size:18px; border:none; border-radius:20px;
   cursor:pointer; background:#FF69B4; color:#fff; transition:transform 0.3s, background 0.3s;
+  font-weight:900;
 }
 #finalBtn:hover, #timedBtn:hover, #runBtn:hover, #canvasDone:hover{ transform:scale(1.1); background:#FF1493;}
 #floatingHearts div{
@@ -44,7 +60,7 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
   width:80%; height:30px; background:#fff; border-radius:15px; margin:20px auto; overflow:hidden;
 }
 #patienceBar{ width:0%; height:100%; background:#FF1493; transition:width 0.1s linear; }
-canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:crosshair; }
+canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:crosshair; width:100%; max-width:500px; height:auto; }
 .clickable-word{ cursor:pointer; color:inherit; text-decoration:none; }
 </style>
 </head>
@@ -59,10 +75,10 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 
 <!-- Уровень 2 -->
 <div class="level" id="level2">
-  <h1>Выбери то, что ты хочешь</h1>
-  <div class="gift-btn" data-correct="false"> Айфон 17</div>
-  <div class="gift-btn" data-correct="true">❤️ Меня</div>
-  <div class="gift-btn" data-correct="false"> 1000$</div>
+  <h1>Выбери подарок 🎁</h1>
+  <div class="gift-btn" data-correct="false">🎀 Шарик</div>
+  <div class="gift-btn" data-correct="true">❤️ Сердце</div>
+  <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
 </div>
 
 <!-- Уровень 3 -->
@@ -73,7 +89,7 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 
 <!-- Уровень 4 -->
 <div class="level" id="level4">
-  <h1>поймай 100 сердечек! ❤️</h1>
+  <h1>Кликайте на 100 сердечек! ❤️</h1>
   <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
   <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
 </div>
@@ -84,9 +100,9 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <button id="runBtn">Лови меня!</button>
 </div>
 
-<!-- Уровень 6: Таймер с кликабельным словом -->
+<!-- Уровень 6: Таймер -->
 <div class="level" id="level6">
-  <h1><span class="clickable-word" id="skipTimerBtn">Нажми</span> на кнопку вовремя! ⏰</h1>
+  <h1><span class="clickable-word" id="skipTimerBtn">Попади</span> в кнопку вовремя! ⏰</h1>
   <button id="timedBtn">Кликни на 1:00</button>
   <div id="timerDisplay">0:00</div>
   <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
@@ -110,9 +126,9 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <p id="canvasMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
 </div>
 
-<!-- Финальный уровень -->
+<!-- Финал -->
 <div class="level" id="level9">
-  <h1>🎉 Ты прошла все уровни!, с 14 февраля! ❤️</h1>
+  <h1>🎉 Ты прошла все уровни! ❤️</h1>
   <button id="finalBtn">Обними меня</button>
 </div>
 
@@ -155,18 +171,18 @@ function spawnHeart(){ if(heartsCaught>=100) return;
 }
 setInterval(()=>{for(let i=0;i<2;i++) spawnHeart();},600);
 
-// Уровень 5
+// Уровень 5: убегающая кнопка по всему экрану
 const runBtn=document.getElementById("runBtn");
 runBtn.style.position="absolute";
 runBtn.style.top="50%";
 runBtn.style.left="50%";
 runBtn.addEventListener("click", nextLevel);
 function moveButton(){
-  const maxX=window.innerWidth - runBtn.offsetWidth - 20;
-  const maxY=window.innerHeight - runBtn.offsetHeight - 20;
+  const maxX=window.innerWidth - runBtn.offsetWidth;
+  const maxY=window.innerHeight - runBtn.offsetHeight;
   const newX=Math.random()*maxX;
   const newY=Math.random()*maxY;
-  const speed=500 + Math.random()*1000;
+  const speed=500 + Math.random()*800;
   runBtn.style.transition=`top ${speed}ms linear, left ${speed}ms linear`;
   runBtn.style.left=newX+"px";
   runBtn.style.top=newY+"px";
@@ -226,7 +242,7 @@ function startPatienceLevel(){
     if(percent>100) percent=100;
     patienceBarElem.style.width=percent+"%";
 
-    if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение?";
+    if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение? Ещё подожди тогда";
     if(Math.floor(elapsed)===55) patienceMsg.textContent="Точно терпеливая?";
     if(Math.floor(elapsed)===58) patienceMsg.textContent="Всё, убедился";
     if(Math.floor(elapsed)===67) patienceMsg.textContent="Ладно, всё, всё";
