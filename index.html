@@ -51,12 +51,13 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 <body>
 <div id="container">
 
-<!-- Уровни -->
+<!-- Уровень 1 -->
 <div class="level" id="level1">
   <h1>💖 Нажми на сердце, чтобы начать!</h1>
   <div class="clickable-heart" id="startHeart" style="top:200px; left:250px;"></div>
 </div>
 
+<!-- Уровень 2 -->
 <div class="level" id="level2">
   <h1>Выбери подарок 🎁</h1>
   <div class="gift-btn" data-correct="false">🎀 Шарик</div>
@@ -64,22 +65,26 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
 </div>
 
+<!-- Уровень 3 -->
 <div class="level" id="level3">
   <h1>Поймай бегущее сердце!</h1>
   <div class="moving-heart" id="movingHeart"></div>
 </div>
 
+<!-- Уровень 4 -->
 <div class="level" id="level4">
   <h1>Кликайте на 100 сердечек! ❤️</h1>
   <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
   <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
 </div>
 
+<!-- Уровень 5 -->
 <div class="level" id="level5">
   <h1>Лови убегающую кнопку!</h1>
   <button id="runBtn">Лови меня!</button>
 </div>
 
+<!-- Уровень 6: Таймер с кнопкой на слове "Попади" -->
 <div class="level" id="level6">
   <h1><span class="clickable-word" id="skipTimerBtn">Попади</span> в кнопку вовремя! ⏰</h1>
   <button id="timedBtn">Кликни на 1:00</button>
@@ -87,7 +92,8 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
 </div>
 
-<div class="level" id="level9">
+<!-- Уровень 7: Проверка на терпение -->
+<div class="level" id="level7">
   <h1>Проверка на терпение</h1>
   <div id="patienceBarContainer">
     <div id="patienceBar"></div>
@@ -95,7 +101,8 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <div id="patienceMsg" style="color:white;font-size:20px; margin-top:10px;"></div>
 </div>
 
-<div class="level" id="level10">
+<!-- Уровень 8: Рисовалка -->
+<div class="level" id="level8">
   <h1>Нарисуй меня</h1>
   <canvas id="drawCanvas" width="500" height="300"></canvas>
   <br>
@@ -103,14 +110,16 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <p id="canvasMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
 </div>
 
-<div class="level" id="level7">
+<!-- Уровень 9: Шоколадка -->
+<div class="level" id="level9">
   <h1>Выбери шоколадку 🍫</h1>
   <div class="gift-btn" data-correct="false">Молочная</div>
   <div class="gift-btn" data-correct="true">С сердечком</div>
   <div class="gift-btn" data-correct="false">Белая</div>
 </div>
 
-<div class="level" id="level8">
+<!-- Финальный уровень -->
+<div class="level" id="level10">
   <h1>🎉 Ты прошла все уровни! ❤️</h1>
   <button id="finalBtn">Обними меня</button>
 </div>
@@ -124,7 +133,7 @@ showLevel(currentLevel);
 // Уровень 1
 document.getElementById("startHeart").addEventListener("click", nextLevel);
 
-// Уровни 2 и 7
+// Уровни 2 и 9
 document.querySelectorAll(".gift-btn").forEach(btn=>{
   btn.addEventListener("click", e=>{
     if(e.target.dataset.correct==="true") nextLevel();
@@ -173,7 +182,7 @@ function moveButton(){
 }
 moveButton();
 
-// Уровень 6: таймер с ускорением и пропуск по слову "Попади"
+// Уровень 6: таймер с ускорением
 const timedBtn=document.getElementById("timedBtn");
 const timerDisplay=document.getElementById("timerDisplay");
 const timerMsg=document.getElementById("timerMsg");
@@ -212,7 +221,7 @@ function startTimedBtn(){
   };
 }
 
-// Уровень 9: проверка на терпение
+// Уровень 7: проверка на терпение
 const patienceBarElem=document.getElementById("patienceBar");
 const patienceMsg=document.getElementById("patienceMsg");
 function startPatienceLevel(){
@@ -237,7 +246,7 @@ function startPatienceLevel(){
   },100);
 }
 
-// Уровень 10: рисовалка
+// Уровень 8: рисовалка
 const canvas=document.getElementById("drawCanvas");
 const ctx=canvas.getContext("2d");
 let drawing=false;
@@ -264,7 +273,7 @@ function showLevel(n){
   document.querySelectorAll(".level").forEach(l=>l.classList.remove("active"));
   document.getElementById("level"+n).classList.add("active");
   if(n===6) startTimedBtn();
-  if(n===9) startPatienceLevel();
+  if(n===7) startPatienceLevel();
 }
 
 function nextLevel(){
