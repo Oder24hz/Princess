@@ -15,21 +15,12 @@
     height: 100vh;
     overflow: hidden;
   }
-  #container {
-    text-align: center;
-    width: 100%;
-    max-width: 600px;
-  }
+  #container { text-align: center; width: 100%; max-width: 600px; position: relative; }
   .level { display: none; }
   .level.active { display: block; animation: fadeIn 0.8s ease; }
-  h1 {
-    color: #fff;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px #FF1493;
-  }
-  .clickable-heart, .moving-heart {
-    width: 100px;
-    height: 100px;
+  h1 { color: #fff; margin-bottom: 20px; text-shadow: 2px 2px #FF1493; }
+  .clickable-heart, .moving-heart, .timed-heart {
+    width: 100px; height: 100px;
     background: red;
     clip-path: polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
     margin: 0 auto;
@@ -37,44 +28,37 @@
     transition: transform 0.2s;
     position: absolute;
   }
-  .clickable-heart:hover, .moving-heart:hover { transform: scale(1.2); }
+  .clickable-heart:hover, .moving-heart:hover, .timed-heart:hover { transform: scale(1.2); }
   .gift-btn {
-    display: inline-block;
-    padding: 15px 25px;
-    margin: 10px;
-    background: #fff;
-    border-radius: 15px;
-    cursor: pointer;
+    display: inline-block; padding: 15px 25px; margin: 10px;
+    background: #fff; border-radius: 15px; cursor: pointer;
     transition: transform 0.2s, background 0.3s;
   }
   .gift-btn:hover { transform: scale(1.1); background: #FFB6C1; color: #fff; }
   #finalBtn {
-    padding: 20px 40px;
-    font-size: 20px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    background: #FF1493;
-    color: #fff;
-    transition: transform 0.3s;
+    padding: 20px 40px; font-size: 20px; border: none;
+    border-radius: 20px; cursor: pointer; background: #FF1493;
+    color: #fff; transition: transform 0.3s;
   }
   #finalBtn:hover { transform: scale(1.2); }
-  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-  @keyframes float {
-    0%{transform:translateY(-50px) scale(0.8);}
-    50%{transform:translateY(50vh) scale(1);}
-    100%{transform:translateY(100vh) scale(0.8);}
+  #floatingHearts div {
+    position: absolute; width: 30px; height: 30px;
+    background: red; cursor: pointer;
+    clip-path: polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
   }
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
 </style>
 </head>
 <body>
 <div id="container">
-  <!-- Уровни -->
+
+  <!-- Уровень 1: старт -->
   <div class="level" id="level1">
     <h1>💖 Нажми на сердце, чтобы начать!</h1>
-    <div class="clickable-heart" id="startHeart" style="position:relative;margin:0 auto;top:0;"></div>
+    <div class="clickable-heart" id="startHeart" style="top:200px; left:250px;"></div>
   </div>
 
+  <!-- Уровень 2: подарок -->
   <div class="level" id="level2">
     <h1>Выбери подарок 🎁</h1>
     <div class="gift-btn" data-correct="false">🎀 Шарик</div>
@@ -82,28 +66,46 @@
     <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
   </div>
 
+  <!-- Уровень 3: догоняй сердце -->
   <div class="level" id="level3">
     <h1>Поймай бегущее сердце!</h1>
     <div class="moving-heart" id="movingHeart"></div>
   </div>
 
+  <!-- Уровень 4: 100 сердечек -->
   <div class="level" id="level4">
     <h1>Кликайте на 100 сердечек! ❤️</h1>
     <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
     <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
   </div>
 
+  <!-- Уровень 5: Догоняй кнопку -->
   <div class="level" id="level5">
+    <h1>Лови убегающую кнопку!</h1>
+    <button id="runBtn" style="position:absolute; top:50%; left:50%;">Лови меня!</button>
+  </div>
+
+  <!-- Уровень 6: таймерная кнопка -->
+  <div class="level" id="level6">
+    <h1>Попади в кнопку вовремя! ⏰</h1>
+    <button id="timedBtn" style="position:absolute; top:50%; left:50%;">Кликни в нужный момент</button>
+    <p id="timerMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
+  </div>
+
+  <!-- Уровень 7: выбор шоколадки -->
+  <div class="level" id="level7">
     <h1>Выбери шоколадку 🍫</h1>
     <div class="gift-btn" data-correct="false">Молочная</div>
     <div class="gift-btn" data-correct="true">С сердечком</div>
     <div class="gift-btn" data-correct="false">Белая</div>
   </div>
 
-  <div class="level" id="level6">
+  <!-- Финал -->
+  <div class="level" id="level8">
     <h1>🎉 Ты прошла все уровни! ❤️</h1>
     <button id="finalBtn">Обними меня</button>
   </div>
+
 </div>
 
 <script>
@@ -113,60 +115,88 @@ showLevel(currentLevel);
 // Уровень 1
 document.getElementById("startHeart").addEventListener("click", nextLevel);
 
-// Уровни 2 и 5: выбор подарка
+// Уровни 2 и 7
 document.querySelectorAll(".gift-btn").forEach(btn => {
   btn.addEventListener("click", e => {
-    const correct = e.target.dataset.correct === "true";
-    if(correct) nextLevel();
+    if(e.target.dataset.correct === "true") nextLevel();
     else alert("Ой, не тот подарок 😜");
   });
 });
 
-// Уровень 3: догоняй сердце
+// Уровень 3: бегающее сердце
 const movingHeart = document.getElementById("movingHeart");
 movingHeart.addEventListener("click", nextLevel);
-setInterval(() => {
+setInterval(()=>{
   movingHeart.style.top = Math.random()*70 + "vh";
   movingHeart.style.left = Math.random()*70 + "vw";
-}, 800);
+}, 700);
 
-// Уровень 4: ловим 100 сердечек
+// Уровень 4: 100 сердечек
 const floatingHearts = document.getElementById("floatingHearts");
 const counterDisplay = document.getElementById("counter");
 let heartsCaught = 0;
 function spawnHeart(){
   if(heartsCaught >= 100) return;
   let heart = document.createElement("div");
-  heart.style.width = heart.style.height = "30px";
-  heart.style.background = "red";
-  heart.style.position = "absolute";
   heart.style.top = Math.random()*350 + "px";
   heart.style.left = Math.random()*500 + "px";
-  heart.style.clipPath = "polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%)";
-  heart.style.cursor = "pointer";
+  heart.style.animationDuration = (3+Math.random()*2)+"s";
   heart.addEventListener("click", ()=>{
     heart.remove();
     heartsCaught++;
-    counterDisplay.textContent = "Поймано: " + heartsCaught + " / 100";
-    if(heartsCaught >= 100) nextLevel();
+    counterDisplay.textContent = "Поймано: "+heartsCaught+" / 100";
+    if(heartsCaught>=100) nextLevel();
   });
   floatingHearts.appendChild(heart);
 }
-let spawnInterval = setInterval(spawnHeart, 50);
+// spawn только 2–3 сердечка каждые 0.5 сек
+setInterval(()=>{ for(let i=0;i<3;i++) spawnHeart(); },500);
 
-// Финальный уровень
-document.getElementById("finalBtn").addEventListener("click", () => {
-  alert("❤️ Люблю тебя! ❤️");
-});
+// Уровень 5: убегающая кнопка
+const runBtn = document.getElementById("runBtn");
+runBtn.addEventListener("click", nextLevel);
+setInterval(()=>{
+  const btn = runBtn;
+  const top = Math.random()*70 + 10;
+  const left = Math.random()*70 + 10;
+  btn.style.top = top + "%";
+  btn.style.left = left + "%";
+}, 800);
+
+// Уровень 6: таймерная кнопка
+const timedBtn = document.getElementById("timedBtn");
+const timerMsg = document.getElementById("timerMsg");
+function startTimedBtn(){
+  timerMsg.textContent = "Жди правильный момент...";
+  timedBtn.style.background = "#FF1493";
+  let start = Date.now();
+  let duration = 3000 + Math.random()*2000; // случайный момент 3-5 сек
+  let clicked = false;
+  timedBtn.onclick = ()=>{
+    clicked = true;
+    let elapsed = Date.now()-start;
+    if(elapsed >= duration && elapsed <= duration+500){
+      nextLevel();
+    } else {
+      timerMsg.textContent = "Ты меня не любишь? 😢 Попробуй снова!";
+      startTimedBtn();
+    }
+  };
+}
+timedBtn.onclick = null;
+
+// Финал
+document.getElementById("finalBtn").addEventListener("click", ()=>alert("❤️ Люблю тебя! ❤️"));
 
 function showLevel(n){
   document.querySelectorAll(".level").forEach(l=>l.classList.remove("active"));
   document.getElementById("level"+n).classList.add("active");
+  if(n===6) startTimedBtn();
 }
 
 function nextLevel(){
   currentLevel++;
-  if(currentLevel>6) currentLevel=6;
+  if(currentLevel>8) currentLevel=8;
   showLevel(currentLevel);
 }
 
