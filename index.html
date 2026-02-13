@@ -94,12 +94,22 @@ img{
   box-shadow:0 0 25px rgba(255,255,255,.6);
   cursor:pointer;
 }
+
+/* Пазл */
+#puzzle{
+  display:flex;
+  flex-wrap: wrap;
+  width:244px; /* 2*120 + 2*2px */
+  margin:0 auto;
+}
 .puzzle-piece{
   width:120px;
   height:120px;
-  display:inline-block;
   margin:2px;
-  background-size: cover;
+  cursor:pointer;
+  border-radius:10px;
+  transition:.3s;
+  background-size:240px 240px; /* 2*120 */
 }
 </style>
 </head>
@@ -284,28 +294,31 @@ function standoffAnswer(ans){
   }
 }
 
-/* Пазл */
+/* Пазл с одной фоткой */
 function setupPuzzle(){
-  const puzzleDiv=document.getElementById("puzzle");
-  puzzleDiv.innerHTML="";
-  const parts=["puzzle1.jpg","puzzle2.jpg","puzzle3.jpg","puzzle4.jpg"];
-  let solved=0;
-  parts.sort(()=>Math.random()-0.5).forEach(src=>{
-    const piece=document.createElement("div");
-    piece.className="puzzle-piece";
-    piece.style.backgroundImage=`url(${src})`;
-    piece.addEventListener("click",()=>{
-      piece.style.opacity="0.3";
-      solved++;
-      if(solved===4){
-        alert("Пазл собран! Ты супер 😘");
-        nextLevel();
-      }
-    });
-    puzzleDiv.appendChild(piece);
-  });
-}
+  const puzzleDiv = document.getElementById("puzzle");
+  puzzleDiv.innerHTML = "";
+  const size = 2; // 2x2 части
+  let solved = 0;
 
+  for(let i=0;i<size;i++){
+    for(let j=0;j<size;j++){
+      const piece = document.createElement("div");
+      piece.className = "puzzle-piece";
+      piece.style.backgroundImage = "url('photo3.jpg')";
+      piece.style.backgroundPosition = `-${j*120}px -${i*120}px`;
+      piece.addEventListener("click",()=>{
+        piece.style.opacity = "0.3";
+        solved++;
+        if(solved === size*size){
+          alert("Пазл собран! Ты супер 😘");
+          nextLevel();
+        }
+      });
+      puzzleDiv.appendChild(piece);
+    }
+  }
+}
 </script>
 </body>
 </html>
