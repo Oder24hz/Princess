@@ -17,7 +17,6 @@ body{
   color:white;
 }
 
-/* Карточка */
 .card{
   backdrop-filter:blur(20px);
   background:rgba(255,255,255,0.15);
@@ -33,34 +32,18 @@ body{
 }
 .card.active{opacity:1; transform:scale(1);}
 
-button{
-  padding:12px 25px;
-  border:none;
-  border-radius:30px;
-  margin:10px;
-  cursor:pointer;
-  transition:.3s;
-}
+button{padding:12px 25px;border:none;border-radius:30px;margin:10px;cursor:pointer;transition:.3s;}
 .primary{background:#ff4fa3;color:white;}
 .secondary{background:white;color:#ff4fa3;position:absolute;}
-
 input{padding:10px;border-radius:15px;border:none;text-align:center;}
 
-#puzzle{
-  width:250px;
-  height:250px;
-  margin:0 auto;
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  grid-gap:2px;
-}
-.piece{
-  width:120px;height:120px;
-  background-size:240px 240px;
-  cursor:pointer;
-  border-radius:10px;
-  border:1px solid #fff;
-}
+.progress{width:100%;height:12px;background:rgba(255,255,255,.3);border-radius:20px;margin-top:20px;overflow:hidden;}
+.bar{height:100%;width:0%;background:white;transition:.3s;}
+
+img{width:260px;border-radius:20px;margin-top:15px;box-shadow:0 0 25px rgba(255,255,255,.6);cursor:pointer;}
+
+#puzzle{width:244px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);grid-gap:2px;}
+.piece{width:120px;height:120px;background-size:240px 240px;border-radius:10px;border:1px solid #fff;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -118,12 +101,38 @@ const levels=[
 </div>`,
 
 `<div class="card">
+<h2>🍌 Любимый фрукт</h2>
+<p>Выбери правильный фрукт</p>
+<button onclick="fruitAnswer('Банан')">Банан</button>
+<button onclick="fruitAnswer('Яблоко')">Яблоко</button>
+<button onclick="fruitAnswer('Апельсин')">Апельсин</button>
+</div>`,
+
+`<div class="card">
+<h2>🎲 Угадай цифру 1-5</h2>
+<p>Попробуй угадать</p>
+<button onclick="guessNumber(1)">1</button>
+<button onclick="guessNumber(2)">2</button>
+<button onclick="guessNumber(3)">3</button>
+<button onclick="guessNumber(4)">4</button>
+<button onclick="guessNumber(5)">5</button>
+</div>`,
+
+`<div class="card">
+<h2>🐱 Выбери кота</h2>
+<p>Кто милее всех?</p>
+<button onclick="chooseCat('сердечки')">Кот с сердечками</button>
+<button onclick="chooseCat('шляпа')">Кот в шляпе</button>
+<button onclick="chooseCat('очки')">Кот в очках</button>
+</div>`,
+
+`<div class="card">
 <h2>🌸 Ты прошла всё</h2>
 <p>С 21 августа 2025 и до бесконечности 💗</p>
-<img src="photo2.jpg" width="260px">
+<img src="photo2.jpg">
 <br><br>
 <h2>Я тебя люблю ❤️</h2>
-<img src="photo3.jpg" width="260px">
+<img src="photo3.jpg">
 </div>`
 ];
 
@@ -135,8 +144,7 @@ function nextLevel(){
   const card=document.querySelector(".card");
   card.classList.remove("active");
   setTimeout(()=>{
-    current++;
-    if(current>=levels.length) current=levels.length-1;
+    current++; if(current>=levels.length) current=levels.length-1;
     app.innerHTML=levels[current];
     setTimeout(()=>{
       document.querySelector(".card").classList.add("active");
@@ -149,32 +157,21 @@ function nextLevel(){
 }
 
 function nextLevelMessage(msg){alert(msg); nextLevel();}
-function checkDate(){
-  const val=document.getElementById("dateInput").value.trim();
-  if(val==="21 августа 2025" || (val.includes("21") && val.includes("2025"))) nextLevel();
-  else alert("Подумай лучше 😏 Это 21 августа 2025");
-}
-function setupYesRun(){
-  const yes=document.getElementById("yesBtn");
-  yes.style.top="60%"; yes.style.left="20%";
-  yes.addEventListener("mouseover",()=>{ yes.style.top=Math.random()*70+"%"; yes.style.left=Math.random()*70+"%"; });
-}
+function checkDate(){ const val=document.getElementById("dateInput").value.trim(); if(val==="21 августа 2025" || (val.includes("21") && val.includes("2025"))) nextLevel(); else alert("Подумай лучше 😏 Это 21 августа 2025"); }
+function setupYesRun(){ const yes=document.getElementById("yesBtn"); yes.style.top="60%"; yes.style.left="20%"; yes.addEventListener("mouseover",()=>{ yes.style.top=Math.random()*70+"%"; yes.style.left=Math.random()*70+"%"; }); }
 function noClicked(){alert("Я так и знал 😌"); nextLevel();}
 
 /* Клики 50+100 */
 function setupClicks(){
-  let clicks=0;
-  let max=50;
+  let clicks=0, maxClicks=50;
   const counter=document.getElementById("clickCount");
   const card=document.querySelector(".card");
-  card.addEventListener("click",()=>{
+  card.addEventListener("click",(e)=>{
+    if(e.target.tagName!=="BUTTON") return; // только кнопки
     clicks++;
-    if(clicks>50 && max===50){
-      max=150;
-      alert("Я тебе не верю, ещё тыкай");
-    }
-    counter.innerText=clicks+" / "+max;
-    if(clicks>=max) nextLevel();
+    if(clicks>50 && maxClicks===50){ maxClicks=150; alert("Я тебе не верю, ещё тыкай"); }
+    counter.innerText=clicks+" / "+maxClicks;
+    if(clicks>=maxClicks) nextLevel();
   });
 }
 
@@ -182,47 +179,39 @@ function setupClicks(){
 function fakeLoading(){
   let width=0;
   const bar=document.getElementById("bar");
-  const interval=setInterval(()=>{
-    width+=4; bar.style.width=width+"%";
-    if(width>=100){ clearInterval(interval); nextLevel(); }
-  },150);
+  const interval=setInterval(()=>{ width+=4; bar.style.width=width+"%"; if(width>=100){ clearInterval(interval); nextLevel(); } },150);
 }
 
-/* Standoff */
-function standoffAnswer(ans){
-  if(ans==="Одер"){ alert("извинись, ой, извините точнее"); nextLevel(); }
-  else alert("Неверно 😏 Попробуй снова");
-}
+/* Загадки */
+function standoffAnswer(ans){ if(ans==="Одер"){alert("извинись, ой, извините точнее"); nextLevel();} else alert("Неверно 😏 Попробуй снова"); }
+function fruitAnswer(ans){ if(ans==="Банан"){alert("Верно! 🍌"); nextLevel();} else alert("Нет 😏 Попробуй ещё"); }
+function guessNumber(num){ const n=Math.floor(Math.random()*5)+1; if(num===n){alert("Угадала! 🎉"); nextLevel();} else alert("Не угадала, выпал "+n); }
+function chooseCat(c){ if(c==="сердечки"){alert("Правильно! 😻"); nextLevel();} else alert("Неверно 😼"); }
 
 /* Пазл drag&drop */
 function setupPuzzle(){
-  const puzzle=document.getElementById("puzzle");
-  puzzle.innerHTML="";
-  const positions=[[0,0],[0,120],[120,0],[120,120]];
-  const shuffled=positions.sort(()=>Math.random()-0.5);
-  let solved=0;
-
-  shuffled.forEach((pos,index)=>{
+  const puzzle=document.getElementById("puzzle"); puzzle.innerHTML="";
+  const size=2; let solved=0;
+  const positions=[[0,0],[0,120],[120,0],[120,120]].sort(()=>Math.random()-0.5);
+  positions.forEach((pos,index)=>{
     const piece=document.createElement("div");
     piece.className="piece";
     piece.style.backgroundImage="url('photo3.jpg')";
     piece.style.backgroundPosition=`-${pos[0]}px -${pos[1]}px`;
     piece.draggable=true;
-    piece.dataset.index=index;
+    piece.dataset.pos=index;
     piece.addEventListener("dragstart",e=>e.dataTransfer.setData("text",index));
     puzzle.appendChild(piece);
   });
-
   puzzle.addEventListener("dragover",e=>e.preventDefault());
   puzzle.addEventListener("drop",e=>{
     const fromIndex=e.dataTransfer.getData("text");
     const toPiece=e.target;
     if(!toPiece.classList.contains("piece")) return;
-    const fromPiece=puzzle.querySelector(`.piece[data-index='${fromIndex}']`);
-    const tempBG=fromPiece.style.backgroundPosition;
+    const fromPiece=puzzle.querySelector(`.piece[data-pos='${fromIndex}']`);
+    const temp=fromPiece.style.backgroundPosition;
     fromPiece.style.backgroundPosition=toPiece.style.backgroundPosition;
-    toPiece.style.backgroundPosition=tempBG;
-
+    toPiece.style.backgroundPosition=temp;
     solved++;
     if(solved>=10){ alert("Пазл собран! Ты супер 😘"); nextLevel(); }
   });
