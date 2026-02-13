@@ -44,7 +44,6 @@ img{width:260px;border-radius:20px;margin-top:15px;box-shadow:0 0 25px rgba(255,
 
 #puzzle{width:244px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);grid-gap:2px;}
 .piece{width:120px;height:120px;background-size:240px 240px;border-radius:10px;border:1px solid #fff;cursor:pointer;}
-#timer{font-size:20px;margin-top:15px;}
 </style>
 </head>
 <body>
@@ -84,50 +83,15 @@ const levels=[
 </div>`,
 
 `<div class="card">
-<h2>📜 Контракт №21082025</h2>
-<p>Подтверждаешь что ты самая лучшая?</p>
-<button class="primary" onclick="nextLevel()">Подписать 👑</button>
-</div>`,
-
-`<div class="card">
-<h2>🤔 Загадка Standoff</h2>
-<p>Кто самый лучший игрок Standoff?</p>
-<div id="timer"></div>
-<button onclick="standoffAnswer('Ты')">Ты</button>
-<button onclick="standoffAnswer('Одер')">Одер</button>
+<h2>🎮 Докажи что любишь меня ещё сильнее</h2>
+<p id="clickCount2">0 / 100</p>
+<button class="primary" id="clickBtn2">Кликни ещё ❤️</button>
 </div>`,
 
 `<div class="card">
 <h2>🧩 Фото-пазл</h2>
 <p>Собери пазл!</p>
 <div id="puzzle"></div>
-</div>`,
-
-`<div class="card">
-<h2>🍌 Любимый фрукт</h2>
-<p>Выбери правильный фрукт</p>
-<button onclick="fruitAnswer('Банан')">Банан</button>
-<button onclick="fruitAnswer('Яблоко')">Яблоко</button>
-<button onclick="fruitAnswer('Апельсин')">Апельсин</button>
-</div>`,
-
-`<div class="card">
-<h2>🎲 Угадай цифру 1-5</h2>
-<p>Попробуй угадать</p>
-<div id="timer"></div>
-<button onclick="guessNumber(1)">1</button>
-<button onclick="guessNumber(2)">2</button>
-<button onclick="guessNumber(3)">3</button>
-<button onclick="guessNumber(4)">4</button>
-<button onclick="guessNumber(5)">5</button>
-</div>`,
-
-`<div class="card">
-<h2>🐱 Выбери кота</h2>
-<p>Кто милее всех?</p>
-<button onclick="chooseCat('сердечки')">Кот с сердечками</button>
-<button onclick="chooseCat('шляпа')">Кот в шляпе</button>
-<button onclick="chooseCat('очки')">Кот в очках</button>
 </div>`,
 
 `<div class="card">
@@ -153,10 +117,9 @@ function nextLevel(){
     setTimeout(()=>{
       document.querySelector(".card").classList.add("active");
       if(current===2) setupYesRun();
-      if(current===3) setupClicks(); // клики
-      if(current===4) fakeLoading();
-      if(current===7) setupPuzzle();
-      if(current===6 || current===9) startTimer(15); // таймер 15 секунд на Standoff и угадай цифру
+      if(current===3) setupClicks50(); // первый уровень кликов
+      if(current===4) fakeLoading(10, nextLevelClicks100); // прогресс 10 сек + потом уровень кликов 100
+      if(current===6) setupPuzzle();
     },50);
   },300);
 }
@@ -166,36 +129,47 @@ function checkDate(){ const val=document.getElementById("dateInput").value.trim(
 function setupYesRun(){ const yes=document.getElementById("yesBtn"); yes.style.top="60%"; yes.style.left="20%"; yes.addEventListener("mouseover",()=>{ yes.style.top=Math.random()*70+"%"; yes.style.left=Math.random()*70+"%"; }); }
 function noClicked(){alert("Я так и знал 😌"); nextLevel();}
 
-/* Исправленные клики */
-function setupClicks(){
-  let clicks=0, maxClicks=50;
+/* Первый уровень кликов 50 */
+function setupClicks50(){
+  let clicks=0, max=50;
   const counter=document.getElementById("clickCount");
   const btn=document.getElementById("clickBtn");
   btn.addEventListener("click",()=>{
     clicks++;
-    if(clicks>50 && maxClicks===50){ maxClicks=150; alert("Я тебе не верю, ещё тыкай"); }
-    counter.innerText=clicks+" / "+maxClicks;
-    if(clicks>=maxClicks) nextLevel();
+    counter.innerText=clicks+" / "+max;
+    if(clicks>=max) nextLevel(); // после 50 кликов идёт проверка на терпение
   });
 }
 
-/* Загрузка */
-function fakeLoading(){
-  let width=0;
-  const bar=document.getElementById("bar");
-  const interval=setInterval(()=>{ width+=4; bar.style.width=width+"%"; if(width>=100){ clearInterval(interval); nextLevel(); } },150);
+/* Второй уровень кликов 100 */
+function nextLevelClicks100(){
+  let clicks=0, max=100;
+  const counter=document.getElementById("clickCount2");
+  const btn=document.getElementById("clickBtn2");
+  btn.addEventListener("click",()=>{
+    clicks++;
+    counter.innerText=clicks+" / "+max;
+    if(clicks>=max) nextLevel();
+  });
 }
 
-/* Загадки */
-function standoffAnswer(ans){ if(ans==="Одер"){alert("извинись, ой, извините точнее"); nextLevel();} else alert("Неверно 😏 Попробуй снова"); }
-function fruitAnswer(ans){ if(ans==="Банан"){alert("Верно! 🍌"); nextLevel();} else alert("Нет 😏 Попробуй ещё"); }
-function guessNumber(num){ const n=Math.floor(Math.random()*5)+1; if(num===n){alert("Угадала! 🎉"); nextLevel();} else alert("Не угадала, выпал "+n); }
-function chooseCat(c){ if(c==="сердечки"){alert("Правильно! 😻"); nextLevel();} else alert("Неверно 😼"); }
+/* Проверка терпения с прогресс бар */
+function fakeLoading(seconds, callback){
+  let width=0;
+  const bar=document.getElementById("bar");
+  const interval=setInterval(()=>{
+    width += 100/(seconds*20); // 10 сек ~ 200 шагов 50мс
+    bar.style.width=width+"%";
+    if(width>=100){
+      clearInterval(interval);
+      if(callback) callback(); // после терпения появляется следующий уровень кликов 100
+    }
+  },50);
+}
 
 /* Пазл drag&drop */
 function setupPuzzle(){
   const puzzle=document.getElementById("puzzle"); puzzle.innerHTML="";
-  const size=2; let solved=0;
   const positions=[[0,0],[0,120],[120,0],[120,120]].sort(()=>Math.random()-0.5);
   positions.forEach((pos,index)=>{
     const piece=document.createElement("div");
@@ -207,6 +181,7 @@ function setupPuzzle(){
     piece.addEventListener("dragstart",e=>e.dataTransfer.setData("text",index));
     puzzle.appendChild(piece);
   });
+  let solved=0;
   puzzle.addEventListener("dragover",e=>e.preventDefault());
   puzzle.addEventListener("drop",e=>{
     const fromIndex=e.dataTransfer.getData("text");
@@ -219,22 +194,6 @@ function setupPuzzle(){
     solved++;
     if(solved>=10){ alert("Пазл собран! Ты супер 😘"); nextLevel(); }
   });
-}
-
-/* Таймер для уровней */
-function startTimer(seconds){
-  const timerDiv=document.getElementById("timer");
-  let time=seconds;
-  timerDiv.innerText="Время: "+time+" сек";
-  const interval=setInterval(()=>{
-    time--;
-    timerDiv.innerText="Время: "+time+" сек";
-    if(time<=0){
-      clearInterval(interval);
-      alert("Время вышло 😏");
-      nextLevel();
-    }
-  },1000);
 }
 </script>
 </body>
