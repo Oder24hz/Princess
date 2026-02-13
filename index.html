@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Princess Verification Final Boss 💗</title>
+<title>Princess Love Quest 💗</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -18,7 +18,7 @@ body{
   color:white;
 }
 
-/* 🌸 Сакура */
+/* Сакура */
 .petal{
   position:fixed;
   top:-10px;
@@ -33,7 +33,7 @@ body{
   to{transform:translateY(110vh) rotate(360deg);opacity:.2;}
 }
 
-/* 💎 Карточка */
+/* Карточка */
 .card{
   backdrop-filter:blur(20px);
   background:rgba(255,255,255,0.15);
@@ -42,9 +42,10 @@ body{
   box-shadow:0 0 50px rgba(255,255,255,0.5);
   width:90%;max-width:520px;
   text-align:center;
-  transition:all .6s ease;
   opacity:0;
-  transform:scale(.9);
+  transform:scale(.95);
+  transition:all .6s ease;
+  position:relative;
 }
 .card.active{
   opacity:1;
@@ -60,7 +61,11 @@ button{
   transition:.3s;
 }
 .primary{background:#ff4fa3;color:white;}
-.secondary{background:white;color:#ff4fa3;position:absolute;}
+.secondary{
+  background:white;
+  color:#ff4fa3;
+  position:absolute;
+}
 
 input{
   padding:10px;
@@ -79,7 +84,7 @@ input{
 .bar{
   height:100%;width:0%;
   background:white;
-  transition:.4s;
+  transition:.3s;
 }
 
 img{
@@ -88,7 +93,6 @@ img{
   margin-top:15px;
   box-shadow:0 0 25px rgba(255,255,255,.6);
 }
-.hidden{display:none;}
 </style>
 </head>
 <body>
@@ -97,7 +101,7 @@ img{
 
 <script>
 
-/* 🌸 Сакура */
+/* САКУРА */
 function createPetal(){
   const p=document.createElement("div");
   p.className="petal";
@@ -108,19 +112,17 @@ function createPetal(){
 }
 setInterval(createPetal,300);
 
-/* Уровни */
+/* УРОВНИ */
 const levels=[
 
-/* 1 */
 `<div class="card active">
 <h2>👑 Проверка памяти</h2>
 <p>Когда началась лучшая история?</p>
-<input id="dateInput" placeholder="21 августа 2025">
-<br>
+<input id="dateInput" placeholder="Введите дату">
+<br><br>
 <button class="primary" onclick="checkDate()">Проверить</button>
 </div>`,
 
-/* 2 */
 `<div class="card">
 <h2>💅 Тест на капризность</h2>
 <p>Ты иногда вредничаешь?</p>
@@ -128,42 +130,38 @@ const levels=[
 <button onclick="alert('Не обманывай систему 😌')">Нет</button>
 </div>`,
 
-/* 3 — БЕГАЕТ ДА */
 `<div class="card">
 <h2>💗 Ты меня любишь?</h2>
 <button id="yesBtn" class="secondary">Да ❤️</button>
 <button class="primary" onclick="noClicked()">Нет 😌</button>
 </div>`,
 
-/* 4 — КЛИКИ */
 `<div class="card">
 <h2>🎮 Докажи</h2>
-<p id="clickCount">0 / 50</p>
+<p id="clickCount">0 / 40</p>
 </div>`,
 
-/* 5 — ФЕЙК ЗАГРУЗКА */
 `<div class="card">
 <h2>⏳ Проверка терпения...</h2>
 <div class="progress"><div class="bar" id="bar"></div></div>
 </div>`,
 
-/* 6 */
 `<div class="card">
 <h2>📜 Контракт №21082025</h2>
 <p>Подтверждаешь что ты самая лучшая?</p>
 <button class="primary" onclick="nextLevel()">Подписать 👑</button>
 </div>`,
 
-/* ФИНАЛ */
 `<div class="card">
-<h2>🌸 Ты победила</h2>
+<h2>🌸 Ты прошла всё</h2>
 <p>С 21 августа 2025<br>и до бесконечности 💗</p>
 <img src="photo2.jpg">
+<br><br>
+<h2>Я тебя люблю ❤️</h2>
 <br>
-<button class="primary" onclick="showMeme()">Секрет 😈</button>
+<button class="primary" onclick="nextLevel()">Секрет 😈</button>
 </div>`,
 
-/* МЕМ */
 `<div class="card">
 <h2>КОГДА ПЫТАЕШЬСЯ ЧТО-ТО ДОКАЗАТЬ 😂</h2>
 <img src="photo3.jpg">
@@ -177,7 +175,8 @@ app.innerHTML=levels[current];
 
 /* Переход */
 function nextLevel(){
-  document.querySelector(".card").classList.remove("active");
+  const card=document.querySelector(".card");
+  card.classList.remove("active");
   setTimeout(()=>{
     current++;
     app.innerHTML=levels[current];
@@ -192,26 +191,29 @@ function nextLevel(){
 
 /* Проверка даты */
 function checkDate(){
-  const val=document.getElementById("dateInput").value;
-  if(val.includes("21") && val.includes("2025")){
+  const val=document.getElementById("dateInput").value.trim();
+  if(val==="21 августа 2025" || (val.includes("21") && val.includes("2025"))){
     nextLevel();
   }else{
-    alert("Подумай лучше 😏 21 августа 2025");
+    alert("Подумай лучше 😏 Это 21 августа 2025");
   }
 }
 
-/* БЕГАЕТ ДА */
+/* Убегающая ДА */
 function setupYesRun(){
   const yes=document.getElementById("yesBtn");
+  yes.style.top="60%";
+  yes.style.left="20%";
   yes.addEventListener("mouseover",()=>{
-    yes.style.top=Math.random()*80+"%";
-    yes.style.left=Math.random()*80+"%";
+    yes.style.top=Math.random()*70+"%";
+    yes.style.left=Math.random()*70+"%";
   });
 }
 
-/* НЕТ */
+/* НЕТ → сообщение и переход */
 function noClicked(){
   alert("Я так и знал 😌");
+  nextLevel();
 }
 
 /* Клики */
@@ -219,27 +221,23 @@ function setupClicks(){
   let clicks=0;
   document.querySelector(".card").addEventListener("click",()=>{
     clicks++;
-    document.getElementById("clickCount").innerText=clicks+" / 50";
-    if(clicks>=50) nextLevel();
+    document.getElementById("clickCount").innerText=clicks+" / 40";
+    if(clicks>=40) nextLevel();
   });
 }
 
-/* Фейковая загрузка — больше не зависает */
+/* Загрузка */
 function fakeLoading(){
   let width=0;
   const bar=document.getElementById("bar");
   const interval=setInterval(()=>{
-    width+=5;
+    width+=4;
     bar.style.width=width+"%";
     if(width>=100){
       clearInterval(interval);
       nextLevel();
     }
-  },200);
-}
-
-function showMeme(){
-  nextLevel();
+  },150);
 }
 
 </script>
