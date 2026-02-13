@@ -33,18 +33,12 @@ h1{
   font-size:calc(16px + 2vw);
   font-weight:900;
 }
-.clickable-heart, .moving-heart{
-  width:80px; height:80px; background:red;
-  clip-path:polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
-  cursor:pointer; transition:transform 0.2s; position:absolute;
-}
-.clickable-heart:hover, .moving-heart:hover{ transform:scale(1.2);}
-.gift-btn{
+.gift-btn, #firstLevelBtn{
   display:inline-block; padding:12px 20px; margin:10px; background:#fff;
   border-radius:15px; cursor:pointer; transition:transform 0.2s, background 0.3s;
   font-weight:900;
 }
-.gift-btn:hover{ transform:scale(1.1); background:#FFB6C1; color:#fff;}
+.gift-btn:hover, #firstLevelBtn:hover{ transform:scale(1.1); background:#FFB6C1; color:#fff;}
 #finalBtn, #timedBtn, #runBtn, #canvasDone{
   padding:12px 25px; font-size:18px; border:none; border-radius:20px;
   cursor:pointer; background:#FF69B4; color:#fff; transition:transform 0.3s, background 0.3s;
@@ -69,16 +63,16 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
 
 <!-- Уровень 1 -->
 <div class="level" id="level1">
-  <h1>💖 Нажми на сердце, чтобы начать!</h1>
-  <div class="clickable-heart" id="startHeart" style="top:200px; left:250px;"></div>
+  <h1>С 14 февраля!</h1>
+  <button id="firstLevelBtn">Нажми меня 💖</button>
 </div>
 
 <!-- Уровень 2 -->
 <div class="level" id="level2">
   <h1>Выбери подарок 🎁</h1>
-  <div class="gift-btn" data-correct="false">Айфон 17</div>
-  <div class="gift-btn" data-correct="true">Меня</div>
-  <div class="gift-btn" data-correct="false">1000$</div>
+  <div class="gift-btn" data-correct="false">🎀 Шарик</div>
+  <div class="gift-btn" data-correct="true">❤️ Сердце</div>
+  <div class="gift-btn" data-correct="false">🍫 Шоколадка</div>
 </div>
 
 <!-- Уровень 3 -->
@@ -139,7 +133,7 @@ let currentLevel=1;
 showLevel(currentLevel);
 
 // Уровень 1
-document.getElementById("startHeart").addEventListener("click", nextLevel);
+document.getElementById("firstLevelBtn").addEventListener("click", nextLevel);
 
 // Уровень 2
 document.querySelectorAll("#level2 .gift-btn").forEach(btn=>{
