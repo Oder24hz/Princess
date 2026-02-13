@@ -45,7 +45,7 @@ h1{ color:#fff; margin-bottom:20px; text-shadow:2px 2px #FF1493;}
 }
 #patienceBar{ width:0%; height:100%; background:#FF1493; transition:width 0.1s linear; }
 canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:crosshair; }
-.clickable-word{ cursor:pointer; color:#fff; text-decoration:underline; }
+.clickable-word{ cursor:pointer; color:inherit; text-decoration:none; }
 </style>
 </head>
 <body>
@@ -84,7 +84,7 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <button id="runBtn">Лови меня!</button>
 </div>
 
-<!-- Уровень 6: Таймер с кнопкой на слове "Попади" -->
+<!-- Уровень 6: Таймер с кликабельным словом -->
 <div class="level" id="level6">
   <h1><span class="clickable-word" id="skipTimerBtn">Попади</span> в кнопку вовремя! ⏰</h1>
   <button id="timedBtn">Кликни на 1:00</button>
@@ -110,16 +110,8 @@ canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:cross
   <p id="canvasMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
 </div>
 
-<!-- Уровень 9: Шоколадка -->
-<div class="level" id="level9">
-  <h1>Выбери шоколадку 🍫</h1>
-  <div class="gift-btn" data-correct="false">Молочная</div>
-  <div class="gift-btn" data-correct="true">С сердечком</div>
-  <div class="gift-btn" data-correct="false">Белая</div>
-</div>
-
 <!-- Финальный уровень -->
-<div class="level" id="level10">
+<div class="level" id="level9">
   <h1>🎉 Ты прошла все уровни! ❤️</h1>
   <button id="finalBtn">Обними меня</button>
 </div>
@@ -133,20 +125,20 @@ showLevel(currentLevel);
 // Уровень 1
 document.getElementById("startHeart").addEventListener("click", nextLevel);
 
-// Уровни 2 и 9
-document.querySelectorAll(".gift-btn").forEach(btn=>{
+// Уровень 2
+document.querySelectorAll("#level2 .gift-btn").forEach(btn=>{
   btn.addEventListener("click", e=>{
     if(e.target.dataset.correct==="true") nextLevel();
     else alert("Ой, не тот подарок 😜");
   });
 });
 
-// Уровень 3: бегающее сердце
+// Уровень 3
 const movingHeart=document.getElementById("movingHeart");
 movingHeart.addEventListener("click", nextLevel);
 setInterval(()=>{ movingHeart.style.top=Math.random()*70+"vh"; movingHeart.style.left=Math.random()*70+"vw"; },700);
 
-// Уровень 4: 100 сердечек
+// Уровень 4
 const floatingHearts=document.getElementById("floatingHearts");
 const counterDisplay=document.getElementById("counter");
 let heartsCaught=0;
@@ -163,7 +155,7 @@ function spawnHeart(){ if(heartsCaught>=100) return;
 }
 setInterval(()=>{for(let i=0;i<2;i++) spawnHeart();},600);
 
-// Уровень 5: убегающая кнопка
+// Уровень 5
 const runBtn=document.getElementById("runBtn");
 runBtn.style.position="absolute";
 runBtn.style.top="50%";
@@ -182,7 +174,7 @@ function moveButton(){
 }
 moveButton();
 
-// Уровень 6: таймер с ускорением
+// Уровень 6: Таймер
 const timedBtn=document.getElementById("timedBtn");
 const timerDisplay=document.getElementById("timerDisplay");
 const timerMsg=document.getElementById("timerMsg");
@@ -221,13 +213,13 @@ function startTimedBtn(){
   };
 }
 
-// Уровень 7: проверка на терпение
+// Уровень 7: Проверка на терпение
 const patienceBarElem=document.getElementById("patienceBar");
 const patienceMsg=document.getElementById("patienceMsg");
 function startPatienceLevel(){
-  let startTime=Date.now();
   patienceBarElem.style.width="0%";
   patienceMsg.textContent="";
+  let startTime=Date.now();
   let interval = setInterval(()=>{
     let elapsed=(Date.now()-startTime)/1000;
     let percent=(elapsed/60)*100;
@@ -246,7 +238,7 @@ function startPatienceLevel(){
   },100);
 }
 
-// Уровень 8: рисовалка
+// Уровень 8: Рисовалка
 const canvas=document.getElementById("drawCanvas");
 const ctx=canvas.getContext("2d");
 let drawing=false;
@@ -278,7 +270,7 @@ function showLevel(n){
 
 function nextLevel(){
   currentLevel++;
-  if(currentLevel>10) currentLevel=10;
+  if(currentLevel>9) currentLevel=9;
   showLevel(currentLevel);
 }
 
