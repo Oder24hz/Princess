@@ -39,7 +39,7 @@ body{
   background:rgba(255,255,255,0.15);
   padding:40px;
   border-radius:25px;
-  box-shadow:0 0 50px rgba(255,255,255,0.5);
+  box-shadow:0 0 50px rgba(255,255,255,.5);
   width:90%;max-width:520px;
   text-align:center;
   opacity:0;
@@ -92,6 +92,14 @@ img{
   border-radius:20px;
   margin-top:15px;
   box-shadow:0 0 25px rgba(255,255,255,.6);
+  cursor:pointer;
+}
+.puzzle-piece{
+  width:120px;
+  height:120px;
+  display:inline-block;
+  margin:2px;
+  background-size: cover;
 }
 </style>
 </head>
@@ -125,7 +133,7 @@ const levels=[
 `<div class="card">
 <h2>💅 Тест на капризность</h2>
 <p>Ты иногда вредничаешь?</p>
-<button class="primary" onclick="nextLevelMessage('ну... молодца')">Я принцесса, мне можно</button>
+<button class="primary" onclick="nextLevelMessage('ещё попробуй поспорить')">Я принцесса, мне можно</button>
 <button onclick="alert('Не обманывай систему 😌')">Нет</button>
 </div>`,
 
@@ -148,7 +156,7 @@ const levels=[
 `<div class="card">
 <h2>📜 Контракт №21082025</h2>
 <p>Подтверждаешь что ты самая лучшая?</p>
-<button class="primary" onclick="nextLevelMessage('ещё попробуй поспорить')">Подписать 👑</button>
+<button class="primary" onclick="nextLevel()">Подписать 👑</button>
 </div>`,
 
 `<div class="card">
@@ -159,13 +167,19 @@ const levels=[
 </div>`,
 
 `<div class="card">
+<h2>🧩 Фото-пазл</h2>
+<p>Собери пазл, чтобы увидеть сюрприз!</p>
+<div id="puzzle"></div>
+</div>`,
+
+`<div class="card">
 <h2>🌸 Ты прошла всё</h2>
 <p>С 21 августа 2025<br>и до бесконечности 💗</p>
 <img src="photo2.jpg">
 <br><br>
 <h2>Я тебя люблю ❤️</h2>
 <br>
-<button class="primary" onclick="nextLevel()">Секрет 😈</button>
+<img src="photo3.jpg">
 </div>`
 ];
 
@@ -187,6 +201,7 @@ function nextLevel(){
       if(current===2) setupYesRun();
       if(current===3) setupClicks();
       if(current===4) fakeLoading();
+      if(current===7) setupPuzzle();
     },50);
   },500);
 }
@@ -232,7 +247,7 @@ function setupClicks(){
   const card=document.querySelector(".card");
   card.addEventListener("click",()=>{
     clicks++;
-    if(clicks>maxClicks && maxClicks===50){
+    if(clicks>50 && maxClicks===50){
       maxClicks=150;
       clickText.innerText=clicks+" / "+maxClicks;
       alert("Я тебе не верю, ещё тыкай");
@@ -267,6 +282,28 @@ function standoffAnswer(ans){
   } else {
     alert("Неверно 😏 Попробуй снова");
   }
+}
+
+/* Пазл */
+function setupPuzzle(){
+  const puzzleDiv=document.getElementById("puzzle");
+  puzzleDiv.innerHTML="";
+  const parts=["puzzle1.jpg","puzzle2.jpg","puzzle3.jpg","puzzle4.jpg"];
+  let solved=0;
+  parts.sort(()=>Math.random()-0.5).forEach(src=>{
+    const piece=document.createElement("div");
+    piece.className="puzzle-piece";
+    piece.style.backgroundImage=`url(${src})`;
+    piece.addEventListener("click",()=>{
+      piece.style.opacity="0.3";
+      solved++;
+      if(solved===4){
+        alert("Пазл собран! Ты супер 😘");
+        nextLevel();
+      }
+    });
+    puzzleDiv.appendChild(piece);
+  });
 }
 
 </script>
