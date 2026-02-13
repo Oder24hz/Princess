@@ -35,7 +35,7 @@
     margin: 0 auto;
     cursor: pointer;
     transition: transform 0.2s;
-    position: relative;
+    position: absolute;
   }
   .clickable-heart:hover, .moving-heart:hover { transform: scale(1.2); }
   .gift-btn {
@@ -48,14 +48,6 @@
     transition: transform 0.2s, background 0.3s;
   }
   .gift-btn:hover { transform: scale(1.1); background: #FFB6C1; color: #fff; }
-  #floatingHearts div {
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: red;
-    clip-path: polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
-    animation: float linear infinite;
-  }
   #finalBtn {
     padding: 20px 40px;
     font-size: 20px;
@@ -68,7 +60,11 @@
   }
   #finalBtn:hover { transform: scale(1.2); }
   @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-  @keyframes float { 0%{transform:translateY(100vh) scale(0.8);} 50%{transform:translateY(50vh) scale(1);} 100%{transform:translateY(0) scale(0.8);} }
+  @keyframes float {
+    0%{transform:translateY(-50px) scale(0.8);}
+    50%{transform:translateY(50vh) scale(1);}
+    100%{transform:translateY(100vh) scale(0.8);}
+  }
 </style>
 </head>
 <body>
@@ -76,7 +72,7 @@
   <!-- Уровни -->
   <div class="level" id="level1">
     <h1>💖 Нажми на сердце, чтобы начать!</h1>
-    <div class="clickable-heart" id="startHeart"></div>
+    <div class="clickable-heart" id="startHeart" style="position:relative;margin:0 auto;top:0;"></div>
   </div>
 
   <div class="level" id="level2">
@@ -92,8 +88,9 @@
   </div>
 
   <div class="level" id="level4">
-    <h1>Кликайте на сердца!</h1>
-    <div id="floatingHearts"></div>
+    <h1>Кликайте на 100 сердечек! ❤️</h1>
+    <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
+    <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
   </div>
 
   <div class="level" id="level5">
@@ -113,7 +110,7 @@
 let currentLevel = 1;
 showLevel(currentLevel);
 
-// Уровень 1: старт
+// Уровень 1
 document.getElementById("startHeart").addEventListener("click", nextLevel);
 
 // Уровни 2 и 5: выбор подарка
@@ -131,23 +128,31 @@ movingHeart.addEventListener("click", nextLevel);
 setInterval(() => {
   movingHeart.style.top = Math.random()*70 + "vh";
   movingHeart.style.left = Math.random()*70 + "vw";
-}, 1000);
+}, 800);
 
-// Уровень 4: мелькающие сердца
+// Уровень 4: ловим 100 сердечек
 const floatingHearts = document.getElementById("floatingHearts");
-let heartsClicked = 0;
-for(let i=0;i<10;i++){
+const counterDisplay = document.getElementById("counter");
+let heartsCaught = 0;
+function spawnHeart(){
+  if(heartsCaught >= 100) return;
   let heart = document.createElement("div");
-  heart.style.left = Math.random()*90 + "vw";
-  heart.style.top = Math.random()*90 + "vh";
-  heart.style.animationDuration = (2+Math.random()*3)+"s";
-  heart.addEventListener("click", () => {
-    heart.style.display="none";
-    heartsClicked++;
-    if(heartsClicked===10) nextLevel();
+  heart.style.width = heart.style.height = "30px";
+  heart.style.background = "red";
+  heart.style.position = "absolute";
+  heart.style.top = Math.random()*350 + "px";
+  heart.style.left = Math.random()*500 + "px";
+  heart.style.clipPath = "polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%)";
+  heart.style.cursor = "pointer";
+  heart.addEventListener("click", ()=>{
+    heart.remove();
+    heartsCaught++;
+    counterDisplay.textContent = "Поймано: " + heartsCaught + " / 100";
+    if(heartsCaught >= 100) nextLevel();
   });
   floatingHearts.appendChild(heart);
 }
+let spawnInterval = setInterval(spawnHeart, 50);
 
 // Финальный уровень
 document.getElementById("finalBtn").addEventListener("click", () => {
@@ -165,7 +170,7 @@ function nextLevel(){
   showLevel(currentLevel);
 }
 
-// Стартовый уровень сразу показываем
+// Показ стартового уровня
 showLevel(currentLevel);
 </script>
 </body>
