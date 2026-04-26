@@ -15,8 +15,7 @@ margin:0;
 font-family:'Montserrat',sans-serif;
 background:black;
 color:white;
-overflow:hidden;
-height:100vh;
+overflow-x:hidden;
 }
 
 /* NAVBAR */
@@ -45,27 +44,6 @@ font-weight:800;
 opacity:0.85;
 }
 
-/* BIG LOGO */
-.big-logo{
-text-align:center;
-font-size:clamp(40px,5vw,90px);
-font-weight:900;
-margin-bottom:50px;
-
-background:linear-gradient(90deg,#fff,#bbb,#fff);
-background-size:200% auto;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-text-shadow:0 0 25px rgba(255,255,255,0.7);
-animation:shine 4s linear infinite;
-}
-
-@keyframes shine{
-0%{background-position:0%;}
-100%{background-position:200%;}
-}
-
 /* HERO */
 .hero{
 height:100vh;
@@ -83,7 +61,7 @@ transform:translateY(-50px);
 }
 
 .title{
-font-size:clamp(50px,6vw,110px);
+font-size:110px;
 font-weight:900;
 animation:pulse 2.5s infinite;
 }
@@ -115,20 +93,10 @@ box-shadow:0 0 25px rgba(255,255,255,0.5);
 
 /* SERVICES */
 #services{
-position:absolute;
-top:0;
-left:0;
-width:100%;
-height:100vh;
-
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-
 opacity:0;
 pointer-events:none;
 transition:.6s;
+padding:120px 20px;
 }
 
 #services.show{
@@ -136,26 +104,17 @@ opacity:1;
 pointer-events:auto;
 }
 
-.services-inner{
-width:100%;
-max-width:1000px;
-display:flex;
-flex-direction:column;
-align-items:center;
-padding:0 20px;
-}
-
-/* GRID */
 .services-container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:20px;
-width:100%;
+gap:30px;
+max-width:1000px;
+margin:auto;
 }
 
 .service{
 position:relative;
-padding:20px;
+padding:30px;
 border-radius:20px;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.15);
@@ -171,13 +130,13 @@ text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
-font-size:clamp(22px,3vw,38px);
+font-size:38px;
 font-weight:900;
-margin:10px 0;
+margin:15px 0;
 text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
-/* DESC */
+/* ВЫЕЗД СНИЗУ */
 .desc{
 position:absolute;
 left:0;
@@ -186,6 +145,7 @@ width:100%;
 background:rgba(0,0,0,0.95);
 padding:20px;
 border-radius:0 0 20px 20px;
+
 transform:translateY(100%);
 opacity:0;
 transition:.3s;
@@ -198,15 +158,15 @@ opacity:1;
 
 /* BUY */
 .buy-global{
-margin-top:30px;
+margin-top:150px;
 display:flex;
 justify-content:center;
-gap:15px;
+gap:20px;
 flex-wrap:wrap;
 }
 
 .buy-global button{
-padding:14px 25px;
+padding:16px 30px;
 border-radius:10px;
 border:none;
 background:white;
@@ -244,6 +204,8 @@ border-radius:15px;
 width:90%;
 max-width:400px;
 position:relative;
+
+/* ДОБАВИЛ */
 display:flex;
 flex-direction:column;
 }
@@ -255,6 +217,7 @@ right:15px;
 cursor:pointer;
 }
 
+/* БЕЛЫЕ ССЫЛКИ */
 a.white-link{
 color:white;
 font-weight:900;
@@ -262,6 +225,7 @@ text-decoration:none;
 text-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
+/* CANVAS */
 canvas{
 position:fixed;
 top:0;
@@ -269,10 +233,12 @@ left:0;
 z-index:-1;
 }
 
+/* КНОПКА */
 #payBtn{
 width:100%;
 margin-top:auto;
 padding:18px;
+border-radius:12px;
 }
 </style>
 </head>
@@ -297,14 +263,12 @@ padding:18px;
 <canvas id="particles"></canvas>
 
 <div id="services">
-<div class="services-inner">
-
-<div class="big-logo">@OderOptimization</div>
-
 <div class="services-container">
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">Optimization Windows ▼</div>
+<div class="service-title" onclick="toggle(this)">
+Optimization Windows ▼
+</div>
 <div class="price">200₽ | 120₴</div>
 <div class="desc">
 Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.
@@ -312,15 +276,19 @@ padding:18px;
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">Optimization Bluestacks ▼</div>
+<div class="service-title" onclick="toggle(this)">
+Optimization Bluestacks ▼
+</div>
 <div class="price">400₽ | 240₴</div>
 <div class="desc">
-Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпут лага/фризов.
+Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпутл ага/фризов.
 </div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">Virus Removal ▼</div>
+<div class="service-title" onclick="toggle(this)">
+Virus Removal ▼
+</div>
 <div class="price">150₽ | 90₴</div>
 <div class="desc">
 Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры, стиллеры.
@@ -328,7 +296,9 @@ padding:18px;
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">Configuring Emulator ▼</div>
+<div class="service-title" onclick="toggle(this)">
+Configuring Emulator ▼
+</div>
 <div class="price">100₽ | 60₴</div>
 <div class="desc">
 Настройка любого эмулятора под ваш компьютер для получение высокого фпс и стабильности эмулятора.
@@ -341,8 +311,6 @@ padding:18px;
 <button onclick="openModal('rub')">Купить за рубли</button>
 <button onclick="openModal('uah')">Купить за гривны</button>
 <button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
-</div>
-
 </div>
 </div>
 
@@ -365,6 +333,7 @@ padding:18px;
 
 <p>
 При покупке любой услуги вы принимаете 
+  
 <a href="#" onclick="openAgreement()" class="white-link">Пользовательское соглашение</a>
 </p>
 
@@ -373,7 +342,7 @@ padding:18px;
 </div>
 </div>
 
-<!-- СОГЛАШЕНИЕ (ПОЛНОЕ, как у тебя было) -->
+<!-- СОГЛАШЕНИЕ -->
 <div class="modal" id="agreementModal">
 <div class="modal-content" style="max-width:600px; max-height:80vh; overflow:auto;">
 <div class="close" onclick="closeAgreement()">✖</div>
@@ -407,7 +376,7 @@ padding:18px;
 </div>
 
 <script>
-// ОРИГИНАЛЬНЫЙ JS
+// ВЕСЬ ТВОЙ JS БЕЗ ИЗМЕНЕНИЙ
 function openServices(){
 document.getElementById("hero").classList.add("hide");
 setTimeout(()=>{
@@ -424,7 +393,10 @@ current.classList.remove("show");
 return;
 }
 
-document.querySelectorAll(".desc").forEach(d=>d.classList.remove("show"));
+document.querySelectorAll(".desc").forEach(d=>{
+d.classList.remove("show");
+});
+
 current.classList.add("show");
 }
 
@@ -453,6 +425,54 @@ document.getElementById("agreementModal").classList.add("show");
 function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
+
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+let particles=[];
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+dx:(Math.random()-0.5)*0.5,
+dy:(Math.random()-0.5)*0.5
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.x+=p.dx;
+p.y+=p.dy;
+
+if(p.x<=0 || p.x>=canvas.width) p.dx*=-1;
+if(p.y<=0 || p.y>=canvas.height) p.dy*=-1;
+
+ctx.fillRect(p.x,p.y,2,2);
+
+particles.forEach(p2=>{
+let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(p.x,p.y);
+ctx.lineTo(p2.x,p2.y);
+ctx.strokeStyle="rgba(255,255,255,0.08)";
+ctx.stroke();
+}
+});
+});
+
+requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
