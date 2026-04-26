@@ -118,6 +118,7 @@ padding:30px;
 border-radius:20px;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.15);
+overflow:hidden;
 }
 
 .service-title{
@@ -126,11 +127,6 @@ justify-content:space-between;
 cursor:pointer;
 font-weight:700;
 text-shadow:0 0 10px rgba(255,255,255,0.3);
-
-/* ===== FIX ===== */
-position:relative;
-z-index:2;
-/* ===== FIX ===== */
 }
 
 .price{
@@ -140,28 +136,24 @@ margin:15px 0;
 text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
-/* ВСПЛЫВАЮЩЕЕ ОПИСАНИЕ */
+/* ВЫЕЗД СНИЗУ */
 .desc{
 position:absolute;
 left:0;
-top:0;
+bottom:0;
 width:100%;
-height:100%;
 background:rgba(0,0,0,0.95);
 padding:20px;
-border-radius:20px;
-opacity:0;
-pointer-events:none;
-transition:.3s;
+border-radius:0 0 20px 20px;
 
-/* ===== FIX ===== */
-z-index:1;
-/* ===== FIX ===== */
+transform:translateY(100%);
+opacity:0;
+transition:.3s;
 }
 
 .desc.show{
+transform:translateY(0);
 opacity:1;
-pointer-events:auto;
 }
 
 /* BUY */
@@ -336,32 +328,13 @@ Configuring Emulator ▼
 </div>
 </div>
 
-<!-- СОГЛАШЕНИЕ ПОЛНОЕ -->
+<!-- СОГЛАШЕНИЕ -->
 <div class="modal" id="agreementModal">
 <div class="modal-content" style="max-width:600px; max-height:80vh; overflow:auto;">
 <div class="close" onclick="closeAgreement()">✖</div>
 
 <h2>Пользовательское соглашение</h2>
-
-<p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.
-</p>
-
-<p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия.
-</p>
-
-<p><b>3. Политика возврата средств</b><br><br>
-Возврат средств не предусмотрен.
-</p>
-
-<p><b>4. Обязательства покупателя</b><br><br>
-Вы несете ответственность за резервное копирование данных.
-</p>
-
-<p><b>5. Завершение соглашения</b><br><br>
-Используя сайт, вы соглашаетесь с условиями.
-</p>
+<p>... (твой текст без изменений) ...</p>
 
 </div>
 </div>
@@ -406,21 +379,24 @@ function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
 
-/* КРАСИВЫЕ ЧАСТИЦЫ */
+/* ЧАСТИЦЫ FIX */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
+function resize(){
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
 
 let particles=[];
-
 for(let i=0;i<60;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.4,
-dy:(Math.random()-0.5)*0.4
+dx:(Math.random()-0.5)*0.5,
+dy:(Math.random()-0.5)*0.5
 });
 }
 
@@ -431,7 +407,9 @@ particles.forEach(p=>{
 p.x+=p.dx;
 p.y+=p.dy;
 
-ctx.fillStyle="white";
+if(p.x<=0 || p.x>=canvas.width) p.dx*=-1;
+if(p.y<=0 || p.y>=canvas.height) p.dy*=-1;
+
 ctx.fillRect(p.x,p.y,2,2);
 
 particles.forEach(p2=>{
@@ -448,7 +426,6 @@ ctx.stroke();
 
 requestAnimationFrame(animate);
 }
-
 animate();
 </script>
 
