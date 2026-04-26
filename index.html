@@ -15,7 +15,7 @@ margin:0;
 font-family:'Montserrat',sans-serif;
 background:black;
 color:white;
-overflow:hidden;
+overflow-x:hidden;
 }
 
 /* NAVBAR */
@@ -29,19 +29,6 @@ justify-content:space-between;
 background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 z-index:1000;
-}
-
-.logo{
-font-weight:900;
-font-size:18px;
-}
-
-.nav-links a{
-margin-left:25px;
-text-decoration:none;
-color:white;
-font-weight:800;
-opacity:0.85;
 }
 
 /* HERO */
@@ -61,16 +48,10 @@ transform:translateY(-50px);
 }
 
 .title{
-font-size:110px;
+font-size:100px;
 font-weight:900;
 }
 
-.hero p{
-margin-top:-10px;
-opacity:0.8;
-}
-
-/* BUTTON */
 .button{
 margin-top:30px;
 padding:16px 60px;
@@ -85,14 +66,10 @@ cursor:pointer;
 /* SERVICES */
 #services{
 min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+padding:120px 20px;
 opacity:0;
 pointer-events:none;
 transition:.6s;
-padding:100px 20px;
 }
 
 #services.show{
@@ -101,18 +78,18 @@ pointer-events:auto;
 }
 
 .services-title{
-font-size:40px;
-font-weight:900;
-margin-bottom:40px;
 text-align:center;
+font-size:42px;
+font-weight:900;
+margin-bottom:50px;
 }
 
 .services-container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:30px;
-width:100%;
-max-width:800px;
+max-width:900px;
+margin:auto;
 }
 
 .service{
@@ -146,7 +123,6 @@ width:100%;
 background:rgba(0,0,0,0.95);
 padding:20px;
 border-radius:0 0 20px 20px;
-
 transform:translateY(100%);
 opacity:0;
 transition:.3s;
@@ -159,21 +135,11 @@ opacity:1;
 
 /* BUY */
 .buy-global{
-margin-top:40px;
+margin-top:60px;
 display:flex;
-gap:15px;
-flex-wrap:wrap;
 justify-content:center;
-}
-
-.buy-global button{
-padding:12px 25px;
-border-radius:10px;
-border:none;
-background:white;
-color:black;
-font-weight:900;
-cursor:pointer;
+gap:20px;
+flex-wrap:wrap;
 }
 
 /* MODAL */
@@ -241,17 +207,11 @@ grid-template-columns:1fr;
 <body>
 
 <div class="navbar">
-<div class="logo">@OderOptimization</div>
-<div class="nav-links">
-<a href="https://t.me/Oder_optim">Reviews</a>
-<a href="https://t.me/Oderrrr">Channel</a>
-<a href="https://t.me/OderOptimization">Support</a>
-</div>
+<div>@OderOptimization</div>
 </div>
 
 <div class="hero" id="hero">
 <h1 class="title">Oder24hz</h1>
-<p>Optimization changes the rules of the game.</p>
 <button class="button" onclick="openServices()">Store</button>
 </div>
 
@@ -268,25 +228,25 @@ grid-template-columns:1fr;
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Optimization Windows ▼</div>
 <div class="price">200₽ | 120₴</div>
-<div class="desc">Удаление встроенных программ Windows, отключение ненужных служб, повышение FPS.</div>
+<div class="desc">Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.</div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Optimization Bluestacks ▼</div>
 <div class="price">400₽ | 240₴</div>
-<div class="desc">Глубокая настройка эмулятора, разблокировка ядер, повышение FPS.</div>
+<div class="desc">Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпут лага/фризов.</div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Virus Removal ▼</div>
 <div class="price">150₽ | 90₴</div>
-<div class="desc">Удаление вирусов, майнеров, стиллеров.</div>
+<div class="desc">Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры, стиллеры.</div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Configuring Emulator ▼</div>
 <div class="price">100₽ | 60₴</div>
-<div class="desc">Настройка эмулятора под максимальную производительность.</div>
+<div class="desc">Настройка любого эмулятора под ваш компьютер для получение высокого фпс и стабильности эмулятора.</div>
 </div>
 
 </div>
@@ -304,8 +264,9 @@ grid-template-columns:1fr;
 <div class="modal-content">
 <div class="close" onclick="closeModal()">✖</div>
 
-<p>После оплаты напишите сюда:</p>
-<a class="white-link" href="https://t.me/OderOptimization">@OderOptimization</a>
+<p>При покупке вы принимаете 
+<a href="#" onclick="openAgreement()" class="white-link">пользовательское соглашение</a>
+</p>
 
 <button id="payBtn" class="button">Купить</button>
 </div>
@@ -319,11 +280,11 @@ grid-template-columns:1fr;
 <h2>Пользовательское соглашение</h2>
 
 <p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера.
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.
 </p>
 
 <p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера.
+Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия.
 </p>
 
 <p><b>3. Политика возврата средств</b><br><br>
@@ -351,26 +312,12 @@ document.getElementById("services").classList.add("show");
 }
 
 function toggle(el){
-let current = el.parentElement.querySelector(".desc");
-
-document.querySelectorAll(".desc").forEach(d=>{
-d.classList.remove("show");
-});
-
-current.classList.toggle("show");
+let desc = el.parentElement.querySelector(".desc");
+desc.classList.toggle("show");
 }
 
 function openModal(type){
 let modal=document.getElementById("modal");
-let btn=document.getElementById("payBtn");
-
-if(type==="rub"){
-btn.onclick=()=>window.open("https://www.donationalerts.com/r/oder24hz");
-}
-if(type==="uah"){
-btn.onclick=()=>window.open("https://new.donatepay.ru/@1292052");
-}
-
 modal.classList.add("show");
 }
 
@@ -378,10 +325,15 @@ function closeModal(){
 document.getElementById("modal").classList.remove("show");
 }
 
+function openAgreement(){
+document.getElementById("agreementModal").classList.add("show");
+}
+
 function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
 
+/* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
@@ -393,7 +345,7 @@ resize();
 window.addEventListener("resize", resize);
 
 let particles=[];
-for(let i=0;i<60;i++){
+for(let i=0;i<80;i++){
 particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
@@ -413,6 +365,17 @@ if(p.x<=0 || p.x>=canvas.width) p.dx*=-1;
 if(p.y<=0 || p.y>=canvas.height) p.dy*=-1;
 
 ctx.fillRect(p.x,p.y,2,2);
+
+particles.forEach(p2=>{
+let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(p.x,p.y);
+ctx.lineTo(p2.x,p2.y);
+ctx.strokeStyle="rgba(255,255,255,0.08)";
+ctx.stroke();
+}
+});
 });
 
 requestAnimationFrame(animate);
