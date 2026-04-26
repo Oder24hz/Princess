@@ -96,11 +96,7 @@ box-shadow:0 0 25px rgba(255,255,255,0.5);
 opacity:0;
 pointer-events:none;
 transition:.6s;
-padding:100px 20px 60px;
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
+padding:120px 20px;
 }
 
 #services.show{
@@ -111,22 +107,19 @@ pointer-events:auto;
 .services-container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:25px;
-max-width:1000px;
+gap:30px;
+max-width:1300px; /* увеличил */
 margin:auto;
 }
 
 .service{
 position:relative;
-padding:30px;
+padding:40px; /* увеличил */
 border-radius:20px;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.15);
 overflow:hidden;
-min-height:220px;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
+min-height:260px; /* увеличил */
 }
 
 .service-title{
@@ -144,6 +137,7 @@ margin:15px 0;
 text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
+/* DESC */
 .desc{
 position:absolute;
 left:0;
@@ -164,7 +158,7 @@ opacity:1;
 
 /* BUY */
 .buy-global{
-margin-top:40px;
+margin-top:50px;
 display:flex;
 justify-content:center;
 gap:20px;
@@ -219,7 +213,7 @@ right:15px;
 cursor:pointer;
 }
 
-/* БЕЛЫЕ ССЫЛКИ */
+/* LINKS */
 a.white-link{
 color:white;
 font-weight:900;
@@ -262,25 +256,33 @@ z-index:-1;
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Optimization Windows ▼</div>
 <div class="price">200₽ | 120₴</div>
-<div class="desc">Удаление встроенных программ Windows, отключение ненужных служб...</div>
+<div class="desc">
+Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.
+</div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Optimization Bluestacks ▼</div>
 <div class="price">400₽ | 240₴</div>
-<div class="desc">Глубокая настройка эмулятора...</div>
+<div class="desc">
+Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпутлага/фризов.
+</div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Virus Removal ▼</div>
 <div class="price">150₽ | 90₴</div>
-<div class="desc">Глубокая проверка компьютера...</div>
+<div class="desc">
+Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры, стиллеры.
+</div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Configuring Emulator ▼</div>
 <div class="price">100₽ | 60₴</div>
-<div class="desc">Настрою любой эмулятор...</div>
+<div class="desc">
+Настрою любой эмулятор под ваш компьютер для получение высокого фпс и стабильности эмулятора.
+</div>
 </div>
 
 </div>
@@ -326,17 +328,32 @@ z-index:-1;
 
 <h2>Пользовательское соглашение</h2>
 
-<p><b>1. Предмет соглашения</b><br><br>...</p>
-<p><b>2. Ответственность сторон</b><br><br>...</p>
-<p><b>3. Политика возврата средств</b><br><br>...</p>
-<p><b>4. Обязательства покупателя</b><br><br>...</p>
-<p><b>5. Завершение соглашения</b><br><br>...</p>
+<p><b>1. Предмет соглашения</b><br><br>
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера...
+</p>
+
+<p><b>2. Ответственность сторон</b><br><br>
+Покупатель принимает на себя полную ответственность за состояние своего компьютера...
+</p>
+
+<p><b>3. Политика возврата средств</b><br><br>
+Возврат денежных средств не предусмотрен...
+</p>
+
+<p><b>4. Обязательства покупателя</b><br><br>
+— Вы осознаете риски...<br>
+— Делаете резервные копии...<br>
+— Гарантия может быть аннулирована...
+</p>
+
+<p><b>5. Завершение соглашения</b><br><br>
+Используя сайт, вы соглашаетесь с условиями.
+</p>
 
 </div>
 </div>
 
 <script>
-// ВСЁ ТВОЁ ОРИГИНАЛЬНОЕ JS
 function openServices(){
 document.getElementById("hero").classList.add("hide");
 setTimeout(()=>{
@@ -386,6 +403,7 @@ function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
 
+/* particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
