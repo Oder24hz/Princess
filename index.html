@@ -31,9 +31,7 @@ backdrop-filter:blur(10px);
 z-index:1000;
 }
 
-.logo{
-font-weight:900;
-}
+.logo{font-weight:900;}
 
 .nav-links a{
 margin-left:25px;
@@ -75,7 +73,6 @@ font-style:italic;
 opacity:0.8;
 }
 
-/* BUTTON */
 .button{
 margin-top:30px;
 padding:16px 60px;
@@ -127,7 +124,6 @@ font-weight:700;
 .arrow{
 transition:.3s;
 }
-
 .arrow.rotate{
 transform:rotate(180deg);
 }
@@ -138,7 +134,7 @@ font-weight:900;
 margin:15px 0;
 }
 
-/* ОПИСАНИЕ СНИЗУ */
+/* ОПИСАНИЕ */
 .desc{
 position:absolute;
 left:0;
@@ -250,7 +246,7 @@ z-index:-1;
 <div class="services-container">
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
+<div class="service-title">
 Optimization Windows <span class="arrow">▼</span>
 </div>
 <div class="price">200₽ | 120₴</div>
@@ -260,32 +256,32 @@ Optimization Windows <span class="arrow">▼</span>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
+<div class="service-title">
 Bluestacks <span class="arrow">▼</span>
 </div>
 <div class="price">400₽ | 240₴</div>
 <div class="desc">
-Глубокая настройка эмулятора, настройка Nvidia, удаление телеметрии на любых видеокартах, разблокировка ядер, очистка системы, повышение фпс.
+Глубокая настройка эмулятора, настройка Nvidia, удаление телеметрии, разблокировка ядер и повышение фпс.
 </div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
+<div class="service-title">
 Virus Removal <span class="arrow">▼</span>
 </div>
 <div class="price">150₽ | 90₴</div>
 <div class="desc">
-Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры и стиллеры.
+Глубокая проверка компьютера на трояны, майнеры и стиллеры.
 </div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
+<div class="service-title">
 Configuring Emulator <span class="arrow">▼</span>
 </div>
 <div class="price">100₽ | 60₴</div>
 <div class="desc">
-Настройка любого эмулятора под ваш компьютер для получения высокого FPS и стабильности.
+Настройка эмуляторов под FPS и стабильность.
 </div>
 </div>
 
@@ -312,11 +308,11 @@ Configuring Emulator <span class="arrow">▼</span>
 
 <p>
 Оптимизация проходит через программы Anydesk, Rudesktop<br>
-<span style="opacity:0.7;">(не скачивайте сами, в Telegram я скину файлы для установки)</span>
+<span style="opacity:0.7;">(не скачивайте сами)</span>
 </p>
 
 <p>
-При покупке оптимизации вы принимаете 
+При покупке вы принимаете 
 <a href="#" onclick="openAgreement()" class="white-link">Пользовательское соглашение</a>
 </p>
 
@@ -325,7 +321,7 @@ Configuring Emulator <span class="arrow">▼</span>
 </div>
 </div>
 
-<!-- ПОЛНОЕ СОГЛАШЕНИЕ -->
+<!-- AGREEMENT -->
 <div class="modal" id="agreementModal">
 <div class="modal-content" style="max-width:700px; max-height:80vh; overflow:auto;">
 <div class="close" onclick="closeAgreement()">✖</div>
@@ -333,21 +329,8 @@ Configuring Emulator <span class="arrow">▼</span>
 <h2>Пользовательское соглашение</h2>
 
 <p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.</p>
-
-<p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия, которые могут возникнуть в процессе или после применения наших оптимизаций. Мы не можем гарантировать совместимость наших решений со всеми конфигурациями программного обеспечения и оборудования, а также с любыми сторонними программами, установленными на вашем устройстве.</p>
-
-<p><b>3. Политика возврата средств</b><br><br>
-В соответствии с характером предоставляемых нами нематериальных услуг (цифровые продукты, консультации, удаленная помощь), возврат денежных средств за приобретенные оптимизации не предусмотрен. Мы вкладываем значительные ресурсы в разработку и поддержку наших решений. Получив доступ к услуге или скачав цифровой продукт, вы тем самым подтверждаете свое согласие с данным условием.</p>
-
-<p><b>4. Обязательства покупателя</b><br><br>
-Вы полностью осознаете риски, связанные с внесением изменений в настройки вашего компьютера.<br><br>
-Вы самостоятельно несете ответственность за резервное копирование всех важных данных перед применением каких-либо оптимизаций.<br><br>
-Вы согласны с тем, что гарантия на ваше оборудование или программное обеспечение может быть аннулирована производителем.</p>
-
-<p><b>5. Завершение соглашения</b><br><br>
-Используя наш сайт и приобретая наши услуги, вы выражаете полное согласие с условиями настоящего Пользовательского соглашения.</p>
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера...
+</p>
 
 </div>
 </div>
@@ -361,13 +344,26 @@ document.getElementById("services").classList.add("show");
 },400);
 }
 
-function toggle(el){
-let desc=el.parentElement.querySelector(".desc");
-let arrow=el.querySelector(".arrow");
-desc.classList.toggle("show");
-arrow.classList.toggle("rotate");
-}
+/* ФИКС ОТКРЫТИЯ/ЗАКРЫТИЯ */
+document.querySelectorAll(".service-title").forEach(title=>{
+title.onclick=()=>{
+let service=title.parentElement;
+let desc=service.querySelector(".desc");
+let arrow=title.querySelector(".arrow");
 
+/* закрыть все */
+document.querySelectorAll(".desc").forEach(d=>d.classList.remove("show"));
+document.querySelectorAll(".arrow").forEach(a=>a.classList.remove("rotate"));
+
+/* открыть если было закрыто */
+if(!desc.classList.contains("show")){
+desc.classList.add("show");
+arrow.classList.add("rotate");
+}
+}
+});
+
+/* MODAL */
 function openModal(type){
 let modal=document.getElementById("modal");
 let btn=document.getElementById("payBtn");
@@ -393,6 +389,51 @@ document.getElementById("agreementModal").classList.add("show");
 function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
+
+/* ЧАСТИЦЫ */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+
+for(let i=0;i<60;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+dx:(Math.random()-0.5)*0.4,
+dy:(Math.random()-0.5)*0.4
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.x+=p.dx;
+p.y+=p.dy;
+
+ctx.fillStyle="white";
+ctx.fillRect(p.x,p.y,2,2);
+
+particles.forEach(p2=>{
+let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(p.x,p.y);
+ctx.lineTo(p2.x,p2.y);
+ctx.strokeStyle="rgba(255,255,255,0.08)";
+ctx.stroke();
+}
+});
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
 </script>
 
 </body>
