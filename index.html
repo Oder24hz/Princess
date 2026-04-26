@@ -244,6 +244,17 @@ z-index:-1;
 grid-template-columns:1fr;
 }
 }
+
+/* УБРАТЬ СКРОЛЛБАР В СОГЛАШЕНИИ */
+#agreementModal .modal-content{
+overflow:auto;
+scrollbar-width:none;
+}
+
+#agreementModal .modal-content::-webkit-scrollbar{
+display:none;
+}
+}
 </style>
 </head>
 
