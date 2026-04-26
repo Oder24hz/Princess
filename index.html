@@ -33,6 +33,7 @@ z-index:1000;
 
 .logo{
 font-weight:900;
+font-size:18px;
 }
 
 .nav-links a{
@@ -40,11 +41,7 @@ margin-left:25px;
 text-decoration:none;
 color:white;
 font-weight:800;
-opacity:0.8;
-}
-
-.nav-links a:hover{
-text-shadow:0 0 10px white;
+opacity:0.85;
 }
 
 /* HERO */
@@ -64,17 +61,24 @@ transform:translateY(-50px);
 }
 
 .title{
-font-size:80px;
+font-size:110px;
 font-weight:900;
 animation:pulse 2.5s infinite;
 }
 
 @keyframes pulse{
-0%{text-shadow:0 0 10px rgba(255,255,255,0.3);}
-50%{text-shadow:0 0 45px rgba(255,255,255,0.9);}
-100%{text-shadow:0 0 10px rgba(255,255,255,0.3);}
+0%{text-shadow:0 0 15px rgba(255,255,255,0.3);}
+50%{text-shadow:0 0 60px rgba(255,255,255,1);}
+100%{text-shadow:0 0 15px rgba(255,255,255,0.3);}
 }
 
+.hero p{
+margin-top:-10px;
+font-style:italic;
+opacity:0.8;
+}
+
+/* BUTTON */
 .button{
 margin-top:30px;
 padding:16px 60px;
@@ -109,6 +113,7 @@ margin:auto;
 }
 
 .service{
+position:relative;
 padding:30px;
 border-radius:20px;
 background:rgba(255,255,255,0.05);
@@ -120,33 +125,37 @@ display:flex;
 justify-content:space-between;
 cursor:pointer;
 font-weight:700;
-}
-
-.arrow{
-transition:.3s;
-}
-
-.rotate{
-transform:rotate(180deg);
+text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
 font-size:38px;
 font-weight:900;
 margin:15px 0;
+text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
+/* ВСПЛЫВАЮЩЕЕ ОПИСАНИЕ */
 .desc{
-display:none;
-margin-top:10px;
-opacity:0.85;
+position:absolute;
+left:0;
+top:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.95);
+padding:20px;
+border-radius:20px;
+opacity:0;
+pointer-events:none;
+transition:.3s;
 }
 
 .desc.show{
-display:block;
+opacity:1;
+pointer-events:auto;
 }
 
-/* BUY GLOBAL */
+/* BUY */
 .buy-global{
 margin-top:50px;
 display:flex;
@@ -203,11 +212,12 @@ right:15px;
 cursor:pointer;
 }
 
-/* ссылки */
-a.clean{
-color:#00ffcc;
+/* БЕЛЫЕ ССЫЛКИ */
+a.white-link{
+color:white;
+font-weight:900;
 text-decoration:none;
-font-weight:700;
+text-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
 /* CANVAS */
@@ -232,7 +242,7 @@ z-index:-1;
 
 <div class="hero" id="hero">
 <h1 class="title">Oder24hz</h1>
-<p><b>Optimization changes the rules of the game.</b></p>
+<p>"Optimization changes the rules of the game."</p>
 <button class="button" onclick="openServices()">Store</button>
 </div>
 
@@ -243,7 +253,7 @@ z-index:-1;
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">
-Optimization Windows <span class="arrow">▼</span>
+Optimization Windows ▼
 </div>
 <div class="price">200₽ | 120₴</div>
 <div class="desc">
@@ -253,31 +263,31 @@ Optimization Windows <span class="arrow">▼</span>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">
-Bluestacks <span class="arrow">▼</span>
+Bluestacks ▼
 </div>
 <div class="price">400₽ | 240₴</div>
 <div class="desc">
-Глубокая настройка эмулятора, настройка Nvidia, удаление телеметрии, разблокировка ядер, очистка системы, повышение фпс и устранение инпутлага.
+Глубокая настройка эмулятора, настройка Nvidia, удаление телеметрии, разблокировка ядер и повышение фпс.
 </div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">
-Virus Removal <span class="arrow">▼</span>
+Virus Removal ▼
 </div>
 <div class="price">150₽ | 90₴</div>
 <div class="desc">
-Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры и стиллеры.
+Глубокая проверка на трояны, майнеры, стиллеры.
 </div>
 </div>
 
 <div class="service">
 <div class="service-title" onclick="toggle(this)">
-Configuring Emulator <span class="arrow">▼</span>
+Configuring Emulator ▼
 </div>
 <div class="price">100₽ | 60₴</div>
 <div class="desc">
-Настройка любого эмулятора под ваш компьютер для получения высокого FPS и стабильности.
+Настройка эмуляторов под FPS.
 </div>
 </div>
 
@@ -299,7 +309,7 @@ Configuring Emulator <span class="arrow">▼</span>
 
 <p>
 После оплаты вам нужно будет написать сюда с скриншотом оплаты:<br><br>
-<a class="clean" href="https://t.me/OderOptimization">@OderOptimization</a>
+<a class="white-link" href="https://t.me/OderOptimization">@OderOptimization</a>
 </p>
 
 <p>
@@ -309,7 +319,7 @@ Configuring Emulator <span class="arrow">▼</span>
 
 <p>
 При покупке оптимизации вы принимаете 
-<a href="#" onclick="openAgreement()">Пользовательское соглашение</a>
+<a href="#" onclick="openAgreement()" class="white-link">Пользовательское соглашение</a>
 </p>
 
 <button id="payBtn" class="button">Купить</button>
@@ -325,15 +335,15 @@ Configuring Emulator <span class="arrow">▼</span>
 <h2>Пользовательское соглашение</h2>
 
 <p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера.
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.
 </p>
 
 <p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера.
+Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия.
 </p>
 
 <p><b>3. Политика возврата средств</b><br><br>
-Возврат денежных средств не предусмотрен.
+Возврат средств не предусмотрен.
 </p>
 
 <p><b>4. Обязательства покупателя</b><br><br>
@@ -358,9 +368,7 @@ document.getElementById("services").classList.add("show");
 
 function toggle(el){
 let desc=el.parentElement.querySelector(".desc");
-let arrow=el.querySelector(".arrow");
 desc.classList.toggle("show");
-arrow.classList.toggle("rotate");
 }
 
 function openModal(type){
@@ -389,33 +397,44 @@ function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
 
-/* ФОН */
+/* КРАСИВЫЕ ЧАСТИЦЫ */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-let p=[];
+let particles=[];
 
-for(let i=0;i<50;i++){
-p.push({
+for(let i=0;i<60;i++){
+particles.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.3,
-dy:(Math.random()-0.5)*0.3
+dx:(Math.random()-0.5)*0.4,
+dy:(Math.random()-0.5)*0.4
 });
 }
 
 function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-p.forEach(a=>{
-a.x+=a.dx;
-a.y+=a.dy;
+particles.forEach(p=>{
+p.x+=p.dx;
+p.y+=p.dy;
 
-ctx.fillStyle="rgba(255,255,255,0.5)";
-ctx.fillRect(a.x,a.y,2,2);
+ctx.fillStyle="white";
+ctx.fillRect(p.x,p.y,2,2);
+
+particles.forEach(p2=>{
+let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(p.x,p.y);
+ctx.lineTo(p2.x,p2.y);
+ctx.strokeStyle="rgba(255,255,255,0.08)";
+ctx.stroke();
+}
+});
 });
 
 requestAnimationFrame(animate);
