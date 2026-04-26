@@ -18,7 +18,6 @@ color:white;
 overflow-x:hidden;
 }
 
-/* NAVBAR */
 .navbar{
 position:fixed;
 top:0;
@@ -31,7 +30,6 @@ backdrop-filter:blur(10px);
 z-index:1000;
 }
 
-/* HERO */
 .hero{
 height:100vh;
 display:flex;
@@ -74,7 +72,6 @@ background:white;
 color:black;
 }
 
-/* SERVICES */
 #services{
 opacity:0;
 pointer-events:none;
@@ -87,7 +84,6 @@ opacity:1;
 pointer-events:auto;
 }
 
-/* GRID */
 .services-container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
@@ -96,7 +92,6 @@ max-width:1000px;
 margin:auto;
 }
 
-/* CARD */
 .service{
 position:relative;
 padding:30px;
@@ -118,7 +113,6 @@ font-weight:900;
 margin:15px 0;
 }
 
-/* DROPDOWN FIXED */
 .desc{
 position:absolute;
 left:0;
@@ -143,7 +137,6 @@ transform:translateY(10px);
 .arrow{transition:.3s;}
 .rotate{transform:rotate(180deg);}
 
-/* BUY BTN */
 .buy{
 margin-top:10px;
 width:100%;
@@ -156,7 +149,6 @@ cursor:pointer;
 font-weight:700;
 }
 
-/* GLOBAL BUTTONS */
 .buy-global{
 margin-top:50px;
 display:flex;
@@ -181,7 +173,6 @@ background:white;
 color:black;
 }
 
-/* MODAL */
 .modal{
 display:flex;
 opacity:0;
@@ -224,7 +215,6 @@ right:20px;
 cursor:pointer;
 }
 
-/* PARTICLES */
 canvas{
 position:fixed;
 top:0;
@@ -232,13 +222,11 @@ left:0;
 z-index:-1;
 }
 
-/* ANIM */
 @keyframes fadeUp{
 from{opacity:0;transform:translateY(40px)}
 to{opacity:1;transform:translateY(0)}
 }
 
-/* MOBILE */
 @media(max-width:768px){
 .services-container{grid-template-columns:1fr}
 .hero h1{font-size:45px}
@@ -256,7 +244,6 @@ to{opacity:1;transform:translateY(0)}
 </div>
 </div>
 
-<!-- HERO -->
 <div class="hero" id="hero">
 <h1>Oder24hz</h1>
 <p><b>Optimization changes the rules of the game.</b></p>
@@ -265,35 +252,34 @@ to{opacity:1;transform:translateY(0)}
 
 <canvas id="particles"></canvas>
 
-<!-- SERVICES -->
 <div id="services">
 <div class="services-container">
 
 <div class="service">
 <div class="service-title">Optimization Windows <span class="arrow">▼</span></div>
 <div class="price">200₽</div>
-<div class="desc">Удаление встроеннных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.</div>
+<div class="desc">Удаление встроеннных программ Windows, отключение ненужных служб...</div>
 <button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 <div class="service">
 <div class="service-title">Bluestacks <span class="arrow">▼</span></div>
 <div class="price">400₽</div>
-<div class="desc">Глубокая настройка эмулятора, Настройка Nvidia, удаление телеметрии на любых видеокартах, разблокировка ядер для эмулятора, Очистка системы, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпутлага/фризов. </div>
+<div class="desc">Глубокая настройка эмулятора...</div>
 <button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 <div class="service">
 <div class="service-title">Virus Removal <span class="arrow">▼</span></div>
 <div class="price">150₽</div>
-<div class="desc">Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры, стиллеры.</div>
+<div class="desc">Глубокая проверка компьютера...</div>
 <button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 <div class="service">
 <div class="service-title">Configuring the emulator <span class="arrow">▼</span></div>
 <div class="price">100₽</div>
-<div class="desc">Настрою любой эмулятор под ваш компьютер для получение высокого фпс и стабильности эмулятора.</div>
+<div class="desc">Настрою любой эмулятор...</div>
 <button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
@@ -306,15 +292,54 @@ to{opacity:1;transform:translateY(0)}
 </div>
 </div>
 
-<!-- MODAL -->
+<!-- ОСНОВНАЯ МОДАЛКА -->
 <div class="modal" id="modal">
 <div class="modal-content">
 <div class="close" onclick="closeModal()">✖</div>
 
 <p>Убедитесь что у вас работает Telegram</p>
-<p>После оплаты напишите: <a href="https://t.me/OderOptimization">@OderOptimization</a></p>
+
+<p>
+После оплаты вам нужно будет написать сюда с скриншотом оплаты:
+<br><br>
+<a href="https://t.me/OderOptimization" target="_blank" style="color:#00ffcc;font-weight:700;">
+@OderOptimization
+</a>
+</p>
+
+<p>
+Оптимизация проходит через программы Anydesk, Rudesktop<br>
+<span style="opacity:0.7;">(не скачивайте сами, в Telegram я скину файлы)</span>
+</p>
+
+<p>
+При покупке оптимизации вы принимаете 
+<a href="#" onclick="openAgreement()" style="color:#00ffcc;font-weight:700;">
+Пользовательское соглашение
+</a>
+</p>
 
 <button id="payBtn" class="buy" style="margin-top:20px">Купить</button>
+
+</div>
+</div>
+
+<!-- МОДАЛКА СОГЛАШЕНИЯ -->
+<div class="modal" id="agreementModal">
+<div class="modal-content" style="max-width:600px; max-height:80vh; overflow:auto;">
+<div class="close" onclick="closeAgreement()">✖</div>
+
+<h2>Пользовательское соглашение</h2>
+
+<p><b>1. Предмет соглашения</b><br><br>Мы предлагаем программные решения...</p>
+
+<p><b>2. Ответственность сторон</b><br><br>Покупатель принимает на себя полную ответственность...</p>
+
+<p><b>3. Политика возврата средств</b><br><br>Возврат средств не предусмотрен.</p>
+
+<p><b>4. Обязательства покупателя</b><br><br>Вы осознаете риски...</p>
+
+<p><b>5. Завершение соглашения</b><br><br>Вы соглашаетесь с условиями.</p>
 
 </div>
 </div>
@@ -328,7 +353,6 @@ document.getElementById("services").classList.add("show");
 },400);
 }
 
-/* DROPDOWN */
 document.querySelectorAll(".service-title").forEach(el=>{
 el.onclick=()=>{
 let desc=el.parentElement.querySelector(".desc");
@@ -338,7 +362,6 @@ arrow.classList.toggle("rotate");
 }
 });
 
-/* MODAL */
 function openModal(type){
 let modal=document.getElementById("modal");
 let btn=document.getElementById("payBtn");
@@ -357,7 +380,15 @@ function closeModal(){
 document.getElementById("modal").classList.remove("show");
 }
 
-/* PARTICLES */
+function openAgreement(){
+document.getElementById("agreementModal").classList.add("show");
+}
+
+function closeAgreement(){
+document.getElementById("agreementModal").classList.remove("show");
+}
+
+/* particles */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
@@ -389,22 +420,6 @@ ctx.arc(p.x,p.y,2,0,Math.PI*2);
 ctx.fillStyle="white";
 ctx.fill();
 });
-
-for(let i=0;i<particles.length;i++){
-for(let j=i+1;j<particles.length;j++){
-let dx=particles[i].x-particles[j].x;
-let dy=particles[i].y-particles[j].y;
-let dist=Math.sqrt(dx*dx+dy*dy);
-
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(particles[i].x,particles[i].y);
-ctx.lineTo(particles[j].x,particles[j].y);
-ctx.strokeStyle="rgba(255,255,255,0.08)";
-ctx.stroke();
-}
-}
-}
 
 requestAnimationFrame(animate);
 }
