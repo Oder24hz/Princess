@@ -49,6 +49,15 @@ justify-content:center;
 align-items:center;
 text-align:center;
 transition:.6s;
+
+/* ПЛАВНЫЙ ФОН */
+background:radial-gradient(circle at center, #111 0%, #000 70%);
+animation:bgFlow 6s infinite alternate;
+}
+
+@keyframes bgFlow{
+0%{background:radial-gradient(circle at 40% 40%, #111, #000);}
+100%{background:radial-gradient(circle at 60% 60%, #222, #000);}
 }
 
 .hero.hide{
@@ -197,7 +206,7 @@ background:#111;
 padding:25px;
 border-radius:15px;
 width:90%;
-max-width:500px;
+max-width:600px;
 position:relative;
 }
 
@@ -220,6 +229,11 @@ position:fixed;
 top:0;
 left:0;
 z-index:-1;
+display:none;
+}
+
+#services.show + canvas{
+display:block;
 }
 </style>
 </head>
@@ -240,8 +254,6 @@ z-index:-1;
 <button class="button" onclick="openServices()">Store</button>
 </div>
 
-<canvas id="particles"></canvas>
-
 <div id="services">
 <div class="services-container">
 
@@ -250,9 +262,7 @@ z-index:-1;
 Optimization Windows <span class="arrow">▼</span>
 </div>
 <div class="price">200₽ | 120₴</div>
-<div class="desc">
-Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.
-</div>
+<div class="desc">Удаление встроенных программ Windows...</div>
 </div>
 
 <div class="service">
@@ -260,9 +270,7 @@ Optimization Windows <span class="arrow">▼</span>
 Bluestacks <span class="arrow">▼</span>
 </div>
 <div class="price">400₽ | 240₴</div>
-<div class="desc">
-Глубокая настройка эмулятора, настройка Nvidia, удаление телеметрии, разблокировка ядер и повышение фпс.
-</div>
+<div class="desc">Глубокая настройка эмулятора...</div>
 </div>
 
 <div class="service">
@@ -270,9 +278,7 @@ Bluestacks <span class="arrow">▼</span>
 Virus Removal <span class="arrow">▼</span>
 </div>
 <div class="price">150₽ | 90₴</div>
-<div class="desc">
-Глубокая проверка компьютера на трояны, майнеры и стиллеры.
-</div>
+<div class="desc">Глубокая проверка...</div>
 </div>
 
 <div class="service">
@@ -280,9 +286,7 @@ Virus Removal <span class="arrow">▼</span>
 Configuring Emulator <span class="arrow">▼</span>
 </div>
 <div class="price">100₽ | 60₴</div>
-<div class="desc">
-Настройка эмуляторов под FPS и стабильность.
-</div>
+<div class="desc">Настройка эмуляторов...</div>
 </div>
 
 </div>
@@ -294,6 +298,8 @@ Configuring Emulator <span class="arrow">▼</span>
 </div>
 </div>
 
+<canvas id="particles"></canvas>
+
 <!-- МОДАЛКА -->
 <div class="modal" id="modal">
 <div class="modal-content">
@@ -302,13 +308,8 @@ Configuring Emulator <span class="arrow">▼</span>
 <p>Убедитесь что у вас работает Telegram</p>
 
 <p>
-После оплаты вам нужно будет написать сюда с скриншотом оплаты:<br><br>
+После оплаты вам нужно будет написать сюда:<br><br>
 <a class="white-link" href="https://t.me/OderOptimization">@OderOptimization</a>
-</p>
-
-<p>
-Оптимизация проходит через программы Anydesk, Rudesktop<br>
-<span style="opacity:0.7;">(не скачивайте сами)</span>
 </p>
 
 <p>
@@ -321,16 +322,27 @@ Configuring Emulator <span class="arrow">▼</span>
 </div>
 </div>
 
-<!-- AGREEMENT -->
+<!-- ПОЛНОЕ СОГЛАШЕНИЕ -->
 <div class="modal" id="agreementModal">
-<div class="modal-content" style="max-width:700px; max-height:80vh; overflow:auto;">
+<div class="modal-content" style="max-height:80vh; overflow:auto;">
 <div class="close" onclick="closeAgreement()">✖</div>
 
 <h2>Пользовательское соглашение</h2>
 
 <p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера...
-</p>
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.</p>
+
+<p><b>2. Ответственность сторон</b><br><br>
+Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия, которые могут возникнуть в процессе или после применения наших оптимизаций. Мы не можем гарантировать совместимость наших решений со всеми конфигурациями программного обеспечения и оборудования.</p>
+
+<p><b>3. Политика возврата средств</b><br><br>
+Возврат средств не предусмотрен.</p>
+
+<p><b>4. Обязательства покупателя</b><br><br>
+Вы полностью осознаете риски и несете ответственность за данные.</p>
+
+<p><b>5. Завершение соглашения</b><br><br>
+Вы соглашаетесь с условиями.</p>
 
 </div>
 </div>
@@ -344,96 +356,24 @@ document.getElementById("services").classList.add("show");
 },400);
 }
 
-/* ФИКС ОТКРЫТИЯ/ЗАКРЫТИЯ */
+/* ФИКС ЗАКРЫТИЯ */
 document.querySelectorAll(".service-title").forEach(title=>{
 title.onclick=()=>{
-let service=title.parentElement;
-let desc=service.querySelector(".desc");
+let desc=title.parentElement.querySelector(".desc");
 let arrow=title.querySelector(".arrow");
 
-/* закрыть все */
+if(desc.classList.contains("show")){
+desc.classList.remove("show");
+arrow.classList.remove("rotate");
+}else{
 document.querySelectorAll(".desc").forEach(d=>d.classList.remove("show"));
 document.querySelectorAll(".arrow").forEach(a=>a.classList.remove("rotate"));
 
-/* открыть если было закрыто */
-if(!desc.classList.contains("show")){
 desc.classList.add("show");
 arrow.classList.add("rotate");
 }
 }
 });
-
-/* MODAL */
-function openModal(type){
-let modal=document.getElementById("modal");
-let btn=document.getElementById("payBtn");
-
-if(type==="rub"){
-btn.onclick=()=>window.open("https://www.donationalerts.com/r/oder24hz");
-}
-if(type==="uah"){
-btn.onclick=()=>window.open("https://new.donatepay.ru/@1292052");
-}
-
-modal.classList.add("show");
-}
-
-function closeModal(){
-document.getElementById("modal").classList.remove("show");
-}
-
-function openAgreement(){
-document.getElementById("agreementModal").classList.add("show");
-}
-
-function closeAgreement(){
-document.getElementById("agreementModal").classList.remove("show");
-}
-
-/* ЧАСТИЦЫ */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-
-for(let i=0;i<60;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.4,
-dy:(Math.random()-0.5)*0.4
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.x+=p.dx;
-p.y+=p.dy;
-
-ctx.fillStyle="white";
-ctx.fillRect(p.x,p.y,2,2);
-
-particles.forEach(p2=>{
-let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(p.x,p.y);
-ctx.lineTo(p2.x,p2.y);
-ctx.strokeStyle="rgba(255,255,255,0.08)";
-ctx.stroke();
-}
-});
-});
-
-requestAnimationFrame(animate);
-}
-
-animate();
 </script>
 
 </body>
