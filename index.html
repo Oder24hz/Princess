@@ -66,7 +66,6 @@ opacity:0;
 transform:translateY(-50px);
 }
 
-/* ПУЛЬСАЦИЯ */
 .title{
 font-size:80px;
 font-weight:900;
@@ -75,16 +74,10 @@ animation:pulse 2.5s infinite;
 
 @keyframes pulse{
 0%{text-shadow:0 0 10px rgba(255,255,255,0.3);}
-50%{text-shadow:0 0 40px rgba(255,255,255,0.9);}
+50%{text-shadow:0 0 45px rgba(255,255,255,0.9);}
 100%{text-shadow:0 0 10px rgba(255,255,255,0.3);}
 }
 
-.hero p{
-font-size:22px;
-opacity:0.9;
-}
-
-/* BUTTON */
 .button{
 margin-top:30px;
 padding:16px 60px;
@@ -94,8 +87,8 @@ background:white;
 color:black;
 cursor:pointer;
 font-weight:900;
-transition:.3s;
 box-shadow:0 0 25px rgba(255,255,255,0.5);
+transition:.3s;
 }
 
 .button:hover{
@@ -125,6 +118,7 @@ margin:auto;
 }
 
 .service{
+position:relative;
 padding:30px;
 border-radius:20px;
 background:rgba(255,255,255,0.05);
@@ -220,12 +214,13 @@ padding:25px;
 border-radius:15px;
 width:90%;
 max-width:400px;
+position:relative;
 }
 
 .close{
 position:absolute;
-top:15px;
-right:20px;
+top:10px;
+right:15px;
 cursor:pointer;
 }
 
@@ -260,6 +255,7 @@ z-index:-1;
 <div id="services">
 <div class="services-container">
 
+<!-- ВСЕ 4 УСЛУГИ ВЕРНУЛ -->
 <div class="service">
 <div class="service-title" onclick="toggle(this)">Optimization Windows</div>
 <div class="price">200₽ | 120₴</div>
@@ -274,12 +270,62 @@ z-index:-1;
 <button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
+<div class="service">
+<div class="service-title" onclick="toggle(this)">Virus Removal</div>
+<div class="price">150₽ | 90₴</div>
+<div class="desc">Удаление вирусов и майнеров.</div>
+<button class="buy" onclick="openModal('rub')">Купить</button>
+</div>
+
+<div class="service">
+<div class="service-title" onclick="toggle(this)">Configuring Emulator</div>
+<div class="price">100₽ | 60₴</div>
+<div class="desc">Настройка эмуляторов под FPS.</div>
+<button class="buy" onclick="openModal('rub')">Купить</button>
+</div>
+
 </div>
 
 <div class="buy-global">
 <button onclick="openModal('rub')">Купить за рубли</button>
 <button onclick="openModal('uah')">Купить за гривны</button>
 <button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
+</div>
+</div>
+
+<!-- МОДАЛКА -->
+<div class="modal" id="modal">
+<div class="modal-content">
+<div class="close" onclick="closeModal()">✖</div>
+
+<p>После оплаты напишите в Telegram со скриншотом:</p>
+
+<a href="https://t.me/OderOptimization" style="color:white;font-weight:900;">
+@OderOptimization
+</a>
+
+<p style="margin-top:15px;">
+Оптимизация проходит через Anydesk / Rudesktop
+</p>
+
+<p>
+Вы принимаете 
+<a href="#" onclick="openAgreement()">пользовательское соглашение</a>
+</p>
+
+<button id="payBtn" class="buy">Купить</button>
+
+</div>
+</div>
+
+<!-- СОГЛАШЕНИЕ -->
+<div class="modal" id="agreementModal">
+<div class="modal-content">
+<div class="close" onclick="closeAgreement()">✖</div>
+
+<h3>Пользовательское соглашение</h3>
+<p>Все действия вы делаете на свой риск. Возврат средств не предусмотрен.</p>
+
 </div>
 </div>
 
@@ -293,45 +339,78 @@ document.getElementById("services").classList.add("show");
 }
 
 function toggle(el){
-let d=el.parentElement.querySelector(".desc");
-d.classList.toggle("show");
+el.parentElement.querySelector(".desc").classList.toggle("show");
 }
 
 function openModal(type){
-if(type==="rub") window.open("https://www.donationalerts.com/r/oder24hz");
-if(type==="uah") window.open("https://new.donatepay.ru/@1292052");
+let modal=document.getElementById("modal");
+let btn=document.getElementById("payBtn");
+
+if(type==="rub"){
+btn.onclick=()=>window.open("https://www.donationalerts.com/r/oder24hz");
+}
+if(type==="uah"){
+btn.onclick=()=>window.open("https://new.donatepay.ru/@1292052");
 }
 
-/* НОРМАЛЬНЫЕ ЧАСТИЦЫ */
+modal.classList.add("show");
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("show");
+}
+
+function openAgreement(){
+document.getElementById("agreementModal").classList.add("show");
+}
+
+function closeAgreement(){
+document.getElementById("agreementModal").classList.remove("show");
+}
+
+/* НОВЫЙ ФОН — МЯГКИЕ ЛИНИИ */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-let particles=[];
+let dots=[];
 
-for(let i=0;i<50;i++){
-particles.push({
+for(let i=0;i<40;i++){
+dots.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.3,
-dy:(Math.random()-0.5)*0.3
+dx:(Math.random()-0.5)*0.2,
+dy:(Math.random()-0.5)*0.2
 });
 }
 
 function animate(){
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-particles.forEach(p=>{
-p.x+=p.dx;
-p.y+=p.dy;
+dots.forEach(d=>{
+d.x+=d.dx;
+d.y+=d.dy;
 
-if(p.x<0||p.x>canvas.width)p.dx*=-1;
-if(p.y<0||p.y>canvas.height)p.dy*=-1;
+if(d.x<0||d.x>canvas.width)d.dx*=-1;
+if(d.y<0||d.y>canvas.height)d.dy*=-1;
 
-ctx.fillStyle="white";
-ctx.fillRect(p.x,p.y,2,2);
+/* точка */
+ctx.fillStyle="rgba(255,255,255,0.5)";
+ctx.fillRect(d.x,d.y,2,2);
+
+/* линии */
+dots.forEach(d2=>{
+let dist=Math.hypot(d.x-d2.x,d.y-d2.y);
+if(dist<100){
+ctx.beginPath();
+ctx.moveTo(d.x,d.y);
+ctx.lineTo(d2.x,d2.y);
+ctx.strokeStyle="rgba(255,255,255,0.05)";
+ctx.stroke();
+}
+});
 });
 
 requestAnimationFrame(animate);
