@@ -38,9 +38,7 @@ gap:20px;
 color:white;
 text-decoration:none;
 font-size:14px;
-transition:.3s;
 }
-.navbar a:hover{opacity:.6}
 
 /* HERO */
 .hero{
@@ -50,19 +48,16 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
-animation:fadeIn 1s ease;
 }
 
 .hero h1{
 font-size:80px;
 font-weight:900;
-animation:slideUp 1s ease;
+animation:slideUp 1s;
 }
 
 .hero p{
 font-size:22px;
-max-width:600px;
-animation:fadeIn 2s ease;
 }
 
 .button{
@@ -74,20 +69,17 @@ background:rgba(255,255,255,0.05);
 color:white;
 cursor:pointer;
 transition:.3s;
-font-size:16px;
 }
 
 .button:hover{
 background:white;
 color:black;
-transform:scale(1.05);
 }
 
-/* SERVICES PAGE */
+/* SERVICES */
 #services{
 display:none;
 padding-top:120px;
-animation:fadeIn .6s;
 }
 
 .services-container{
@@ -97,24 +89,21 @@ justify-content:center;
 gap:40px;
 }
 
-/* CARD (как на скрине) */
+/* CARD */
 .service{
 width:420px;
 padding:30px;
 border-radius:25px;
-background:linear-gradient(145deg,#111,#0a0a0a);
+background:#111;
 box-shadow:0 0 40px rgba(255,255,255,0.05);
-transition:.4s;
-}
-
-.service:hover{
-transform:translateY(-5px);
-box-shadow:0 0 60px rgba(255,255,255,0.08);
 }
 
 .service-title{
 font-size:22px;
 font-weight:700;
+cursor:pointer;
+display:flex;
+justify-content:space-between;
 }
 
 .price{
@@ -123,34 +112,10 @@ margin:15px 0;
 font-weight:900;
 }
 
-.buy{
-width:100%;
-padding:15px;
-border:none;
-border-radius:15px;
-background:white;
-color:black;
-cursor:pointer;
-font-weight:700;
-transition:.3s;
-}
-
-.buy:hover{
-opacity:.8;
-}
-
-/* DROPDOWN */
-.arrow{
-transition:.3s;
-}
-.rotate{
-transform:rotate(180deg);
-}
-
 .desc{
 max-height:0;
 overflow:hidden;
-transition:.4s;
+transition:.3s;
 font-size:14px;
 opacity:.7;
 }
@@ -158,6 +123,24 @@ opacity:.7;
 .desc.show{
 max-height:200px;
 margin-top:10px;
+}
+
+.arrow{
+transition:.3s;
+}
+
+.rotate{
+transform:rotate(180deg);
+}
+
+.buy{
+width:100%;
+padding:15px;
+border-radius:15px;
+background:white;
+color:black;
+border:none;
+cursor:pointer;
 }
 
 /* MODAL */
@@ -171,7 +154,6 @@ height:100%;
 background:rgba(0,0,0,0.7);
 justify-content:center;
 align-items:center;
-backdrop-filter:blur(10px);
 }
 
 .modal-content{
@@ -181,7 +163,6 @@ border-radius:15px;
 width:90%;
 max-width:400px;
 position:relative;
-animation:fadeIn .3s;
 }
 
 .close{
@@ -189,31 +170,12 @@ position:absolute;
 top:10px;
 right:15px;
 cursor:pointer;
-font-size:20px;
-}
-
-/* PARTICLES */
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn{
-from{opacity:0}
-to{opacity:1}
-}
-@keyframes slideUp{
-from{transform:translateY(40px);opacity:0}
-to{transform:translateY(0);opacity:1}
 }
 
 /* MOBILE */
 @media(max-width:768px){
-.hero h1{font-size:45px}
 .service{width:90%}
+.hero h1{font-size:45px}
 }
 </style>
 </head>
@@ -232,33 +194,57 @@ to{transform:translateY(0);opacity:1}
 <div class="hero" id="hero">
 <h1>Oder24hz</h1>
 <p><b>Optimization changes the rules of the game.</b></p>
-<button class="button" onclick="openServices()">К магазину</button>
+<button class="button" onclick="openServices()">Store</button>
 </div>
-
-<canvas id="particles"></canvas>
 
 <!-- SERVICES -->
 <div id="services">
 <div class="services-container">
 
+<!-- 1 -->
 <div class="service">
 <div class="service-title">
 Оптимизация Windows <span class="arrow">▼</span>
 </div>
 <div class="price">200₽</div>
 <div class="desc">
-Удаление мусора, отключение служб, рост FPS, устранение лагов.
+Удаление встроенных программ, отключение служб, повышение FPS и стабильности.
 </div>
 <button class="buy" onclick="openModal()">Купить</button>
 </div>
 
+<!-- 2 -->
 <div class="service">
 <div class="service-title">
 Bluestacks <span class="arrow">▼</span>
 </div>
 <div class="price">400₽</div>
 <div class="desc">
-Глубокая настройка эмулятора и GPU.
+Глубокая настройка эмулятора, оптимизация GPU и FPS.
+</div>
+<button class="buy" onclick="openModal()">Купить</button>
+</div>
+
+<!-- 3 -->
+<div class="service">
+<div class="service-title">
+Удаление вирусов <span class="arrow">▼</span>
+</div>
+<div class="price">150₽</div>
+<div class="desc">
+Удаление троянов, майнеров и вредоносного ПО.
+</div>
+<button class="buy" onclick="openModal()">Купить</button>
+</div>
+
+<!-- 4 -->
+<div class="service">
+<div class="service-title">
+Настройка эмулятора <span class="arrow">▼</span>
+</div>
+<div class="price">100₽</div>
+<div class="desc">
+Настройка любого эмулятора под максимальный FPS.
 </div>
 <button class="buy" onclick="openModal()">Купить</button>
 </div>
@@ -282,77 +268,21 @@ document.getElementById("hero").style.display="none";
 document.getElementById("services").style.display="block";
 }
 
-/* DROPDOWN */
 document.querySelectorAll(".service-title").forEach(el=>{
 el.onclick=()=>{
 let desc=el.parentElement.querySelector(".desc");
 let arrow=el.querySelector(".arrow");
-
 desc.classList.toggle("show");
 arrow.classList.toggle("rotate");
 }
 });
 
-/* MODAL */
 function openModal(){
 document.getElementById("modal").style.display="flex";
 }
 function closeModal(){
 document.getElementById("modal").style.display="none";
 }
-
-/* PARTICLES CONNECT */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particles=[];
-for(let i=0;i<70;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.2,
-dy:(Math.random()-0.5)*0.2
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.x+=p.dx;
-p.y+=p.dy;
-
-if(p.x<0||p.x>canvas.width)p.dx*=-1;
-if(p.y<0||p.y>canvas.height)p.dy*=-1;
-
-ctx.beginPath();
-ctx.arc(p.x,p.y,2,0,Math.PI*2);
-ctx.fillStyle="white";
-ctx.fill();
-});
-
-for(let i=0;i<particles.length;i++){
-for(let j=i+1;j<particles.length;j++){
-let dx=particles[i].x-particles[j].x;
-let dy=particles[i].y-particles[j].y;
-let dist=Math.sqrt(dx*dx+dy*dy);
-
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(particles[i].x,particles[i].y);
-ctx.lineTo(particles[j].x,particles[j].y);
-ctx.strokeStyle="rgba(255,255,255,0.08)";
-ctx.stroke();
-}
-}
-}
-
-requestAnimationFrame(animate);
-}
-animate();
 </script>
 
 </body>
