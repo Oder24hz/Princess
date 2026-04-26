@@ -15,7 +15,8 @@ margin:0;
 font-family:'Montserrat',sans-serif;
 background:black;
 color:white;
-overflow:hidden;
+overflow-x:hidden;
+overflow-y:auto;
 }
 
 /* NAVBAR */
@@ -97,10 +98,6 @@ opacity:0;
 pointer-events:none;
 transition:.6s;
 padding:120px 20px;
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
 }
 
 #services.show{
@@ -112,17 +109,18 @@ pointer-events:auto;
 text-align:center;
 font-weight:900;
 font-size:22px;
-margin-bottom:40px;
+margin:40px 0;
 text-shadow:0 0 20px rgba(255,255,255,0.4);
 }
 
 .services-container{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:30px;
 max-width:1000px;
-margin:auto;
+margin:0 auto;
 width:100%;
+align-items:start;
 }
 
 .service{
@@ -141,14 +139,12 @@ display:flex;
 justify-content:space-between;
 cursor:pointer;
 font-weight:700;
-text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
 font-size:38px;
 font-weight:900;
 margin:15px 0;
-text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
 .buy-btn{
@@ -160,7 +156,6 @@ background:white;
 color:black;
 font-weight:900;
 cursor:pointer;
-box-shadow:0 0 15px rgba(255,255,255,0.5);
 }
 
 .desc{
@@ -170,7 +165,6 @@ bottom:0;
 width:100%;
 background:rgba(0,0,0,0.95);
 padding:20px;
-border-radius:0 0 20px 20px;
 transform:translateY(100%);
 opacity:0;
 transition:.3s;
@@ -244,7 +238,6 @@ a.white-link{
 color:white;
 font-weight:900;
 text-decoration:none;
-text-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
 canvas{
@@ -290,9 +283,7 @@ padding:18px;
 <div class="services-container">
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Optimization Windows ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Optimization Windows ▼</div>
 <div class="price">200₽ | 120₴</div>
 <button class="buy-btn" onclick="openModal('rub')">Купить</button>
 <div class="desc">
@@ -301,20 +292,16 @@ Optimization Windows ▼
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Optimization Bluestacks ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Optimization Bluestacks ▼</div>
 <div class="price">400₽ | 240₴</div>
 <button class="buy-btn" onclick="openModal('rub')">Купить</button>
 <div class="desc">
-Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпутл ага/фризов.
+Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпут лага/фризов.
 </div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Virus Removal ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Virus Removal ▼</div>
 <div class="price">150₽ | 90₴</div>
 <button class="buy-btn" onclick="openModal('rub')">Купить</button>
 <div class="desc">
@@ -323,9 +310,7 @@ Virus Removal ▼
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Configuring Emulator ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Configuring Emulator ▼</div>
 <div class="price">100₽ | 60₴</div>
 <button class="buy-btn" onclick="openModal('rub')">Купить</button>
 <div class="desc">
