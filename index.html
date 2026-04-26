@@ -3,324 +3,304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>14 февраля 💖</title>
+<title>Oder24hz</title>
+
 <style>
 body {
-  margin:0;
-  font-family:'Arial Black', Gadget, sans-serif;
-  font-weight:900;
-  background: linear-gradient(135deg,#FFC0CB,#FF69B4);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: black;
+    color: white;
 }
-#container{
-  text-align:center;
-  width:100%;
-  max-width:600px;
-  position:relative;
-  padding:10px;
-  box-sizing:border-box;
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
 }
-.level{ display:none;}
-.level.active{ display:block; animation:fadeIn 0.8s ease;}
-h1{
-  color:#fff;
-  margin-bottom:20px;
-  text-shadow:2px 2px #FF1493;
-  font-size:calc(16px + 2vw);
-  font-weight:900;
+
+.nav-left, .nav-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
-.gift-btn, #firstLevelBtn{
-  display:inline-block; padding:12px 20px; margin:10px; background:#fff;
-  border-radius:15px; cursor:pointer; transition:transform 0.2s, background 0.3s;
-  font-weight:900;
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
 }
-.gift-btn:hover, #firstLevelBtn:hover{ transform:scale(1.1); background:#FFB6C1; color:#fff;}
-#finalBtn, #timedBtn, #runBtn, #canvasDone{
-  padding:12px 25px; font-size:18px; border:none; border-radius:20px;
-  cursor:pointer; background:#FF69B4; color:#fff; transition:transform 0.3s, background 0.3s;
-  font-weight:900;
+
+/* HERO */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    background: radial-gradient(circle, #111 0%, #000 100%);
 }
-#finalBtn:hover, #timedBtn:hover, #runBtn:hover, #canvasDone:hover{ transform:scale(1.1); background:#FF1493;}
-#floatingHearts div{
-  position:absolute; width:30px; height:30px; background:red; cursor:pointer;
-  clip-path:polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
+
+.hero h1 {
+    font-size: 60px;
+    margin: 0;
 }
-#timerDisplay{ color:white; font-size:24px; margin-top:10px;}
-#patienceBarContainer{
-  width:80%; height:30px; background:#fff; border-radius:15px; margin:20px auto; overflow:hidden;
+
+.hero p {
+    margin: 10px 0;
+    font-size: 18px;
 }
-#patienceBar{ width:0%; height:100%; background:#FF1493; transition:width 0.1s linear; }
-canvas{ border:2px solid #fff; background:#ffe0f0; margin-top:10px; cursor:crosshair; width:100%; max-width:500px; height:auto; }
-.clickable-word{ cursor:pointer; color:inherit; text-decoration:none; }
-.moving-heart{
-  width:80px; height:80px; background:red;
-  clip-path:polygon(50% 0%,61% 12%,75% 12%,88% 25%,88% 38%,75% 50%,50% 80%,25% 50%,12% 38%,12% 25%,25% 12%,39% 12%);
-  position:absolute; cursor:pointer; transition:transform 0.2s;
+
+.button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
 }
-.moving-heart:hover{ transform:scale(1.2);}
+
+.button:hover {
+    background: white;
+    color: black;
+}
+
+/* SERVICES */
+#services {
+    display: none;
+    padding-top: 100px;
+    position: relative;
+}
+
+/* PARTICLES */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* SERVICE CARD */
+.service {
+    margin: 20px auto;
+    width: 80%;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+}
+
+.service-header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.service-description {
+    display: none;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* BUY BUTTONS */
+.buy-buttons {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.buy-buttons button {
+    margin: 10px;
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #111;
+    padding: 20px;
+    border: 1px solid white;
+    width: 80%;
+    max-width: 500px;
+}
+
+.modal a {
+    color: cyan;
+}
 </style>
 </head>
+
 <body>
-<div id="container">
 
-<!-- Уровень 1 -->
-<div class="level" id="level1">
-  <h1>С 14 февраля!</h1>
-  <button id="firstLevelBtn">Нажми меня 💖</button>
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-left">
+        <span>@OderOptimization</span>
+    </div>
+    <div class="nav-right">
+        <a href="https://t.me/Oderrrr">Telegram channel</a>
+        <a href="https://t.me/OderOptimization">Support</a>
+    </div>
 </div>
 
-<!-- Уровень 2 -->
-<div class="level" id="level2">
-  <h1>Выбери подарок 🎁</h1>
-  <div class="gift-btn" data-correct="false">🎀Айфон 17🎀</div>
-  <div class="gift-btn" data-correct="true">🎀Меня🎀</div>
-  <div class="gift-btn" data-correct="false">🎀1000$🎀</div>
+<!-- HERO -->
+<div class="hero" id="hero">
+    <h1>Oder24hz</h1>
+    <p>Optimization changes the rules of the game.</p>
+    <p>Лучшая оптимизация для твоего компьютера. Разблокируй свои возможности и меняй правила в игре</p>
+    <button class="button" onclick="openServices()">К магазину</button>
 </div>
 
-<!-- Уровень 3 -->
-<div class="level" id="level3">
-  <h1>Поймай бегущее сердце!</h1>
-  <div class="moving-heart" id="movingHeart" style="top:50%; left:50%;"></div>
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
+
+<!-- SERVICES -->
+<div id="services">
+
+    <div class="service">
+        <div class="service-header" onclick="toggle(this)">
+            <span>Оптимизация для Windows — 200₽</span>
+            <span>▼</span>
+        </div>
+        <div class="service-description">
+            Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, повышение FPS и устранение фризов и input lag.
+        </div>
+    </div>
+
+    <div class="service">
+        <div class="service-header" onclick="toggle(this)">
+            <span>Оптимизация для Bluestacks — 400₽</span>
+            <span>▼</span>
+        </div>
+        <div class="service-description">
+            Глубокая настройка эмулятора, оптимизация видеокарты, отключение телеметрии, повышение FPS и стабильности системы.
+        </div>
+    </div>
+
+    <div class="service">
+        <div class="service-header" onclick="toggle(this)">
+            <span>Удаление вирусов — 150₽</span>
+            <span>▼</span>
+        </div>
+        <div class="service-description">
+            Проверка и удаление троянов, майнеров, стиллеров и других вредоносных программ.
+        </div>
+    </div>
+
+    <div class="service">
+        <div class="service-header" onclick="toggle(this)">
+            <span>Настройка эмулятора — 100₽</span>
+            <span>▼</span>
+        </div>
+        <div class="service-description">
+            Настройка любого эмулятора под ваш компьютер для максимального FPS и стабильности.
+        </div>
+    </div>
+
+    <div class="buy-buttons">
+        <button onclick="openModal()">Купить за рубли</button>
+        <button onclick="openModal()">Купить за гривны</button>
+        <button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
+    </div>
+
 </div>
 
-<!-- Уровень 4 -->
-<div class="level" id="level4">
-  <h1>Кликай на 100 сердечек! ❤️</h1>
-  <div id="floatingHearts" style="position:relative;width:100%;height:400px;"></div>
-  <p id="counter" style="color:white;font-size:20px;margin-top:10px;">Поймано: 0 / 100</p>
-</div>
-
-<!-- Уровень 5 -->
-<div class="level" id="level5">
-  <h1>Лови убегающую кнопку!</h1>
-  <button id="runBtn">Лови меня!</button>
-</div>
-
-<!-- Уровень 6: Таймер -->
-<div class="level" id="level6">
-  <h1><span class="clickable-word" id="skipTimerBtn">Попади</span> в кнопку вовремя! ⏰</h1>
-  <button id="timedBtn">Кликни на 1:00</button>
-  <div id="timerDisplay">0:00</div>
-  <p id="timerMsg" style="color:white;font-size:20px;margin-top:10px;"></p>
-</div>
-
-<!-- Уровень 7: Проверка на терпение -->
-<div class="level" id="level7">
-  <h1>Проверка на терпение</h1>
-  <div id="patienceBarContainer">
-    <div id="patienceBar"></div>
-  </div>
-  <div id="patienceMsg" style="color:white;font-size:20px; margin-top:10px;"></div>
-</div>
-
-<!-- Уровень 8: Рисовалка -->
-<div class="level" id="level8">
-  <h1>Нарисуй меня</h1>
-  <canvas id="drawCanvas" width="500" height="300"></canvas>
-  <br>
-  <button id="canvasDone">Готово</button>
-  <p id="canvasMsg" style="color:white;font-size:20px; margin-top:10px;"></p>
-</div>
-
-<!-- Финал -->
-<div class="level" id="level9">
-  <h1>🎉 Ты прошла все уровни! ❤️</h1>
-  <button id="finalBtn">Обними меня</button>
-</div>
-
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <p>Убедитесь что у вас работает Telegram.</p>
+        <p>После оплаты напишите сюда: 
+            <a href="https://t.me/OderOptimization">@OderOptimization</a>
+        </p>
+        <p>Оптимизация проходит через AnyDesk и RustDesk (файлы выдаются в Telegram).</p>
+        <p>При покупке вы принимаете пользовательское соглашение:</p>
+        <p><a href="#">(добавишь ссылку)</a></p>
+        <button onclick="closeModal()">Закрыть</button>
+    </div>
 </div>
 
 <script>
-let currentLevel=1;
-showLevel(currentLevel);
-
-// Уровень 1
-document.getElementById("firstLevelBtn").addEventListener("click", nextLevel);
-
-// Уровень 2
-document.querySelectorAll("#level2 .gift-btn").forEach(btn=>{
-  btn.addEventListener("click", e=>{
-    if(e.target.dataset.correct==="true") nextLevel();
-    else alert("Ой, не тот подарок 😜");
-  });
-});
-
-// Уровень 3: бегущее сердце
-const movingHeart=document.getElementById("movingHeart");
-movingHeart.addEventListener("click", nextLevel);
-function moveHeart() {
-  const maxX = window.innerWidth - movingHeart.offsetWidth;
-  const maxY = window.innerHeight - movingHeart.offsetHeight;
-  const newX = Math.random() * maxX;
-  const newY = Math.random() * maxY;
-  movingHeart.style.transition = 'top 0.6s linear, left 0.6s linear';
-  movingHeart.style.left = newX + "px";
-  movingHeart.style.top = newY + "px";
-}
-setInterval(moveHeart, 700);
-moveHeart();
-
-// Уровень 4
-const floatingHearts=document.getElementById("floatingHearts");
-const counterDisplay=document.getElementById("counter");
-let heartsCaught=0;
-function spawnHeart(){ if(heartsCaught>=100) return;
-  let heart=document.createElement("div");
-  heart.style.top=Math.random()*350+"px";
-  heart.style.left=Math.random()*500+"px";
-  heart.style.width="30px"; heart.style.height="30px";
-  heart.addEventListener("click", ()=>{
-    heart.remove(); heartsCaught++;
-    counterDisplay.textContent="Поймано: "+heartsCaught+" / 100";
-    if(heartsCaught>=100) nextLevel();
-  });
-  floatingHearts.appendChild(heart);
-}
-setInterval(()=>{for(let i=0;i<2;i++) spawnHeart();},600);
-
-// Уровень 5: убегающая кнопка по всему экрану
-const runBtn=document.getElementById("runBtn");
-runBtn.style.position="absolute";
-runBtn.style.top="50%";
-runBtn.style.left="50%";
-runBtn.addEventListener("click", nextLevel);
-function moveButton(){
-  const maxX=window.innerWidth - runBtn.offsetWidth;
-  const maxY=window.innerHeight - runBtn.offsetHeight;
-  const newX=Math.random()*maxX;
-  const newY=Math.random()*maxY;
-  const speed=500 + Math.random()*800;
-  runBtn.style.transition=`top ${speed}ms linear, left ${speed}ms linear`;
-  runBtn.style.left=newX+"px";
-  runBtn.style.top=newY+"px";
-  setTimeout(moveButton, speed);
-}
-moveButton();
-
-// Уровень 6: Таймер
-const timedBtn=document.getElementById("timedBtn");
-const timerDisplay=document.getElementById("timerDisplay");
-const timerMsg=document.getElementById("timerMsg");
-const skipTimerBtn=document.getElementById("skipTimerBtn");
-skipTimerBtn.addEventListener("click", ()=>nextLevel());
-
-function startTimedBtn(){
-  let clicked=false;
-  timerMsg.textContent="";
-  let startTime=Date.now();
-  let elapsedDisplay=0;
-  function updateTimer(){
-    if(clicked) return;
-    let realElapsed=(Date.now()-startTime)/1000;
-    if(realElapsed<40) elapsedDisplay=realElapsed;
-    else{
-      let extra=realElapsed-40;
-      let speedFactor=1+(extra/20);
-      elapsedDisplay+=0.05*speedFactor;
-    }
-    let min=Math.floor(elapsedDisplay/60);
-    let sec=Math.floor(elapsedDisplay%60);
-    if(sec<10) sec="0"+sec;
-    timerDisplay.textContent=min+":"+sec;
-    requestAnimationFrame(updateTimer);
-  }
-  updateTimer();
-  timedBtn.onclick=function(){
-    if(clicked) return;
-    clicked=true;
-    if(elapsedDisplay>=60 && elapsedDisplay<=60.5) nextLevel();
-    else{
-      timerMsg.textContent="Ты меня не любишь? 😢 Попробуй снова!";
-      setTimeout(startTimedBtn,500);
-    }
-  };
+function openServices() {
+    document.getElementById("hero").style.display = "none";
+    document.getElementById("services").style.display = "block";
 }
 
-// Уровень 7: Проверка на терпение
-const patienceBarElem=document.getElementById("patienceBar");
-const patienceMsg=document.getElementById("patienceMsg");
-function startPatienceLevel(){
-  patienceBarElem.style.width="0%";
-  patienceMsg.textContent="";
-  let startTime=Date.now();
-  let interval = setInterval(()=>{
-    let elapsed=(Date.now()-startTime)/1000;
-    let percent=(elapsed/60)*100;
-    if(percent>100) percent=100;
-    patienceBarElem.style.width=percent+"%";
-
-    if(Math.floor(elapsed)===24) patienceMsg.textContent="Хорошее терпение? Ещё подожди тогда";
-    if(Math.floor(elapsed)===55) patienceMsg.textContent="Точно терпеливая?";
-    if(Math.floor(elapsed)===58) patienceMsg.textContent="Всё, убедился";
-    if(Math.floor(elapsed)===67) patienceMsg.textContent="Ладно, всё, всё";
-
-    if(elapsed>=67){
-      clearInterval(interval);
-      nextLevel();
-    }
-  },100);
+function toggle(el) {
+    let desc = el.nextElementSibling;
+    desc.style.display = desc.style.display === "block" ? "none" : "block";
 }
 
-// Уровень 8: Рисовалка (ПК + мобильные)
-const canvas=document.getElementById("drawCanvas");
-const ctx=canvas.getContext("2d");
-let drawing=false;
-function getPos(e){
-  const rect=canvas.getBoundingClientRect();
-  if(e.touches) return {x:e.touches[0].clientX-rect.left, y:e.touches[0].clientY-rect.top};
-  else return {x:e.clientX-rect.left, y:e.clientY-rect.top};
+function openModal() {
+    document.getElementById("modal").style.display = "flex";
 }
 
-canvas.addEventListener("mousedown",()=>{drawing=true;});
-canvas.addEventListener("mouseup",()=>{drawing=false; ctx.beginPath();});
-canvas.addEventListener("mousemove",(e)=>{
-  if(!drawing) return;
-  const pos=getPos(e);
-  ctx.lineWidth=3; ctx.lineCap="round"; ctx.strokeStyle="red";
-  ctx.lineTo(pos.x,pos.y);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(pos.x,pos.y);
-});
-canvas.addEventListener("touchstart",(e)=>{drawing=true;});
-canvas.addEventListener("touchend",(e)=>{drawing=false; ctx.beginPath();});
-canvas.addEventListener("touchmove",(e)=>{
-  e.preventDefault();
-  if(!drawing) return;
-  const pos=getPos(e);
-  ctx.lineWidth=3; ctx.lineCap="round"; ctx.strokeStyle="red";
-  ctx.lineTo(pos.x,pos.y);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(pos.x,pos.y);
-},{passive:false});
-
-document.getElementById("canvasDone").addEventListener("click", ()=>{
-  document.getElementById("canvasMsg").textContent="Я че шиншила по твоему?";
-  setTimeout(nextLevel,1000);
-});
-
-// Финал
-document.getElementById("finalBtn").addEventListener("click", ()=>alert("❤️ Люблю тебя! ❤️"));
-
-function showLevel(n){
-  document.querySelectorAll(".level").forEach(l=>l.classList.remove("active"));
-  document.getElementById("level"+n).classList.add("active");
-  if(n===6) startTimedBtn();
-  if(n===7) startPatienceLevel();
+function closeModal() {
+    document.getElementById("modal").style.display = "none";
 }
 
-function nextLevel(){
-  currentLevel++;
-  if(currentLevel>9) currentLevel=9;
-  showLevel(currentLevel);
+/* PARTICLES */
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<100;i++){
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        dx: Math.random()-0.5,
+        dy: Math.random()-0.5
+    });
 }
 
-showLevel(currentLevel);
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        if(p.x<0||p.x>canvas.width) p.dx*=-1;
+        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,2,0,Math.PI*2);
+        ctx.fillStyle="white";
+        ctx.fill();
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate();
 </script>
+
 </body>
 </html>
