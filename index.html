@@ -15,7 +15,7 @@ margin:0;
 font-family:'Montserrat',sans-serif;
 background:black;
 color:white;
-overflow-x:hidden;
+overflow:hidden;
 }
 
 /* NAVBAR */
@@ -63,18 +63,10 @@ transform:translateY(-50px);
 .title{
 font-size:110px;
 font-weight:900;
-animation:pulse 2.5s infinite;
-}
-
-@keyframes pulse{
-0%{text-shadow:0 0 15px rgba(255,255,255,0.3);}
-50%{text-shadow:0 0 60px rgba(255,255,255,1);}
-100%{text-shadow:0 0 15px rgba(255,255,255,0.3);}
 }
 
 .hero p{
 margin-top:-10px;
-font-style:italic;
 opacity:0.8;
 }
 
@@ -88,15 +80,19 @@ background:white;
 color:black;
 font-weight:900;
 cursor:pointer;
-box-shadow:0 0 25px rgba(255,255,255,0.5);
 }
 
 /* SERVICES */
 #services{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
 opacity:0;
 pointer-events:none;
 transition:.6s;
-padding:120px 20px;
+padding:100px 20px;
 }
 
 #services.show{
@@ -104,12 +100,19 @@ opacity:1;
 pointer-events:auto;
 }
 
+.services-title{
+font-size:40px;
+font-weight:900;
+margin-bottom:40px;
+text-align:center;
+}
+
 .services-container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:30px;
-max-width:1000px;
-margin:auto;
+width:100%;
+max-width:800px;
 }
 
 .service{
@@ -126,17 +129,15 @@ display:flex;
 justify-content:space-between;
 cursor:pointer;
 font-weight:700;
-text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
-font-size:38px;
+font-size:32px;
 font-weight:900;
-margin:15px 0;
-text-shadow:0 0 15px rgba(255,255,255,0.3);
+margin:10px 0;
 }
 
-/* ВЫЕЗД СНИЗУ */
+/* DESC */
 .desc{
 position:absolute;
 left:0;
@@ -158,22 +159,21 @@ opacity:1;
 
 /* BUY */
 .buy-global{
-margin-top:150px;
+margin-top:40px;
 display:flex;
-justify-content:center;
-gap:20px;
+gap:15px;
 flex-wrap:wrap;
+justify-content:center;
 }
 
 .buy-global button{
-padding:16px 30px;
+padding:12px 25px;
 border-radius:10px;
 border:none;
 background:white;
 color:black;
 font-weight:900;
 cursor:pointer;
-box-shadow:0 0 20px rgba(255,255,255,0.5);
 }
 
 /* MODAL */
@@ -204,8 +204,6 @@ border-radius:15px;
 width:90%;
 max-width:400px;
 position:relative;
-
-/* ДОБАВИЛ */
 display:flex;
 flex-direction:column;
 }
@@ -217,12 +215,10 @@ right:15px;
 cursor:pointer;
 }
 
-/* БЕЛЫЕ ССЫЛКИ */
 a.white-link{
 color:white;
 font-weight:900;
 text-decoration:none;
-text-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
 /* CANVAS */
@@ -233,12 +229,11 @@ left:0;
 z-index:-1;
 }
 
-/* КНОПКА */
-#payBtn{
-width:100%;
-margin-top:auto;
-padding:18px;
-border-radius:12px;
+/* MOBILE */
+@media (max-width:700px){
+.services-container{
+grid-template-columns:1fr;
+}
 }
 </style>
 </head>
@@ -263,46 +258,35 @@ border-radius:12px;
 <canvas id="particles"></canvas>
 
 <div id="services">
+
+<div class="services-title">
+@OderOptimization - Твоя система не думает - она действует
+</div>
+
 <div class="services-container">
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Optimization Windows ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Optimization Windows ▼</div>
 <div class="price">200₽ | 120₴</div>
-<div class="desc">
-Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.
-</div>
+<div class="desc">Удаление встроенных программ Windows, отключение ненужных служб, повышение FPS.</div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Optimization Bluestacks ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Optimization Bluestacks ▼</div>
 <div class="price">400₽ | 240₴</div>
-<div class="desc">
-Глубокая настройка эмулятора, разблокировка ядер, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпутл ага/фризов.
-</div>
+<div class="desc">Глубокая настройка эмулятора, разблокировка ядер, повышение FPS.</div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Virus Removal ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Virus Removal ▼</div>
 <div class="price">150₽ | 90₴</div>
-<div class="desc">
-Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры, стиллеры.
-</div>
+<div class="desc">Удаление вирусов, майнеров, стиллеров.</div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Configuring Emulator ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Configuring Emulator ▼</div>
 <div class="price">100₽ | 60₴</div>
-<div class="desc">
-Настройка любого эмулятора под ваш компьютер для получение высокого фпс и стабильности эмулятора.
-</div>
+<div class="desc">Настройка эмулятора под максимальную производительность.</div>
 </div>
 
 </div>
@@ -312,6 +296,7 @@ Configuring Emulator ▼
 <button onclick="openModal('uah')">Купить за гривны</button>
 <button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
 </div>
+
 </div>
 
 <!-- МОДАЛКА -->
@@ -319,26 +304,10 @@ Configuring Emulator ▼
 <div class="modal-content">
 <div class="close" onclick="closeModal()">✖</div>
 
-<p>Убедитесь что у вас работает Telegram</p>
-
-<p>
-После оплаты вам нужно будет написать на этот аккаунт со скриншотом оплаты:<br><br>
+<p>После оплаты напишите сюда:</p>
 <a class="white-link" href="https://t.me/OderOptimization">@OderOptimization</a>
-</p>
-
-<p>
-Оптимизация проходит через программы Anydesk, Rudesktop<br>
-<span style="opacity:0.7;">(не скачивайте сами, в Telegram я скину нужные файлы)</span>
-</p>
-
-<p>
-При покупке любой услуги вы принимаете 
-  
-<a href="#" onclick="openAgreement()" class="white-link">Пользовательское соглашение</a>
-</p>
 
 <button id="payBtn" class="button">Купить</button>
-
 </div>
 </div>
 
@@ -350,33 +319,29 @@ Configuring Emulator ▼
 <h2>Пользовательское соглашение</h2>
 
 <p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера.
 </p>
 
 <p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия, которые могут возникнуть в процессе или после применения наших оптимизаций. Мы не можем гарантировать совместимость наших решений со всеми конфигурациями программного обеспечения и оборудования, а также с любыми сторонними программами, установленными на вашем устройстве.
+Покупатель принимает на себя полную ответственность за состояние своего компьютера.
 </p>
 
 <p><b>3. Политика возврата средств</b><br><br>
-В соответствии с характером предоставляемых нами нематериальных услуг (цифровые продукты, консультации, удаленная помощь), возврат денежных средств за приобретенные оптимизации не предусмотрен. Мы вкладываем значительные ресурсы в разработку и поддержку наших решений. Получив доступ к услуге или скачав цифровой продукт, вы тем самым подтверждаете свое согласие с данным условием.
+Возврат средств не предусмотрен.
 </p>
 
 <p><b>4. Обязательства покупателя</b><br><br>
-Приобретая наши услуги, вы подтверждаете, что:<br><br>
-— Вы полностью осознаете риски, связанные с внесением изменений в настройки вашего компьютера.<br>
-— Вы самостоятельно несете ответственность за резервное копирование всех важных данных перед применением каких-либо оптимизаций.<br>
-— Вы согласны с тем, что гарантия на ваше оборудование или программное обеспечение может быть аннулирована производителем в результате самостоятельного вмешательства, включая применение наших оптимизаций.
+Вы несете ответственность за резервное копирование данных.
 </p>
 
 <p><b>5. Завершение соглашения</b><br><br>
-Используя наш сайт и приобретая наши услуги, вы выражаете полное согласие с условиями настоящего Пользовательского соглашения. В случае несогласия с любым из пунктов, пожалуйста, воздержитесь от использования нашего сервиса.
+Используя сайт, вы соглашаетесь с условиями.
 </p>
 
 </div>
 </div>
 
 <script>
-// ВЕСЬ ТВОЙ JS БЕЗ ИЗМЕНЕНИЙ
 function openServices(){
 document.getElementById("hero").classList.add("hide");
 setTimeout(()=>{
@@ -388,16 +353,11 @@ document.getElementById("services").classList.add("show");
 function toggle(el){
 let current = el.parentElement.querySelector(".desc");
 
-if(current.classList.contains("show")){
-current.classList.remove("show");
-return;
-}
-
 document.querySelectorAll(".desc").forEach(d=>{
 d.classList.remove("show");
 });
 
-current.classList.add("show");
+current.classList.toggle("show");
 }
 
 function openModal(type){
@@ -416,10 +376,6 @@ modal.classList.add("show");
 
 function closeModal(){
 document.getElementById("modal").classList.remove("show");
-}
-
-function openAgreement(){
-document.getElementById("agreementModal").classList.add("show");
 }
 
 function closeAgreement(){
@@ -457,17 +413,6 @@ if(p.x<=0 || p.x>=canvas.width) p.dx*=-1;
 if(p.y<=0 || p.y>=canvas.height) p.dy*=-1;
 
 ctx.fillRect(p.x,p.y,2,2);
-
-particles.forEach(p2=>{
-let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(p.x,p.y);
-ctx.lineTo(p2.x,p2.y);
-ctx.strokeStyle="rgba(255,255,255,0.08)";
-ctx.stroke();
-}
-});
 });
 
 requestAnimationFrame(animate);
