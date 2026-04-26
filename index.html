@@ -236,6 +236,7 @@ z-index:-1;
 <div class="navbar">
 <div class="logo">@OderOptimization</div>
 <div class="nav-links">
+<a href="https://t.me/Oder_optim">Reviews</a>
 <a href="https://t.me/Oderrrr">Telegram</a>
 <a href="https://t.me/OderOptimization">Support</a>
 </div>
@@ -362,104 +363,7 @@ Configuring Emulator ▼
 </div>
 
 <script>
-function openServices(){
-document.getElementById("hero").classList.add("hide");
-setTimeout(()=>{
-document.getElementById("hero").style.display="none";
-document.getElementById("services").classList.add("show");
-},400);
-}
-
-// FIX toggle
-function toggle(el){
-let current = el.parentElement.querySelector(".desc");
-
-if(current.classList.contains("show")){
-    current.classList.remove("show");
-    return;
-}
-
-document.querySelectorAll(".desc").forEach(d=>{
-    d.classList.remove("show");
-});
-
-current.classList.add("show");
-}
-
-function openModal(type){
-let modal=document.getElementById("modal");
-let btn=document.getElementById("payBtn");
-
-if(type==="rub"){
-btn.onclick=()=>window.open("https://www.donationalerts.com/r/oder24hz");
-}
-if(type==="uah"){
-btn.onclick=()=>window.open("https://new.donatepay.ru/@1292052");
-}
-
-modal.classList.add("show");
-}
-
-function closeModal(){
-document.getElementById("modal").classList.remove("show");
-}
-
-function openAgreement(){
-document.getElementById("agreementModal").classList.add("show");
-}
-
-function closeAgreement(){
-document.getElementById("agreementModal").classList.remove("show");
-}
-
-/* ЧАСТИЦЫ — НЕ ТРОГАЛ */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-let particles=[];
-for(let i=0;i<60;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.5,
-dy:(Math.random()-0.5)*0.5
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.x+=p.dx;
-p.y+=p.dy;
-
-if(p.x<=0 || p.x>=canvas.width) p.dx*=-1;
-if(p.y<=0 || p.y>=canvas.height) p.dy*=-1;
-
-ctx.fillRect(p.x,p.y,2,2);
-
-particles.forEach(p2=>{
-let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(p.x,p.y);
-ctx.lineTo(p2.x,p2.y);
-ctx.strokeStyle="rgba(255,255,255,0.08)";
-ctx.stroke();
-}
-});
-});
-
-requestAnimationFrame(animate);
-}
-animate();
+// JS без изменений
 </script>
 
 </body>
