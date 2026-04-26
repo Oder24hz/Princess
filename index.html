@@ -15,7 +15,8 @@ margin:0;
 font-family:'Montserrat',sans-serif;
 background:black;
 color:white;
-overflow-x:hidden;
+overflow:hidden;
+height:100vh;
 }
 
 /* NAVBAR */
@@ -44,15 +45,14 @@ font-weight:800;
 opacity:0.85;
 }
 
-/* 🔥 БОЛЬШАЯ НАДПИСЬ (теперь внутри services) */
+/* BIG LOGO */
 .big-logo{
 text-align:center;
-font-size:90px;
+font-size:clamp(40px,5vw,90px);
 font-weight:900;
-letter-spacing:2px;
-margin-bottom:80px;
+margin-bottom:50px;
 
-background:linear-gradient(90deg,#ffffff,#bfbfbf,#ffffff);
+background:linear-gradient(90deg,#fff,#bbb,#fff);
 background-size:200% auto;
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
@@ -83,7 +83,7 @@ transform:translateY(-50px);
 }
 
 .title{
-font-size:110px;
+font-size:clamp(50px,6vw,110px);
 font-weight:900;
 animation:pulse 2.5s infinite;
 }
@@ -115,10 +115,20 @@ box-shadow:0 0 25px rgba(255,255,255,0.5);
 
 /* SERVICES */
 #services{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100vh;
+
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+
 opacity:0;
 pointer-events:none;
 transition:.6s;
-padding:200px 20px 120px;
 }
 
 #services.show{
@@ -126,17 +136,26 @@ opacity:1;
 pointer-events:auto;
 }
 
+.services-inner{
+width:100%;
+max-width:1000px;
+display:flex;
+flex-direction:column;
+align-items:center;
+padding:0 20px;
+}
+
+/* GRID */
 .services-container{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:30px;
-max-width:1000px;
-margin:auto;
+gap:20px;
+width:100%;
 }
 
 .service{
 position:relative;
-padding:30px;
+padding:20px;
 border-radius:20px;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.15);
@@ -152,12 +171,13 @@ text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
-font-size:38px;
+font-size:clamp(22px,3vw,38px);
 font-weight:900;
-margin:15px 0;
+margin:10px 0;
 text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
+/* DESC */
 .desc{
 position:absolute;
 left:0;
@@ -178,15 +198,15 @@ opacity:1;
 
 /* BUY */
 .buy-global{
-margin-top:200px;
+margin-top:30px;
 display:flex;
 justify-content:center;
-gap:20px;
+gap:15px;
 flex-wrap:wrap;
 }
 
 .buy-global button{
-padding:16px 30px;
+padding:14px 25px;
 border-radius:10px;
 border:none;
 background:white;
@@ -277,8 +297,8 @@ padding:18px;
 <canvas id="particles"></canvas>
 
 <div id="services">
+<div class="services-inner">
 
-<!-- 🔥 НАДПИСЬ ТЕПЕРЬ ЗДЕСЬ -->
 <div class="big-logo">@OderOptimization</div>
 
 <div class="services-container">
@@ -322,6 +342,8 @@ padding:18px;
 <button onclick="openModal('uah')">Купить за гривны</button>
 <button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
 </div>
+
+</div>
 </div>
 
 <!-- МОДАЛКА -->
@@ -351,7 +373,7 @@ padding:18px;
 </div>
 </div>
 
-<!-- СОГЛАШЕНИЕ -->
+<!-- СОГЛАШЕНИЕ (ПОЛНОЕ, как у тебя было) -->
 <div class="modal" id="agreementModal">
 <div class="modal-content" style="max-width:600px; max-height:80vh; overflow:auto;">
 <div class="close" onclick="closeAgreement()">✖</div>
@@ -363,28 +385,29 @@ padding:18px;
 </p>
 
 <p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия.
+Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия, которые могут возникнуть в процессе или после применения наших оптимизаций. Мы не можем гарантировать совместимость наших решений со всеми конфигурациями программного обеспечения и оборудования, а также с любыми сторонними программами, установленными на вашем устройстве.
 </p>
 
 <p><b>3. Политика возврата средств</b><br><br>
-Возврат денежных средств не предусмотрен.
+В соответствии с характером предоставляемых нами нематериальных услуг (цифровые продукты, консультации, удаленная помощь), возврат денежных средств за приобретенные оптимизации не предусмотрен. Мы вкладываем значительные ресурсы в разработку и поддержку наших решений. Получив доступ к услуге или скачав цифровой продукт, вы тем самым подтверждаете свое согласие с данным условием.
 </p>
 
 <p><b>4. Обязательства покупателя</b><br><br>
-— Осознает риски<br>
-— Делает резервные копии<br>
-— Согласен с условиями
+Приобретая наши услуги, вы подтверждаете, что:<br><br>
+— Вы полностью осознаете риски, связанные с внесением изменений в настройки вашего компьютера.<br>
+— Вы самостоятельно несете ответственность за резервное копирование всех важных данных перед применением каких-либо оптимизаций.<br>
+— Вы согласны с тем, что гарантия на ваше оборудование или программное обеспечение может быть аннулирована производителем в результате самостоятельного вмешательства, включая применение наших оптимизаций.
 </p>
 
 <p><b>5. Завершение соглашения</b><br><br>
-Вы соглашаетесь с условиями.
+Используя наш сайт и приобретая наши услуги, вы выражаете полное согласие с условиями настоящего Пользовательского соглашения. В случае несогласия с любым из пунктов, пожалуйста, воздержитесь от использования нашего сервиса.
 </p>
 
 </div>
 </div>
 
 <script>
-// JS без изменений
+// ОРИГИНАЛЬНЫЙ JS
 function openServices(){
 document.getElementById("hero").classList.add("hide");
 setTimeout(()=>{
