@@ -31,21 +31,9 @@ backdrop-filter:blur(10px);
 z-index:1000;
 }
 
-.logo{
-font-weight:900;
-font-size:18px;
-}
-
-.nav-links a{
-margin-left:25px;
-text-decoration:none;
-color:white;
-font-weight:800;
-opacity:0.85;
-}
-
-/* HERO */
+/* HERO + GLOW */
 .hero{
+position:relative;
 height:100vh;
 display:flex;
 flex-direction:column;
@@ -53,6 +41,23 @@ justify-content:center;
 align-items:center;
 text-align:center;
 transition:.6s;
+overflow:hidden;
+}
+
+.hero::before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+background:radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+filter:blur(120px);
+animation:glowMove 10s infinite alternate;
+z-index:-1;
+}
+
+@keyframes glowMove{
+0%{transform:translate(-40%,-40%);}
+100%{transform:translate(40%,40%);}
 }
 
 .hero.hide{
@@ -78,7 +83,6 @@ font-style:italic;
 opacity:0.8;
 }
 
-/* BUTTON */
 .button{
 margin-top:30px;
 padding:16px 60px;
@@ -125,17 +129,15 @@ display:flex;
 justify-content:space-between;
 cursor:pointer;
 font-weight:700;
-text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
 font-size:38px;
 font-weight:900;
 margin:15px 0;
-text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
-/* ВСПЛЫВАЮЩЕЕ ОПИСАНИЕ */
+/* DESC */
 .desc{
 position:absolute;
 left:0;
@@ -153,26 +155,6 @@ transition:.3s;
 .desc.show{
 opacity:1;
 pointer-events:auto;
-}
-
-/* BUY */
-.buy-global{
-margin-top:50px;
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.buy-global button{
-padding:16px 30px;
-border-radius:10px;
-border:none;
-background:white;
-color:black;
-font-weight:900;
-cursor:pointer;
-box-shadow:0 0 20px rgba(255,255,255,0.5);
 }
 
 /* MODAL */
@@ -212,12 +194,10 @@ right:15px;
 cursor:pointer;
 }
 
-/* БЕЛЫЕ ССЫЛКИ */
 a.white-link{
 color:white;
 font-weight:900;
 text-decoration:none;
-text-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
 /* CANVAS */
@@ -252,82 +232,33 @@ z-index:-1;
 <div class="services-container">
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Optimization Windows ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Optimization Windows ▼</div>
 <div class="price">200₽ | 120₴</div>
-<div class="desc">
-Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.
-</div>
+<div class="desc">Удаление встроенных программ Windows...</div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Bluestacks ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Bluestacks ▼</div>
 <div class="price">400₽ | 240₴</div>
-<div class="desc">
-Глубокая настройка эмулятора, настройка Nvidia, удаление телеметрии, разблокировка ядер и повышение фпс.
-</div>
+<div class="desc">Глубокая настройка эмулятора...</div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Virus Removal ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Virus Removal ▼</div>
 <div class="price">150₽ | 90₴</div>
-<div class="desc">
-Глубокая проверка на трояны, майнеры, стиллеры.
-</div>
+<div class="desc">Глубокая проверка...</div>
 </div>
 
 <div class="service">
-<div class="service-title" onclick="toggle(this)">
-Configuring Emulator ▼
-</div>
+<div class="service-title" onclick="toggle(this)">Configuring Emulator ▼</div>
 <div class="price">100₽ | 60₴</div>
-<div class="desc">
-Настройка эмуляторов под FPS.
+<div class="desc">Настройка под FPS.</div>
 </div>
-</div>
-
-</div>
-
-<div class="buy-global">
-<button onclick="openModal('rub')">Купить за рубли</button>
-<button onclick="openModal('uah')">Купить за гривны</button>
-<button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
-</div>
-</div>
-
-<!-- МОДАЛКА -->
-<div class="modal" id="modal">
-<div class="modal-content">
-<div class="close" onclick="closeModal()">✖</div>
-
-<p>Убедитесь что у вас работает Telegram</p>
-
-<p>
-После оплаты вам нужно будет написать сюда с скриншотом оплаты:<br><br>
-<a class="white-link" href="https://t.me/OderOptimization">@OderOptimization</a>
-</p>
-
-<p>
-Оптимизация проходит через программы Anydesk, Rudesktop<br>
-<span style="opacity:0.7;">(не скачивайте сами, в Telegram я скину файлы)</span>
-</p>
-
-<p>
-При покупке оптимизации вы принимаете 
-<a href="#" onclick="openAgreement()" class="white-link">Пользовательское соглашение</a>
-</p>
-
-<button id="payBtn" class="button">Купить</button>
 
 </div>
 </div>
 
-<!-- СОГЛАШЕНИЕ ПОЛНОЕ -->
+<!-- AGREEMENT -->
 <div class="modal" id="agreementModal">
 <div class="modal-content" style="max-width:600px; max-height:80vh; overflow:auto;">
 <div class="close" onclick="closeAgreement()">✖</div>
@@ -339,11 +270,11 @@ Configuring Emulator ▼
 </p>
 
 <p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия.
+Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия, которые могут возникнуть в процессе или после применения наших оптимизаций. Мы не можем гарантировать совместимость наших решений со всеми конфигурациями программного обеспечения и оборудования.
 </p>
 
 <p><b>3. Политика возврата средств</b><br><br>
-Возврат средств не предусмотрен.
+Возврат денежных средств не предусмотрен.
 </p>
 
 <p><b>4. Обязательства покупателя</b><br><br>
@@ -363,41 +294,35 @@ document.getElementById("hero").classList.add("hide");
 setTimeout(()=>{
 document.getElementById("hero").style.display="none";
 document.getElementById("services").classList.add("show");
+startParticles();
 },400);
 }
 
+/* АККОРДЕОН */
 function toggle(el){
+let all=document.querySelectorAll(".desc");
+let titles=document.querySelectorAll(".service-title");
+
 let desc=el.parentElement.querySelector(".desc");
-desc.classList.toggle("show");
+let open=desc.classList.contains("show");
+
+all.forEach(d=>d.classList.remove("show"));
+titles.forEach(t=>t.innerHTML=t.innerHTML.replace("▲","▼"));
+
+if(!open){
+desc.classList.add("show");
+el.innerHTML=el.innerHTML.replace("▼","▲");
+}
 }
 
-function openModal(type){
-let modal=document.getElementById("modal");
-let btn=document.getElementById("payBtn");
-
-if(type==="rub"){
-btn.onclick=()=>window.open("https://www.donationalerts.com/r/oder24hz");
+document.addEventListener("click",(e)=>{
+if(!e.target.closest(".service")){
+document.querySelectorAll(".desc").forEach(d=>d.classList.remove("show"));
+document.querySelectorAll(".service-title").forEach(t=>t.innerHTML=t.innerHTML.replace("▲","▼"));
 }
-if(type==="uah"){
-btn.onclick=()=>window.open("https://new.donatepay.ru/@1292052");
-}
+});
 
-modal.classList.add("show");
-}
-
-function closeModal(){
-document.getElementById("modal").classList.remove("show");
-}
-
-function openAgreement(){
-document.getElementById("agreementModal").classList.add("show");
-}
-
-function closeAgreement(){
-document.getElementById("agreementModal").classList.remove("show");
-}
-
-/* КРАСИВЫЕ ЧАСТИЦЫ */
+/* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 
@@ -406,6 +331,8 @@ canvas.height=window.innerHeight;
 
 let particles=[];
 
+function startParticles(){
+particles=[];
 for(let i=0;i<60;i++){
 particles.push({
 x:Math.random()*canvas.width,
@@ -413,6 +340,8 @@ y:Math.random()*canvas.height,
 dx:(Math.random()-0.5)*0.4,
 dy:(Math.random()-0.5)*0.4
 });
+}
+animate();
 }
 
 function animate(){
@@ -422,7 +351,6 @@ particles.forEach(p=>{
 p.x+=p.dx;
 p.y+=p.dy;
 
-ctx.fillStyle="white";
 ctx.fillRect(p.x,p.y,2,2);
 
 particles.forEach(p2=>{
@@ -439,8 +367,6 @@ ctx.stroke();
 
 requestAnimationFrame(animate);
 }
-
-animate();
 </script>
 
 </body>
