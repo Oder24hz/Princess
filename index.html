@@ -44,15 +44,13 @@ font-weight:800;
 opacity:0.85;
 }
 
-/* 🔥 БОЛЬШАЯ НАДПИСЬ */
+/* 🔥 БОЛЬШАЯ НАДПИСЬ (теперь внутри services) */
 .big-logo{
-position:absolute;
-top:90px;
-width:100%;
 text-align:center;
 font-size:90px;
 font-weight:900;
 letter-spacing:2px;
+margin-bottom:80px;
 
 background:linear-gradient(90deg,#ffffff,#bfbfbf,#ffffff);
 background-size:200% auto;
@@ -60,9 +58,7 @@ background-size:200% auto;
 -webkit-text-fill-color:transparent;
 
 text-shadow:0 0 25px rgba(255,255,255,0.7);
-
 animation:shine 4s linear infinite;
-pointer-events:none;
 }
 
 @keyframes shine{
@@ -79,7 +75,6 @@ justify-content:center;
 align-items:center;
 text-align:center;
 transition:.6s;
-margin-top:140px;
 }
 
 .hero.hide{
@@ -123,7 +118,7 @@ box-shadow:0 0 25px rgba(255,255,255,0.5);
 opacity:0;
 pointer-events:none;
 transition:.6s;
-padding:220px 20px 120px;
+padding:200px 20px 120px;
 }
 
 #services.show{
@@ -183,7 +178,7 @@ opacity:1;
 
 /* BUY */
 .buy-global{
-margin-top:220px;
+margin-top:200px;
 display:flex;
 justify-content:center;
 gap:20px;
@@ -264,8 +259,6 @@ padding:18px;
 
 <body>
 
-<div class="big-logo">@OderOptimization</div>
-
 <div class="navbar">
 <div class="logo">@OderOptimization</div>
 <div class="nav-links">
@@ -284,6 +277,10 @@ padding:18px;
 <canvas id="particles"></canvas>
 
 <div id="services">
+
+<!-- 🔥 НАДПИСЬ ТЕПЕРЬ ЗДЕСЬ -->
+<div class="big-logo">@OderOptimization</div>
+
 <div class="services-container">
 
 <div class="service">
@@ -362,32 +359,32 @@ padding:18px;
 <h2>Пользовательское соглашение</h2>
 
 <p><b>1. Предмет соглашения</b><br><br>
-Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера...
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера. Важно понимать, что мы не являемся производителем или разработчиком операционных систем или аппаратного обеспечения. Наши услуги направлены на оптимизацию существующих настроек и программ.
 </p>
 
 <p><b>2. Ответственность сторон</b><br><br>
-Покупатель принимает на себя полную ответственность за состояние своего компьютера...
+Покупатель принимает на себя полную ответственность за состояние своего компьютера. Служба поддержки нашей компании не несет ответственности за любые неисправности, сбои, потерю данных или другие негативные последствия.
 </p>
 
 <p><b>3. Политика возврата средств</b><br><br>
-Возврат денежных средств не предусмотрен...
+Возврат денежных средств не предусмотрен.
 </p>
 
 <p><b>4. Обязательства покупателя</b><br><br>
-— Вы осознаете риски...<br>
-— Делаете резервные копии...<br>
-— Согласны с возможной потерей гарантии...
+— Осознает риски<br>
+— Делает резервные копии<br>
+— Согласен с условиями
 </p>
 
 <p><b>5. Завершение соглашения</b><br><br>
-Используя сайт, вы соглашаетесь с условиями.
+Вы соглашаетесь с условиями.
 </p>
 
 </div>
 </div>
 
 <script>
-// JS полностью оригинальный
+// JS без изменений
 function openServices(){
 document.getElementById("hero").classList.add("hide");
 setTimeout(()=>{
@@ -404,10 +401,7 @@ current.classList.remove("show");
 return;
 }
 
-document.querySelectorAll(".desc").forEach(d=>{
-d.classList.remove("show");
-});
-
+document.querySelectorAll(".desc").forEach(d=>d.classList.remove("show"));
 current.classList.add("show");
 }
 
