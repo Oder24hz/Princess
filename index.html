@@ -22,28 +22,13 @@ overflow-x:hidden;
 .navbar{
 position:fixed;
 top:0;
-left:0;
 width:100%;
-padding:15px 20px;
+padding:15px 25px;
 display:flex;
 justify-content:space-between;
-align-items:center;
 background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 z-index:1000;
-}
-
-.nav-right{
-display:flex;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.navbar a{
-color:white;
-text-decoration:none;
-font-size:14px;
-white-space:nowrap;
 }
 
 /* HERO */
@@ -54,11 +39,18 @@ flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+transition:.6s;
+}
+
+.hero.hide{
+opacity:0;
+transform:translateY(-50px);
 }
 
 .hero h1{
 font-size:80px;
 font-weight:900;
+animation:fadeUp 1s;
 }
 
 .hero p{
@@ -67,12 +59,13 @@ font-size:22px;
 
 .button{
 margin-top:30px;
-padding:16px 45px;
-border-radius:10px;
+padding:16px 50px;
+border-radius:8px;
 border:1px solid white;
 background:rgba(255,255,255,0.05);
 color:white;
 cursor:pointer;
+font-weight:700;
 transition:.3s;
 }
 
@@ -83,24 +76,32 @@ color:black;
 
 /* SERVICES */
 #services{
-display:none;
+opacity:0;
+pointer-events:none;
+transition:.6s;
 padding:120px 20px;
 }
 
-/* 🔥 СЕТКА 2 НА 2 */
+#services.show{
+opacity:1;
+pointer-events:auto;
+}
+
+/* GRID */
 .services-container{
 display:grid;
-grid-template-columns:repeat(2, 1fr);
+grid-template-columns:repeat(2,1fr);
 gap:30px;
 max-width:1000px;
-margin:0 auto;
+margin:auto;
 }
 
 /* CARD */
 .service{
+position:relative;
 padding:30px;
 border-radius:20px;
-background:#111;
+background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.1);
 }
 
@@ -112,51 +113,65 @@ font-weight:700;
 }
 
 .price{
-font-size:36px;
-margin:15px 0;
+font-size:38px;
 font-weight:900;
+margin:15px 0;
 }
 
+/* DROPDOWN FIXED */
 .desc{
-max-height:0;
-overflow:hidden;
+position:absolute;
+left:0;
+top:100%;
+width:100%;
+background:#111;
+padding:15px;
+border-radius:15px;
+opacity:0;
+pointer-events:none;
+transform:translateY(-10px);
 transition:.3s;
-font-size:14px;
-opacity:.7;
+z-index:5;
 }
 
 .desc.show{
-max-height:200px;
-margin-top:10px;
+opacity:1;
+pointer-events:auto;
+transform:translateY(10px);
 }
 
 .arrow{transition:.3s;}
 .rotate{transform:rotate(180deg);}
 
+/* BUY BTN */
 .buy{
-margin-top:15px;
+margin-top:10px;
 width:100%;
 padding:14px;
-border-radius:12px;
-border:none;
+border-radius:10px;
 background:white;
 color:black;
+border:none;
 cursor:pointer;
+font-weight:700;
 }
 
-/* BUY GLOBAL BUTTONS */
+/* GLOBAL BUTTONS */
 .buy-global{
-margin-top:40px;
-text-align:center;
+margin-top:50px;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
 }
 
 .buy-global button{
-margin:10px;
-padding:12px 25px;
-border-radius:20px;
+padding:16px 30px;
+border-radius:10px;
 border:1px solid white;
 background:transparent;
 color:white;
+font-weight:700;
 cursor:pointer;
 transition:.3s;
 }
@@ -168,15 +183,24 @@ color:black;
 
 /* MODAL */
 .modal{
-display:none;
+display:flex;
+opacity:0;
+pointer-events:none;
 position:fixed;
 top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.7);
 justify-content:center;
 align-items:center;
+background:rgba(0,0,0,0.7);
+backdrop-filter:blur(8px);
+transition:.3s;
+}
+
+.modal.show{
+opacity:1;
+pointer-events:auto;
 }
 
 .modal-content{
@@ -185,15 +209,19 @@ padding:25px;
 border-radius:15px;
 width:90%;
 max-width:400px;
-position:relative;
+transform:scale(.8);
+transition:.3s;
+}
+
+.modal.show .modal-content{
+transform:scale(1);
 }
 
 .close{
 position:absolute;
-top:10px;
-right:15px;
+top:15px;
+right:20px;
 cursor:pointer;
-font-size:20px;
 }
 
 /* PARTICLES */
@@ -204,11 +232,15 @@ left:0;
 z-index:-1;
 }
 
+/* ANIM */
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px)}
+to{opacity:1;transform:translateY(0)}
+}
+
 /* MOBILE */
 @media(max-width:768px){
-.services-container{
-grid-template-columns:1fr;
-}
+.services-container{grid-template-columns:1fr}
 .hero h1{font-size:45px}
 }
 </style>
@@ -218,7 +250,7 @@ grid-template-columns:1fr;
 
 <div class="navbar">
 <div>@OderOptimization</div>
-<div class="nav-right">
+<div>
 <a href="https://t.me/Oderrrr">Telegram</a>
 <a href="https://t.me/OderOptimization">Support</a>
 </div>
@@ -235,62 +267,65 @@ grid-template-columns:1fr;
 
 <!-- SERVICES -->
 <div id="services">
-
 <div class="services-container">
 
 <div class="service">
 <div class="service-title">Windows <span class="arrow">▼</span></div>
 <div class="price">200₽</div>
-<div class="desc">Оптимизация системы, FPS, отключение служб</div>
-<button class="buy" onclick="openModal()">Купить</button>
+<div class="desc">Полная оптимизация Windows, FPS, отключение служб</div>
+<button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 <div class="service">
 <div class="service-title">Bluestacks <span class="arrow">▼</span></div>
 <div class="price">400₽</div>
-<div class="desc">Настройка эмулятора и GPU</div>
-<button class="buy" onclick="openModal()">Купить</button>
+<div class="desc">Настройка эмулятора, GPU и FPS</div>
+<button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 <div class="service">
 <div class="service-title">Удаление вирусов <span class="arrow">▼</span></div>
 <div class="price">150₽</div>
-<div class="desc">Очистка системы от вирусов</div>
-<button class="buy" onclick="openModal()">Купить</button>
+<div class="desc">Удаление вредоносного ПО</div>
+<button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 <div class="service">
 <div class="service-title">Эмулятор <span class="arrow">▼</span></div>
 <div class="price">100₽</div>
-<div class="desc">Настройка под FPS</div>
-<button class="buy" onclick="openModal()">Купить</button>
+<div class="desc">Настройка под максимальный FPS</div>
+<button class="buy" onclick="openModal('rub')">Купить</button>
 </div>
 
 </div>
 
-<!-- 🔥 КНОПКИ ПОКУПКИ -->
 <div class="buy-global">
-<button onclick="openModal()">Купить за рубли</button>
-<button onclick="openModal()">Купить за гривны</button>
+<button onclick="openModal('rub')">Купить за рубли</button>
+<button onclick="openModal('uah')">Купить за гривны</button>
 <button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
 </div>
-
 </div>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
 <div class="close" onclick="closeModal()">✖</div>
+
 <p>Убедитесь что у вас работает Telegram</p>
 <p>После оплаты напишите: <a href="https://t.me/OderOptimization">@OderOptimization</a></p>
-<p>Оптимизация через AnyDesk и Rudesktop</p>
+
+<button id="payBtn" class="buy" style="margin-top:20px">Купить</button>
+
 </div>
 </div>
 
 <script>
 function openServices(){
+document.getElementById("hero").classList.add("hide");
+setTimeout(()=>{
 document.getElementById("hero").style.display="none";
-document.getElementById("services").style.display="block";
+document.getElementById("services").classList.add("show");
+},400);
 }
 
 /* DROPDOWN */
@@ -304,11 +339,22 @@ arrow.classList.toggle("rotate");
 });
 
 /* MODAL */
-function openModal(){
-document.getElementById("modal").style.display="flex";
+function openModal(type){
+let modal=document.getElementById("modal");
+let btn=document.getElementById("payBtn");
+
+if(type==="rub"){
+btn.onclick=()=>window.open("https://www.donationalerts.com/r/oder24hz");
 }
+if(type==="uah"){
+btn.onclick=()=>window.open("https://new.donatepay.ru/@1292052");
+}
+
+modal.classList.add("show");
+}
+
 function closeModal(){
-document.getElementById("modal").style.display="none";
+document.getElementById("modal").classList.remove("show");
 }
 
 /* PARTICLES */
