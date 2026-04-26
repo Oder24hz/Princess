@@ -8,6 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
+
 body{
 margin:0;
 font-family:'Montserrat',sans-serif;
@@ -20,10 +22,12 @@ overflow-x:hidden;
 .navbar{
 position:fixed;
 top:0;
+left:0;
 width:100%;
+padding:15px 20px;
 display:flex;
 justify-content:space-between;
-padding:15px 25px;
+align-items:center;
 background:rgba(0,0,0,0.5);
 backdrop-filter:blur(10px);
 z-index:1000;
@@ -32,12 +36,14 @@ z-index:1000;
 .nav-right{
 display:flex;
 gap:20px;
+flex-wrap:wrap;
 }
 
 .navbar a{
 color:white;
 text-decoration:none;
 font-size:14px;
+white-space:nowrap;
 }
 
 /* HERO */
@@ -53,7 +59,6 @@ text-align:center;
 .hero h1{
 font-size:80px;
 font-weight:900;
-animation:slideUp 1s;
 }
 
 .hero p{
@@ -62,7 +67,7 @@ font-size:22px;
 
 .button{
 margin-top:30px;
-padding:16px 40px;
+padding:16px 45px;
 border-radius:10px;
 border:1px solid white;
 background:rgba(255,255,255,0.05);
@@ -79,35 +84,35 @@ color:black;
 /* SERVICES */
 #services{
 display:none;
-padding-top:120px;
+padding:120px 20px;
 }
 
+/* 🔥 СЕТКА 2 НА 2 */
 .services-container{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:40px;
+display:grid;
+grid-template-columns:repeat(2, 1fr);
+gap:30px;
+max-width:1000px;
+margin:0 auto;
 }
 
 /* CARD */
 .service{
-width:420px;
 padding:30px;
-border-radius:25px;
+border-radius:20px;
 background:#111;
-box-shadow:0 0 40px rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
 }
 
 .service-title{
-font-size:22px;
-font-weight:700;
-cursor:pointer;
 display:flex;
 justify-content:space-between;
+cursor:pointer;
+font-weight:700;
 }
 
 .price{
-font-size:40px;
+font-size:36px;
 margin:15px 0;
 font-weight:900;
 }
@@ -125,22 +130,40 @@ max-height:200px;
 margin-top:10px;
 }
 
-.arrow{
+.arrow{transition:.3s;}
+.rotate{transform:rotate(180deg);}
+
+.buy{
+margin-top:15px;
+width:100%;
+padding:14px;
+border-radius:12px;
+border:none;
+background:white;
+color:black;
+cursor:pointer;
+}
+
+/* BUY GLOBAL BUTTONS */
+.buy-global{
+margin-top:40px;
+text-align:center;
+}
+
+.buy-global button{
+margin:10px;
+padding:12px 25px;
+border-radius:20px;
+border:1px solid white;
+background:transparent;
+color:white;
+cursor:pointer;
 transition:.3s;
 }
 
-.rotate{
-transform:rotate(180deg);
-}
-
-.buy{
-width:100%;
-padding:15px;
-border-radius:15px;
+.buy-global button:hover{
 background:white;
 color:black;
-border:none;
-cursor:pointer;
 }
 
 /* MODAL */
@@ -170,11 +193,22 @@ position:absolute;
 top:10px;
 right:15px;
 cursor:pointer;
+font-size:20px;
+}
+
+/* PARTICLES */
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
 /* MOBILE */
 @media(max-width:768px){
-.service{width:90%}
+.services-container{
+grid-template-columns:1fr;
+}
 .hero h1{font-size:45px}
 }
 </style>
@@ -197,59 +231,50 @@ cursor:pointer;
 <button class="button" onclick="openServices()">Store</button>
 </div>
 
+<canvas id="particles"></canvas>
+
 <!-- SERVICES -->
 <div id="services">
+
 <div class="services-container">
 
-<!-- 1 -->
 <div class="service">
-<div class="service-title">
-Оптимизация Windows <span class="arrow">▼</span>
-</div>
+<div class="service-title">Windows <span class="arrow">▼</span></div>
 <div class="price">200₽</div>
-<div class="desc">
-Удаление встроенных программ, отключение служб, повышение FPS и стабильности.
-</div>
+<div class="desc">Оптимизация системы, FPS, отключение служб</div>
 <button class="buy" onclick="openModal()">Купить</button>
 </div>
 
-<!-- 2 -->
 <div class="service">
-<div class="service-title">
-Bluestacks <span class="arrow">▼</span>
-</div>
+<div class="service-title">Bluestacks <span class="arrow">▼</span></div>
 <div class="price">400₽</div>
-<div class="desc">
-Глубокая настройка эмулятора, оптимизация GPU и FPS.
-</div>
+<div class="desc">Настройка эмулятора и GPU</div>
 <button class="buy" onclick="openModal()">Купить</button>
 </div>
 
-<!-- 3 -->
 <div class="service">
-<div class="service-title">
-Удаление вирусов <span class="arrow">▼</span>
-</div>
+<div class="service-title">Удаление вирусов <span class="arrow">▼</span></div>
 <div class="price">150₽</div>
-<div class="desc">
-Удаление троянов, майнеров и вредоносного ПО.
-</div>
+<div class="desc">Очистка системы от вирусов</div>
 <button class="buy" onclick="openModal()">Купить</button>
 </div>
 
-<!-- 4 -->
 <div class="service">
-<div class="service-title">
-Настройка эмулятора <span class="arrow">▼</span>
-</div>
+<div class="service-title">Эмулятор <span class="arrow">▼</span></div>
 <div class="price">100₽</div>
-<div class="desc">
-Настройка любого эмулятора под максимальный FPS.
-</div>
+<div class="desc">Настройка под FPS</div>
 <button class="buy" onclick="openModal()">Купить</button>
 </div>
 
 </div>
+
+<!-- 🔥 КНОПКИ ПОКУПКИ -->
+<div class="buy-global">
+<button onclick="openModal()">Купить за рубли</button>
+<button onclick="openModal()">Купить за гривны</button>
+<button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
+</div>
+
 </div>
 
 <!-- MODAL -->
@@ -268,6 +293,7 @@ document.getElementById("hero").style.display="none";
 document.getElementById("services").style.display="block";
 }
 
+/* DROPDOWN */
 document.querySelectorAll(".service-title").forEach(el=>{
 el.onclick=()=>{
 let desc=el.parentElement.querySelector(".desc");
@@ -277,12 +303,66 @@ arrow.classList.toggle("rotate");
 }
 });
 
+/* MODAL */
 function openModal(){
 document.getElementById("modal").style.display="flex";
 }
 function closeModal(){
 document.getElementById("modal").style.display="none";
 }
+
+/* PARTICLES */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<70;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+dx:(Math.random()-0.5)*0.3,
+dy:(Math.random()-0.5)*0.3
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+particles.forEach(p=>{
+p.x+=p.dx;
+p.y+=p.dy;
+
+if(p.x<0||p.x>canvas.width)p.dx*=-1;
+if(p.y<0||p.y>canvas.height)p.dy*=-1;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+});
+
+for(let i=0;i<particles.length;i++){
+for(let j=i+1;j<particles.length;j++){
+let dx=particles[i].x-particles[j].x;
+let dy=particles[i].y-particles[j].y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(particles[i].x,particles[i].y);
+ctx.lineTo(particles[j].x,particles[j].y);
+ctx.strokeStyle="rgba(255,255,255,0.08)";
+ctx.stroke();
+}
+}
+}
+
+requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
