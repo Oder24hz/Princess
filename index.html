@@ -5,201 +5,215 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Oder24hz</title>
 
-<!-- ШРИФТ -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: black;
-    color: white;
-    overflow-x: hidden;
+body{
+margin:0;
+font-family:'Montserrat',sans-serif;
+background:black;
+color:white;
+overflow-x:hidden;
 }
 
 /* NAVBAR */
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: rgba(0,0,0,0.4);
-    backdrop-filter: blur(15px);
-    z-index: 1000;
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:15px 25px;
+background:rgba(0,0,0,0.5);
+backdrop-filter:blur(10px);
+z-index:1000;
 }
 
-.nav-left {
-    font-weight: 600;
+.nav-right{
+display:flex;
+gap:20px;
 }
 
-.nav-right {
-    display: flex;
-    gap: 20px;
+.navbar a{
+color:white;
+text-decoration:none;
+font-size:14px;
+transition:.3s;
 }
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.navbar a:hover {
-    color: #aaa;
-}
+.navbar a:hover{opacity:.6}
 
 /* HERO */
-.hero {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    animation: fadeIn 1s ease;
+.hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+animation:fadeIn 1s ease;
 }
 
-.hero h1 {
-    font-size: 64px;
-    font-weight: 800;
+.hero h1{
+font-size:80px;
+font-weight:900;
+animation:slideUp 1s ease;
 }
 
-.hero p {
-    font-size: 18px;
-    max-width: 600px;
+.hero p{
+font-size:22px;
+max-width:600px;
+animation:fadeIn 2s ease;
 }
 
-/* BUTTON */
-.button {
-    margin-top: 25px;
-    padding: 14px 30px;
-    border-radius: 30px;
-    border: 1px solid white;
-    background: rgba(255,255,255,0.05);
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+.button{
+margin-top:30px;
+padding:16px 40px;
+border-radius:10px;
+border:1px solid white;
+background:rgba(255,255,255,0.05);
+color:white;
+cursor:pointer;
+transition:.3s;
+font-size:16px;
 }
 
-.button:hover {
-    transform: scale(1.05);
-    background: white;
-    color: black;
+.button:hover{
+background:white;
+color:black;
+transform:scale(1.05);
 }
 
-/* SERVICES */
-#services {
-    display: none;
-    padding-top: 120px;
-    animation: fadeIn 0.6s ease;
+/* SERVICES PAGE */
+#services{
+display:none;
+padding-top:120px;
+animation:fadeIn .6s;
 }
 
-.services-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.services-container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:40px;
 }
 
-/* CARD */
-.service {
-    width: 300px;
-    margin: 20px;
-    padding: 25px;
-    border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    transition: 0.3s;
+/* CARD (как на скрине) */
+.service{
+width:420px;
+padding:30px;
+border-radius:25px;
+background:linear-gradient(145deg,#111,#0a0a0a);
+box-shadow:0 0 40px rgba(255,255,255,0.05);
+transition:.4s;
 }
 
-.service:hover {
-    transform: translateY(-5px) scale(1.02);
-    border-color: white;
+.service:hover{
+transform:translateY(-5px);
+box-shadow:0 0 60px rgba(255,255,255,0.08);
 }
 
-.service-header {
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
+.service-title{
+font-size:22px;
+font-weight:700;
 }
 
-.service-description {
-    margin-top: 15px;
-    display: none;
-    font-size: 14px;
+.price{
+font-size:40px;
+margin:15px 0;
+font-weight:900;
 }
 
-/* BUY BUTTONS */
-.buy-buttons {
-    text-align: center;
-    margin-top: 40px;
+.buy{
+width:100%;
+padding:15px;
+border:none;
+border-radius:15px;
+background:white;
+color:black;
+cursor:pointer;
+font-weight:700;
+transition:.3s;
 }
 
-.buy-buttons button {
-    margin: 10px;
-    padding: 12px 25px;
-    border-radius: 25px;
-    border: 1px solid white;
-    background: transparent;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
+.buy:hover{
+opacity:.8;
 }
 
-.buy-buttons button:hover {
-    background: white;
-    color: black;
-    transform: scale(1.05);
+/* DROPDOWN */
+.arrow{
+transition:.3s;
+}
+.rotate{
+transform:rotate(180deg);
+}
+
+.desc{
+max-height:0;
+overflow:hidden;
+transition:.4s;
+font-size:14px;
+opacity:.7;
+}
+
+.desc.show{
+max-height:200px;
+margin-top:10px;
 }
 
 /* MODAL */
-.modal {
-    display: none;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    backdrop-filter: blur(8px);
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+justify-content:center;
+align-items:center;
+backdrop-filter:blur(10px);
 }
 
-.modal-content {
-    background: rgba(20,20,20,0.9);
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 400px;
-    border: 1px solid rgba(255,255,255,0.2);
-    animation: fadeIn 0.3s ease;
+.modal-content{
+background:#111;
+padding:25px;
+border-radius:15px;
+width:90%;
+max-width:400px;
+position:relative;
+animation:fadeIn .3s;
 }
 
-.modal a {
-    color: cyan;
+.close{
+position:absolute;
+top:10px;
+right:15px;
+cursor:pointer;
+font-size:20px;
 }
 
 /* PARTICLES */
-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
 }
 
-/* ANIMATION */
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(20px);}
-    to {opacity:1; transform: translateY(0);}
+/* ANIMATIONS */
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+@keyframes slideUp{
+from{transform:translateY(40px);opacity:0}
+to{transform:translateY(0);opacity:1}
 }
 
 /* MOBILE */
-@media(max-width: 768px){
-    .hero h1 { font-size: 40px; }
-    .service { width: 85%; }
+@media(max-width:768px){
+.hero h1{font-size:45px}
+.service{width:90%}
 }
 </style>
 </head>
@@ -207,153 +221,137 @@ canvas {
 <body>
 
 <div class="navbar">
-    <div class="nav-left">@OderOptimization</div>
-    <div class="nav-right">
-        <a href="https://t.me/Oderrrr">Telegram channel</a>
-        <a href="https://t.me/OderOptimization">Support</a>
-    </div>
+<div>@OderOptimization</div>
+<div class="nav-right">
+<a href="https://t.me/Oderrrr">Telegram</a>
+<a href="https://t.me/OderOptimization">Support</a>
+</div>
 </div>
 
+<!-- HERO -->
 <div class="hero" id="hero">
-    <h1>Oder24hz</h1>
-    <p><b>Optimization changes the rules of the game.</b></p>
-    <p>Лучшая оптимизация для твоего компьютера. Разблокируй возможности и повышай FPS.</p>
-    <button class="button" onclick="openServices()">К магазину</button>
+<h1>Oder24hz</h1>
+<p><b>Optimization changes the rules of the game.</b></p>
+<button class="button" onclick="openServices()">К магазину</button>
 </div>
 
 <canvas id="particles"></canvas>
 
+<!-- SERVICES -->
 <div id="services">
 <div class="services-container">
 
 <div class="service">
-<div class="service-header" onclick="toggle(this)">
-Оптимизация Windows — 200₽ <span>▼</span>
+<div class="service-title">
+Оптимизация Windows <span class="arrow">▼</span>
 </div>
-<div class="service-description">
-Удаление лишнего, отключение служб, повышение FPS и стабильности.
+<div class="price">200₽</div>
+<div class="desc">
+Удаление мусора, отключение служб, рост FPS, устранение лагов.
 </div>
-</div>
-
-<div class="service">
-<div class="service-header" onclick="toggle(this)">
-Bluestacks — 400₽ <span>▼</span>
-</div>
-<div class="service-description">
-Глубокая настройка, оптимизация GPU и повышение FPS.
-</div>
+<button class="buy" onclick="openModal()">Купить</button>
 </div>
 
 <div class="service">
-<div class="service-header" onclick="toggle(this)">
-Удаление вирусов — 150₽ <span>▼</span>
+<div class="service-title">
+Bluestacks <span class="arrow">▼</span>
 </div>
-<div class="service-description">
-Очистка системы от вредоносных программ.
+<div class="price">400₽</div>
+<div class="desc">
+Глубокая настройка эмулятора и GPU.
 </div>
-</div>
-
-<div class="service">
-<div class="service-header" onclick="toggle(this)">
-Эмулятор — 100₽ <span>▼</span>
-</div>
-<div class="service-description">
-Настройка под максимальный FPS и стабильность.
-</div>
+<button class="buy" onclick="openModal()">Купить</button>
 </div>
 
 </div>
-
-<div class="buy-buttons">
-<button onclick="openModal()">Купить за рубли</button>
-<button onclick="openModal()">Купить за гривны</button>
-<button onclick="location.href='https://t.me/OderOptimization'">Купить переводом</button>
-</div>
 </div>
 
+<!-- MODAL -->
 <div class="modal" id="modal">
 <div class="modal-content">
-<p>Убедитесь что у вас работает Telegram.</p>
+<div class="close" onclick="closeModal()">✖</div>
+<p>Убедитесь что у вас работает Telegram</p>
 <p>После оплаты напишите: <a href="https://t.me/OderOptimization">@OderOptimization</a></p>
-<p>Оптимизация через AnyDesk и Rudesktop (файлы выдаются в Telegram).</p>
-<p>При покупке вы принимаете пользовательское соглашение:</p>
-<p><a href="#">(добавишь ссылку)</a></p>
-<button class="button" onclick="closeModal()">Закрыть</button>
+<p>Оптимизация через AnyDesk и Rudesktop</p>
 </div>
 </div>
 
 <script>
 function openServices(){
-    document.getElementById("hero").style.display="none";
-    document.getElementById("services").style.display="block";
+document.getElementById("hero").style.display="none";
+document.getElementById("services").style.display="block";
 }
 
-function toggle(el){
-    let desc = el.nextElementSibling;
-    desc.style.display = desc.style.display==="block"?"none":"block";
-}
+/* DROPDOWN */
+document.querySelectorAll(".service-title").forEach(el=>{
+el.onclick=()=>{
+let desc=el.parentElement.querySelector(".desc");
+let arrow=el.querySelector(".arrow");
 
+desc.classList.toggle("show");
+arrow.classList.toggle("rotate");
+}
+});
+
+/* MODAL */
 function openModal(){
-    document.getElementById("modal").style.display="flex";
+document.getElementById("modal").style.display="flex";
 }
-
 function closeModal(){
-    document.getElementById("modal").style.display="none";
+document.getElementById("modal").style.display="none";
 }
 
-/* PARTICLES */
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+/* PARTICLES CONNECT */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
 
-let particles = [];
-
-for(let i=0;i<80;i++){
-    particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        dx: (Math.random()-0.5)*0.3,
-        dy: (Math.random()-0.5)*0.3
-    });
+let particles=[];
+for(let i=0;i<70;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+dx:(Math.random()-0.5)*0.2,
+dy:(Math.random()-0.5)*0.2
+});
 }
 
 function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    particles.forEach(p=>{
-        p.x+=p.dx;
-        p.y+=p.dy;
+particles.forEach(p=>{
+p.x+=p.dx;
+p.y+=p.dy;
 
-        if(p.x<0||p.x>canvas.width) p.dx*=-1;
-        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+if(p.x<0||p.x>canvas.width)p.dx*=-1;
+if(p.y<0||p.y>canvas.height)p.dy*=-1;
 
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,2,0,Math.PI*2);
-        ctx.fillStyle="white";
-        ctx.fill();
-    });
+ctx.beginPath();
+ctx.arc(p.x,p.y,2,0,Math.PI*2);
+ctx.fillStyle="white";
+ctx.fill();
+});
 
-    for(let i=0;i<particles.length;i++){
-        for(let j=i+1;j<particles.length;j++){
-            let dx = particles[i].x - particles[j].x;
-            let dy = particles[i].y - particles[j].y;
-            let dist = Math.sqrt(dx*dx+dy*dy);
+for(let i=0;i<particles.length;i++){
+for(let j=i+1;j<particles.length;j++){
+let dx=particles[i].x-particles[j].x;
+let dy=particles[i].y-particles[j].y;
+let dist=Math.sqrt(dx*dx+dy*dy);
 
-            if(dist < 120){
-                ctx.beginPath();
-                ctx.moveTo(particles[i].x, particles[i].y);
-                ctx.lineTo(particles[j].x, particles[j].y);
-                ctx.strokeStyle = "rgba(255,255,255,0.1)";
-                ctx.stroke();
-            }
-        }
-    }
-
-    requestAnimationFrame(animate);
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(particles[i].x,particles[i].y);
+ctx.lineTo(particles[j].x,particles[j].y);
+ctx.strokeStyle="rgba(255,255,255,0.08)";
+ctx.stroke();
+}
+}
 }
 
+requestAnimationFrame(animate);
+}
 animate();
 </script>
 
