@@ -126,17 +126,21 @@ display:flex;
 justify-content:space-between;
 cursor:pointer;
 font-weight:700;
-text-shadow:0 0 10px rgba(255,255,255,0.3);
+}
+
+/* крестик */
+.close-desc{
+cursor:pointer;
+font-size:18px;
+opacity:0.7;
 }
 
 .price{
 font-size:38px;
 font-weight:900;
 margin:15px 0;
-text-shadow:0 0 15px rgba(255,255,255,0.3);
 }
 
-/* ВЫЕЗД СНИЗУ */
 .desc{
 position:absolute;
 left:0;
@@ -173,7 +177,6 @@ background:white;
 color:black;
 font-weight:900;
 cursor:pointer;
-box-shadow:0 0 20px rgba(255,255,255,0.5);
 }
 
 /* MODAL */
@@ -213,15 +216,12 @@ right:15px;
 cursor:pointer;
 }
 
-/* БЕЛЫЕ ССЫЛКИ */
 a.white-link{
 color:white;
 font-weight:900;
 text-decoration:none;
-text-shadow:0 0 10px rgba(255,255,255,0.8);
 }
 
-/* CANVAS */
 canvas{
 position:fixed;
 top:0;
@@ -258,7 +258,8 @@ Optimization Windows ▼
 </div>
 <div class="price">200₽ | 120₴</div>
 <div class="desc">
-Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера, стабильность системы, повышение фпс и устранение инпут лага/фризов.
+<div class="close-desc" onclick="closeDesc(event)">✖</div>
+Удаление встроенных программ Windows, отключение ненужных служб, разблокировка возможностей компьютера.
 </div>
 </div>
 
@@ -268,27 +269,8 @@ Bluestacks ▼
 </div>
 <div class="price">400₽ | 240₴</div>
 <div class="desc">
-Глубокая настройка эмулятора, Настройка Nvidia, удаление телеметрии на любых видеокартах, разблокировка ядер для эмулятора, Очистка системы, отключение ненужных служб, удаление ненужных встроенных программ, повышение фпс, устранение инпутлага/фризов.
-</div>
-</div>
-
-<div class="service">
-<div class="service-title" onclick="toggle(this)">
-Virus Removal ▼
-</div>
-<div class="price">150₽ | 90₴</div>
-<div class="desc">
-Глубокая проверка компьютера на трояны, сетевые черви, шпионские программы, майнеры, стиллеры.
-</div>
-</div>
-
-<div class="service">
-<div class="service-title" onclick="toggle(this)">
-Configuring Emulator ▼
-</div>
-<div class="price">100₽ | 60₴</div>
-<div class="desc">
-Настрою любой эмулятор под ваш компьютер для получение высокого фпс и стабильности эмулятора.
+<div class="close-desc" onclick="closeDesc(event)">✖</div>
+Глубокая настройка эмулятора и повышение FPS.
 </div>
 </div>
 
@@ -309,18 +291,8 @@ Configuring Emulator ▼
 <p>Убедитесь что у вас работает Telegram</p>
 
 <p>
-После оплаты вам нужно будет написать сюда с скриншотом оплаты:<br><br>
+После оплаты напишите сюда:<br><br>
 <a class="white-link" href="https://t.me/OderOptimization">@OderOptimization</a>
-</p>
-
-<p>
-Оптимизация проходит через программы Anydesk, Rudesktop<br>
-<span style="opacity:0.7;">(не скачивайте сами, в Telegram я скину файлы)</span>
-</p>
-
-<p>
-При покупке оптимизации вы принимаете 
-<a href="#" onclick="openAgreement()" class="white-link">Пользовательское соглашение</a>
 </p>
 
 <button id="payBtn" class="button">Купить</button>
@@ -334,7 +306,26 @@ Configuring Emulator ▼
 <div class="close" onclick="closeAgreement()">✖</div>
 
 <h2>Пользовательское соглашение</h2>
-<p>... (твой текст без изменений) ...</p>
+
+<p><b>1. Предмет соглашения</b><br><br>
+Мы предлагаем программные решения и консультации, направленные на ускорение и улучшение производительности вашего компьютера...
+</p>
+
+<p><b>2. Ответственность сторон</b><br><br>
+Покупатель принимает на себя полную ответственность за состояние своего компьютера...
+</p>
+
+<p><b>3. Политика возврата средств</b><br><br>
+Возврат денежных средств не предусмотрен...
+</p>
+
+<p><b>4. Обязательства покупателя</b><br><br>
+Вы осознаете риски и несете ответственность за резервное копирование...
+</p>
+
+<p><b>5. Завершение соглашения</b><br><br>
+Используя сайт, вы соглашаетесь с условиями...
+</p>
 
 </div>
 </div>
@@ -348,9 +339,23 @@ document.getElementById("services").classList.add("show");
 },400);
 }
 
+// НОРМАЛЬНЫЙ TOGGLE
 function toggle(el){
-let desc=el.parentElement.querySelector(".desc");
-desc.classList.toggle("show");
+let current = el.parentElement.querySelector(".desc");
+
+// закрываем все
+document.querySelectorAll(".desc").forEach(d=>{
+if(d !== current) d.classList.remove("show");
+});
+
+// переключаем текущий
+current.classList.toggle("show");
+}
+
+// закрытие крестиком
+function closeDesc(e){
+e.stopPropagation();
+e.target.parentElement.classList.remove("show");
 }
 
 function openModal(type){
@@ -378,55 +383,6 @@ document.getElementById("agreementModal").classList.add("show");
 function closeAgreement(){
 document.getElementById("agreementModal").classList.remove("show");
 }
-
-/* ЧАСТИЦЫ FIX */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-
-function resize(){
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
-
-let particles=[];
-for(let i=0;i<60;i++){
-particles.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-dx:(Math.random()-0.5)*0.5,
-dy:(Math.random()-0.5)*0.5
-});
-}
-
-function animate(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-particles.forEach(p=>{
-p.x+=p.dx;
-p.y+=p.dy;
-
-if(p.x<=0 || p.x>=canvas.width) p.dx*=-1;
-if(p.y<=0 || p.y>=canvas.height) p.dy*=-1;
-
-ctx.fillRect(p.x,p.y,2,2);
-
-particles.forEach(p2=>{
-let dist=Math.hypot(p.x-p2.x,p.y-p2.y);
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(p.x,p.y);
-ctx.lineTo(p2.x,p2.y);
-ctx.strokeStyle="rgba(255,255,255,0.08)";
-ctx.stroke();
-}
-});
-});
-
-requestAnimationFrame(animate);
-}
-animate();
 </script>
 
 </body>
