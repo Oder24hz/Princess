@@ -119,19 +119,33 @@ padding:0 10px;
 
 .services-container{
 display:grid;
-grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:25px;
 max-width:1000px;
-margin:auto;
+margin:0 auto;
+padding:0 10px;
+justify-items:center;
 }
 
 .service{
-position:relative;
+width:100%;
+max-width:300px;
 padding:20px;
 border-radius:20px;
 background:rgba(255,255,255,0.05);
 border:1px solid rgba(255,255,255,0.15);
-overflow:hidden;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+min-height:180px;
+}
+
+.service-title{
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+font-weight:700;
+text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .service-title{
@@ -143,10 +157,24 @@ text-shadow:0 0 10px rgba(255,255,255,0.3);
 }
 
 .price{
-font-size:28px;
+font-size:30px;
 font-weight:900;
-margin:15px 0;
-text-shadow:0 0 15px rgba(255,255,255,0.3);
+margin:10px 0;
+line-height:1.2;
+text-shadow:0 0 10px rgba(255,255,255,0.25);
+}
+
+/* КНОПКА */
+.buy-btn{
+margin-top:15px;
+padding:12px;
+border-radius:10px;
+border:none;
+background:white;
+color:black;
+font-weight:900;
+cursor:pointer;
+box-shadow:0 0 15px rgba(255,255,255,0.4);
 }
 
 /* DESC */
